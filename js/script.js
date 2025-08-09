@@ -44,6 +44,152 @@
       toggle.setAttribute('aria-label', isDark ? 'Currently dark mode. Switch to light mode' : 'Currently light mode. Switch to dark mode');
     }
 
+    // About carousel
+    const aboutCarousel = document.querySelector('.about-carousel');
+    if (aboutCarousel) {
+      const track = aboutCarousel.querySelector('.carousel-track');
+      const prevBtn = aboutCarousel.querySelector('.prev');
+      const nextBtn = aboutCarousel.querySelector('.next');
+      const slides = Array.from(track.querySelectorAll('img'));
+      const dotsContainer = aboutCarousel.querySelector('.carousel-dots');
+      let dots = [];
+      let index = 0;
+      let slideWidth = () => aboutCarousel.clientWidth; // base width for 1-up
+      let autoplayTimer = null;
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function getVisibleCount() {
+        const w = window.innerWidth;
+        if (w >= 1024) return 3;
+        if (w >= 720) return 2;
+        return 1;
+      }
+
+      function getSizes() {
+        const styles = window.getComputedStyle(track);
+        const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+        const firstSlide = slides[0];
+        const slideWidth = firstSlide ? firstSlide.getBoundingClientRect().width : (aboutCarousel.clientWidth / getVisibleCount());
+        const visible = getVisibleCount();
+        const viewportWidth = aboutCarousel.clientWidth;
+        const totalWidth = slides.length * slideWidth + gap * (slides.length - 1);
+        const visibleWidth = visible * slideWidth + gap * (visible - 1);
+        const maxOffset = Math.max(0, totalWidth - visibleWidth);
+        return { slideWidth, gap, visible, viewportWidth, totalWidth, visibleWidth, maxOffset };
+      }
+
+      function update() {
+        const { slideWidth, gap, visibleWidth, maxOffset } = getSizes();
+        // Center the focused image when possible
+        const targetCenter = index * (slideWidth + gap) + slideWidth / 2;
+        let offsetLeft = targetCenter - visibleWidth / 2;
+        if (offsetLeft < 0) offsetLeft = 0;
+        if (offsetLeft > maxOffset) offsetLeft = maxOffset;
+        track.style.transform = `translate3d(${-offsetLeft}px, 0, 0)`;
+      }
+
+      function clampIndex(i) {
+        // Focus index covers every image
+        const len = slides.length;
+        if (len === 0) return 0;
+        const mod = ((i % len) + len) % len;
+        return mod;
+      }
+
+      function next() {
+        index = clampIndex(index + 1);
+        update();
+        syncDots();
+      }
+      function prev() {
+        index = clampIndex(index - 1);
+        update();
+        syncDots();
+      }
+
+      function startAutoplay() {
+        if (prefersReduced) return;
+        stopAutoplay();
+        autoplayTimer = setInterval(() => {
+          index = clampIndex(index + 1);
+          update();
+          syncDots();
+        }, 3500);
+      }
+      function stopAutoplay() { if (autoplayTimer) { clearInterval(autoplayTimer); autoplayTimer = null; } }
+
+      nextBtn?.addEventListener('click', () => { next(); startAutoplay(); });
+      prevBtn?.addEventListener('click', () => { prev(); startAutoplay(); });
+
+      let isPointerDown = false;
+      let startX = 0;
+      let currentX = 0;
+      track.addEventListener('pointerdown', (e) => { isPointerDown = true; startX = e.clientX; track.setPointerCapture(e.pointerId); stopAutoplay(); });
+      track.addEventListener('pointermove', (e) => { if (!isPointerDown) return; currentX = e.clientX; });
+      track.addEventListener('pointerup', (e) => {
+        if (!isPointerDown) return; isPointerDown = false; track.releasePointerCapture(e.pointerId);
+        const dx = currentX - startX;
+        if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+        startAutoplay();
+      });
+      track.addEventListener('pointercancel', () => { isPointerDown = false; startAutoplay(); });
+      aboutCarousel.addEventListener('mouseenter', stopAutoplay);
+      aboutCarousel.addEventListener('mouseleave', startAutoplay);
+
+      // Pause autoplay when off-screen
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => { entry.isIntersecting ? startAutoplay() : stopAutoplay(); });
+        }, { threshold: 0.2 });
+        io.observe(aboutCarousel);
+      } else {
+        startAutoplay();
+      }
+
+      function buildDots() {
+        if (!dotsContainer) return;
+        dotsContainer.innerHTML = '';
+        const total = slides.length;
+        dots = Array.from({ length: total }, (_, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'carousel-dot';
+          btn.type = 'button';
+          btn.setAttribute('role', 'tab');
+          btn.setAttribute('aria-label', `Go to image ${i + 1}`);
+          btn.addEventListener('click', () => {
+            index = clampIndex(i);
+            update();
+            syncDots();
+            startAutoplay();
+          });
+          dotsContainer.appendChild(btn);
+          return btn;
+        });
+        syncDots();
+      }
+
+      function syncDots() {
+        if (!dots || dots.length === 0) return;
+        const active = index; // focused image index
+        dots.forEach((d, i) => {
+          const isActive = i === active;
+          d.classList.toggle('is-active', isActive);
+          d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      }
+
+      window.addEventListener('resize', () => {
+        index = clampIndex(index);
+        update();
+        buildDots();
+        syncDots();
+      }, { passive: true });
+      // Recalculate after images load (for correct widths)
+      slides.forEach(img => img.addEventListener('load', () => { update(); buildDots(); syncDots(); }, { once: true }));
+      buildDots();
+      update();
+      startAutoplay();
+    }
     // Scroll reveal
     const revealEls = Array.from(document.querySelectorAll('.reveal'));
     if ('IntersectionObserver' in window) {
@@ -100,6 +246,12 @@
     const downloadLink = document.getElementById('download-resume');
     if (downloadLink) {
       const supportsDownload = 'download' in HTMLAnchorElement.prototype;
+      // Brief loading state on click
+      downloadLink.addEventListener('click', function () {
+        downloadLink.classList.add('is-loading');
+        // Remove loading state after a brief delay (covers quick downloads)
+        setTimeout(() => downloadLink.classList.remove('is-loading'), 1500);
+      }, { passive: true });
       if (!supportsDownload) {
         downloadLink.addEventListener('click', function (e) {
           e.preventDefault();
