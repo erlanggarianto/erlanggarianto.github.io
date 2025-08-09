@@ -103,7 +103,7 @@ a:hover { color: var(--brand-strong); }
 .container { max-width: var(--container); margin: 0 auto; padding: 0 20px; }
 .narrow { max-width: 760px; }
 
-.section { padding: 72px 0; }
+.section { padding: 72px 0; position: relative; }
 @media (min-width: 768px) { .section { padding: 96px 0; } }
 
 .section-title {
@@ -117,6 +117,43 @@ a:hover { color: var(--brand-strong); }
 .contact .section-title { text-align: center; }
 .about .content,
 .contact .lead { text-align: center; }
+
+/* Alternate backgrounds (base color) */
+main > .section:nth-of-type(odd) { background-color: var(--bg); }
+main > .section:nth-of-type(even) { background-color: var(--surface); }
+
+/* Hero-like gradient overlays using pseudo-elements for stronger visibility */
+main > .section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+/* Fallback using rgba for broad support */
+main > .section:nth-of-type(odd)::before {
+  background:
+    radial-gradient(820px 420px at -10% -10%, rgba(52, 152, 219, 0.14), transparent 60%),
+    radial-gradient(760px 400px at 110% 10%, rgba(26, 188, 156, 0.10), transparent 70%);
+}
+main > .section:nth-of-type(even)::before {
+  background:
+    radial-gradient(820px 420px at -10% -10%, rgba(155, 89, 182, 0.14), transparent 60%),
+    radial-gradient(760px 400px at 110% 10%, rgba(230, 126, 34, 0.10), transparent 70%);
+}
+/* Progressive enhancement when color-mix is supported */
+@supports (background: color-mix(in srgb, red, transparent 50%)) {
+  main > .section:nth-of-type(odd)::before {
+    background:
+      radial-gradient(840px 440px at -10% -10%, color-mix(in srgb, var(--accent-1), transparent 88%), transparent 60%),
+      radial-gradient(780px 420px at 110% 10%, color-mix(in srgb, var(--brand), transparent 90%), transparent 70%);
+  }
+  main > .section:nth-of-type(even)::before {
+    background:
+      radial-gradient(840px 440px at -10% -10%, color-mix(in srgb, var(--accent-2), transparent 88%), transparent 60%),
+      radial-gradient(780px 420px at 110% 10%, color-mix(in srgb, var(--accent-3), transparent 90%), transparent 70%);
+  }
+}
 
 /* Header */
 .site-header { position: fixed; top: 0; left: 0; right: 0; backdrop-filter: saturate(130%) blur(10px); z-index: 100; transition: box-shadow .25s var(--ease), background-color .25s var(--ease); }
@@ -170,6 +207,14 @@ a:hover { color: var(--brand-strong); }
     will-change: transform;
     animation: heroPortraitFloat 9s var(--ease) 0.2s infinite alternate;
   }
+  /* Subtle hover effect: pause float and gently lift */
+  .hero-media .portrait { transition: transform .35s var(--ease), box-shadow .35s var(--ease), filter .35s var(--ease); }
+  .hero-media .portrait:hover {
+    animation-play-state: paused;
+    transform: translateY(-2px);
+    filter: brightness(1.02) saturate(1.02);
+    box-shadow: 0 18px 40px rgba(12, 14, 18, 0.14), 0 6px 16px rgba(12, 14, 18, 0.08);
+  }
   @keyframes heroPortraitFloat {
     from { transform: translateY(0); }
     to   { transform: translateY(-8px); }
@@ -192,6 +237,14 @@ a:hover { color: var(--brand-strong); }
 .about-gallery { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 24px; }
 @media (min-width: 720px) { .about-gallery { grid-template-columns: 1fr 1fr; } }
 .about-gallery img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+@media (prefers-reduced-motion: no-preference) {
+  .about-gallery img { transition: transform .35s var(--ease), box-shadow .35s var(--ease), filter .35s var(--ease); }
+  .about-gallery img:hover {
+    transform: translateY(-2px) scale(1.01);
+    filter: brightness(1.01);
+    box-shadow: 0 14px 34px rgba(12, 14, 18, 0.12), 0 4px 12px rgba(12, 14, 18, 0.06);
+  }
+}
 
 /* Cards */
 .cards { display: grid; gap: 18px; grid-template-columns: 1fr; }
@@ -227,13 +280,21 @@ a:hover { color: var(--brand-strong); }
   padding: 10px 18px;
   min-height: 40px;
   border-radius: 12px;
-  background: transparent;
-  border: 2px solid var(--brand);
-  color: var(--brand);
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
   font-weight: 700;
   transition: transform .2s var(--ease), background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), box-shadow .2s var(--ease);
 }
-.social-link:hover { transform: translateY(-1px); background: var(--brand); color: #ffffff; border-color: var(--brand-strong); }
+.social-link .icon { margin-right: 4px; }
+.social-link:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--surface), var(--text) 6%);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--border), var(--text) 12%);
+  box-shadow: 0 6px 16px rgba(12, 14, 18, 0.10);
+}
 .social-link:active { transform: translateY(0); }
 .social-link:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand), transparent 70%); }
 
@@ -260,9 +321,9 @@ a:hover { color: var(--brand-strong); }
 }
 
 /* Scroll to top button */
-.to-top { position: fixed; right: 20px; bottom: 20px; z-index: 60; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .25s var(--ease), transform .25s var(--ease); background: var(--surface); color: var(--brand); border: 2px solid var(--brand); border-radius: 999px; padding: 8px 10px; font-weight: 700; box-shadow: var(--shadow); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.to-top { position: fixed; right: 20px; bottom: 20px; z-index: 60; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease), background-color .25s var(--ease), color .25s var(--ease); background: var(--surface); color: var(--brand); border: 0; border-radius: 999px; padding: 8px 10px; font-weight: 700; box-shadow: 0 8px 20px rgba(12, 14, 18, 0.12), 0 2px 6px rgba(12, 14, 18, 0.06); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
 .to-top.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-.to-top:hover { background: var(--brand); color: #fff; }
+.to-top:hover { background: var(--brand); color: #fff; box-shadow: 0 10px 28px rgba(12, 14, 18, 0.16), 0 3px 10px rgba(12, 14, 18, 0.08); }
 
 
 
