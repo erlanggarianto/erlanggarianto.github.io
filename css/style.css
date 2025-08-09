@@ -66,6 +66,30 @@ img { max-width: 100%; display: block; }
 a { color: var(--brand); text-decoration: none; }
 a:hover { color: var(--brand-strong); }
 
+/* Smooth theme transitions (brief and subtle) */
+@media (prefers-reduced-motion: no-preference) {
+  html, body {
+    transition: background-color .25s var(--ease), color .25s var(--ease);
+  }
+  .site-header,
+  .site-footer,
+  .card,
+  .cta.button,
+  .social-link,
+  .project .thumb,
+  .hero-media .portrait,
+  .to-top,
+  .brand-mark {
+    transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  a, .brand, .section-title {
+    transition: color .25s var(--ease);
+  }
+  .theme-toggle .switch-label {
+    transition: color .25s var(--ease), opacity .25s var(--ease);
+  }
+}
+
 .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
 .skip-link {
   position: absolute; left: -999px; top: 8px; background: var(--bg); color: var(--text);
@@ -139,6 +163,18 @@ a:hover { color: var(--brand-strong); }
 .cta.button .icon { margin-right: 8px; }
 
 .hero-media .portrait { width: 100%; aspect-ratio: 4/3; border-radius: var(--radius); background: linear-gradient(135deg, color-mix(in srgb, var(--brand), transparent 75%), transparent 80%), var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
+
+/* Subtle hero portrait animation (only after reveal, and only if motion is allowed) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media.is-visible .portrait {
+    will-change: transform;
+    animation: heroPortraitFloat 9s var(--ease) 0.2s infinite alternate;
+  }
+  @keyframes heroPortraitFloat {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-8px); }
+  }
+}
 
 /* Hero decor */
 .hero { position: relative; overflow: hidden; }
