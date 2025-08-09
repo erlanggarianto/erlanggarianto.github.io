@@ -2,12 +2,14 @@
 <html lang="en" class="no-js">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Erlangga Rianto — UX Designer</title>
     <meta name="description" content="UX Designer crafting human-centered products. Portfolio and resume of Erlangga Rianto." />
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
     <!-- Fonts: Roboto & Material Symbols Rounded -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,6 +19,20 @@
 
     <link rel="stylesheet" href="css/style.css" />
     <script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+    <script>
+      // Early theme application for embedded contexts
+      (function() {
+        try {
+          const THEME_KEY = 'erlangga-theme';
+          const storedTheme = localStorage.getItem(THEME_KEY);
+          if (storedTheme === 'dark' || storedTheme === 'light') {
+            document.documentElement.setAttribute('data-theme', storedTheme);
+          }
+        } catch (e) {
+          // Silently fail if localStorage is not available
+        }
+      })();
+    </script>
     <script defer src="js/script.js"></script>
   </head>
   <body>

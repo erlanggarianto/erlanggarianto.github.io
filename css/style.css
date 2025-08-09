@@ -46,6 +46,15 @@
   }
 }
 
+/* Ensure proper color-scheme for embedded contexts */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
 html { scroll-behavior: smooth; }
 html, body { height: 100%; }
 body {
@@ -188,6 +197,25 @@ main > .section:nth-of-type(even)::before {
 [data-theme="dark"] .theme-toggle .switch-label.light { opacity: 0.6; color: var(--text); }
 [data-theme="light"] .theme-toggle .switch-label.light { opacity: 1; color: var(--brand); }
 [data-theme="light"] .theme-toggle .switch-label.dark { opacity: 0.6; color: var(--text); }
+
+/* Ensure theme toggle works in embedded contexts */
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Fallback for embedded contexts that might not support certain CSS features */
+@supports not (color-scheme: light) {
+  :root[data-theme="light"] {
+    background-color: #ffffff;
+    color: #1e272e;
+  }
+  
+  :root[data-theme="dark"] {
+    background-color: #0f1418;
+    color: #eaf1fb;
+  }
+}
 
 /* Hero */
 .hero .grid-2 { display: grid; gap: 28px; align-items: center; }

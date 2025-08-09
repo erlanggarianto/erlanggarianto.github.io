@@ -1,7 +1,28 @@
 (function () {
   const root = document.documentElement;
   const THEME_KEY = 'erlangga-theme';
-  const storedTheme = localStorage.getItem(THEME_KEY);
+  
+  // Safe localStorage access with fallback
+  function safeStorageGet(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      console.warn('localStorage access failed:', e);
+      return null;
+    }
+  }
+  
+  function safeStorageSet(key, value) {
+    try {
+      localStorage.setItem(key, value);
+      return true;
+    } catch (e) {
+      console.warn('localStorage set failed:', e);
+      return false;
+    }
+  }
+  
+  const storedTheme = safeStorageGet(THEME_KEY);
 
   // Apply stored theme early
   if (storedTheme === 'dark' || storedTheme === 'light') {
@@ -11,19 +32,42 @@
   function getCurrentTheme() {
     const explicit = root.getAttribute('data-theme');
     if (explicit) return explicit;
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return prefersDark ? 'dark' : 'light';
+    
+    // Try to detect system preference, with fallback to light mode
+    try {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      return prefersDark ? 'dark' : 'light';
+    } catch (e) {
+      console.warn('System theme detection failed:', e);
+      return 'light'; // Default to light mode if detection fails
+    }
   }
 
   function setTheme(next) {
+    // Ensure we have a valid theme
+    if (next !== 'dark' && next !== 'light') {
+      console.warn('Invalid theme:', next);
+      return;
+    }
+    
     root.setAttribute('data-theme', next);
-    localStorage.setItem(THEME_KEY, next);
+    
+    // Try to save to localStorage, but don't fail if it doesn't work
+    safeStorageSet(THEME_KEY, next);
+    
     const pressed = next === 'dark';
     const toggle = document.getElementById('theme-toggle');
     if (toggle) {
       toggle.setAttribute('aria-pressed', String(pressed));
       // When dark is active, show label "Dark" as active; when light is active, show label "Light"
       toggle.setAttribute('aria-label', pressed ? 'Currently dark mode. Switch to light mode' : 'Currently light mode. Switch to dark mode');
+    }
+    
+    // Dispatch a custom event for embedded contexts that might need to know about theme changes
+    try {
+      window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme: next } }));
+    } catch (e) {
+      console.warn('Failed to dispatch theme change event:', e);
     }
   }
 
@@ -33,15 +77,53 @@
     const header = document.querySelector('.site-header');
     const toTop = document.getElementById('to-top');
     const brandLink = document.querySelector('.brand');
+    
     if (toggle) {
       toggle.addEventListener('click', function () {
         const next = getCurrentTheme() === 'dark' ? 'light' : 'dark';
         setTheme(next);
       });
+      
       // Initialize aria-pressed and label
       const isDark = getCurrentTheme() === 'dark';
       toggle.setAttribute('aria-pressed', String(isDark));
       toggle.setAttribute('aria-label', isDark ? 'Currently dark mode. Switch to light mode' : 'Currently light mode. Switch to dark mode');
+    }
+
+    // Listen for system theme changes (useful for embedded contexts)
+    try {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      if (mediaQuery && mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', (e) => {
+          // Only auto-switch if no explicit theme is set
+          if (!safeStorageGet(THEME_KEY)) {
+            const newTheme = e.matches ? 'dark' : 'light';
+            setTheme(newTheme);
+          }
+        });
+      }
+    } catch (e) {
+      console.warn('System theme change listener failed:', e);
+    }
+
+    // Debug information for embedded contexts
+    if (window.location.search.includes('debug=theme')) {
+      console.log('Theme Debug Info:', {
+        currentTheme: getCurrentTheme(),
+        storedTheme: safeStorageGet(THEME_KEY),
+        dataTheme: root.getAttribute('data-theme'),
+        prefersDark: window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'unknown',
+        localStorageAvailable: (() => {
+          try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            return true;
+          } catch (e) {
+            return false;
+          }
+        })(),
+        userAgent: navigator.userAgent
+      });
     }
 
     // About carousel
