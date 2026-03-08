@@ -34,7 +34,7 @@
       <h1>UX that bridges<br><span class="grad-text">design & technology</span></h1>
       <p class="hero-desc">4.5+ years designing end-to-end across B2B SaaS, logistics, and edtech in SEA & EMEA. From research to engineers — I stay until it ships.</p>
       <div class="hero-cta">
-        <a href="https://erlanggarianto.github.io/assets/(Web)%20Erlangga_UXDesigner_ResumePortfolio.pdf" target="_blank" class="btn-glow">View Portfolio</a>
+        <a href="https://erlanggarianto.github.io/assets/(Web)%20Erlangga_UXDesigner_ResumePortfolio.pdf" target="_blank" class="btn-glow">View Resume</a>
         <a href="#projects" class="btn-ghost">See case studies</a>
       </div>
       <div class="hero-stats">
@@ -225,15 +225,16 @@
         <div class="contact-link" style="cursor:default;"><div class="contact-link-icon">📍</div>Indonesia · Open to remote & relocation</div>
       </div>
     </div>
-    <div class="contact-form">
+    <form class="contact-form" action="https://formspree.io/f/xbdzlwpb" method="POST">
+      <input type="hidden" name="_subject" value="New message from portfolio">
       <div class="form-row">
-        <div class="form-field"><label>Name</label><input type="text" placeholder="Your name"></div>
-        <div class="form-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-field"><label>Name</label><input type="text" name="name" placeholder="Your name"></div>
+        <div class="form-field"><label>Email</label><input type="email" name="email" placeholder="your@email.com"></div>
       </div>
-      <div class="form-field"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
-      <div class="form-field"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
-      <button class="btn-glow" style="align-self:flex-start;border:none;cursor:none;">Send message ✦</button>
-    </div>
+      <div class="form-field"><label>Subject</label><input type="text" name="subject" placeholder="What's this about?"></div>
+      <div class="form-field"><label>Message</label><textarea name="message" placeholder="Tell me about your project..."></textarea></div>
+      <button type="submit" class="btn-glow" style="align-self:flex-start;border:none;cursor:none;">Send message ✦</button>
+    </form>
   </div>
 </section>
 
