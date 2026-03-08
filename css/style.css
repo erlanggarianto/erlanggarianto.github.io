@@ -459,15 +459,32 @@ footer .copy { font-size: 0.75rem; color: rgba(240,244,255,0.2); }
   .btn-glow, .btn-ghost, button { cursor: pointer; }
 }
 
-/* Tablet */
+/* Large tablet */
 @media (max-width: 1100px) {
   .hero-inner { gap: 2rem; }
   .hero-card { width: 300px; }
   .float-badge-1 { right: -10px; }
   .float-badge-2 { left: -10px; }
-  .about-grid { gap: 3rem; }
-  .contact-layout { gap: 3rem; }
   .t-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Tablet — stack major two-column layouts */
+@media (max-width: 900px) {
+  .hero { padding: 7rem 5% 4rem; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .float-badge { display: none; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; margin-top: 2rem; }
+  .about-img-frame { aspect-ratio: 3/2; }
+  .exp-badge { right: 10px; bottom: -15px; }
+
+  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .resume-layout { grid-template-columns: 1fr; gap: 2rem; }
+
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+  .projects-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
 }
 
 /* Mobile */
@@ -491,31 +508,16 @@ footer .copy { font-size: 0.75rem; color: rgba(240,244,255,0.2); }
   .nav-logo { font-size: 0.95rem; }
 
   .hero { padding: 6rem 5% 3rem; }
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-visual { display: none; }
   .hero h1 { font-size: 2.2rem; }
   .hero-desc { font-size: 0.92rem; }
   .hero-stats { display: flex; flex-wrap: wrap; gap: 1.5rem; }
   .stat-big { font-size: 1.5rem; }
 
-  .about-grid { grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
-  .exp-badge { right: 10px; bottom: -15px; }
-
-  .projects-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
-
-  .resume-layout { grid-template-columns: 1fr; gap: 2rem; }
-
   .t-grid { grid-template-columns: 1fr; }
-
-  .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
   .form-row { grid-template-columns: 1fr; }
 
   .section-title { font-size: 1.9rem; }
   section { padding: 5rem 5%; }
-
-  .float-badge { display: none; }
 
   footer { flex-direction: column; gap: 1rem; text-align: center; }
 }
