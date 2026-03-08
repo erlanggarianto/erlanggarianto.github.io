@@ -460,4 +460,11 @@ footer .copy { font-size: 0.75rem; color: rgba(240,244,255,0.2); }
   .float-badge { display: none; }
 
   footer { flex-direction: column; gap: 1rem; text-align: center; }
+  .hero-stats { flex-direction: column; gap: 0.8rem; }
+  .stat-big { font-size: 1.6rem; }
+  .resume-layout { grid-template-columns: 1fr !important; }
+  .t-grid { grid-template-columns: 1fr !important; }
+  .contact-layout { grid-template-columns: 1fr !important; }
+  .nav-links { display: none; }
+  .nav-logo { font-size: 0.95rem; }
 }
