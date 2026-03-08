@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erlangga Rianto — UX/Product Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080c14;
+  --bg2: #0c1220;
+  --bg3: #101828;
+  --navy: #192a56;
+  --navy-mid: #1e3464;
+  --blue: #2e5bff;
+  --blue-glow: #3d6aff;
+  --cyan: #00d4ff;
+  --cyan-dim: rgba(0,212,255,0.15);
+  --white: #f0f4ff;
+  --white-dim: rgba(240,244,255,0.6);
+  --white-faint: rgba(240,244,255,0.12);
+  --border: rgba(46,91,255,0.18);
+  --border-bright: rgba(0,212,255,0.3);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.cursor {
+  width: 10px; height: 10px;
+  background: var(--cyan);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  mix-blend-mode: screen;
+  transition: transform 0.1s;
+}
+.cursor-ring {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(0,212,255,0.5);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transition: width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 999; opacity: 0.5;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.4rem 5%;
+  background: rgba(8,12,20,0.75);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+  color: var(--white); text-decoration: none; letter-spacing: -0.02em;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.nav-dot {
+  width: 7px; height: 7px; background: var(--cyan);
+  border-radius: 50%; box-shadow: 0 0 8px var(--cyan);
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+@keyframes orb-drift { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-50px) scale(1.08)} }
+@keyframes card-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+@keyframes badge-bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+@keyframes shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a {
+  text-decoration: none; font-size: 0.82rem; font-weight: 400;
+  color: var(--white-dim); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--cyan); }
+.nav-cta {
+  padding: 0.5rem 1.2rem !important;
+  border: 1px solid var(--border-bright) !important;
+  border-radius: 6px; color: var(--cyan) !important;
+  background: transparent;
+  transition: background 0.2s, box-shadow 0.2s !important;
+}
+.nav-cta:hover { background: rgba(0,212,255,0.08) !important; box-shadow: 0 0 20px rgba(0,212,255,0.15) !important; }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 8rem 5% 5rem; position: relative; overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(46,91,255,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(46,91,255,0.055) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 0%, transparent 100%);
+}
+
+.orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); pointer-events: none;
+}
+.orb-1 {
+  width: 700px; height: 700px; top: -250px; right: -150px;
+  background: radial-gradient(circle, rgba(46,91,255,0.22) 0%, transparent 70%);
+  animation: orb-drift 9s ease-in-out infinite;
+}
+.orb-2 {
+  width: 450px; height: 450px; bottom: -100px; left: -80px;
+  background: radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 70%);
+  animation: orb-drift 12s ease-in-out infinite reverse;
+}
+
+.hero-inner {
+  position: relative; z-index: 2;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center; width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.73rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cyan); font-weight: 500; margin-bottom: 1.6rem;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
+  background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 100px; width: fit-content;
+  opacity:0; animation: fadeUp 0.6s ease 0.1s forwards;
+}
+
+.eyebrow-dot {
+  width: 6px; height: 6px; background: var(--cyan); border-radius: 50%;
+  box-shadow: 0 0 8px var(--cyan); animation: pulse 2s ease infinite;
+}
+
+.hero h1 {
+  font-family: 'Syne', sans-serif; font-size: clamp(3rem, 5.5vw, 5rem);
+  font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+  color: var(--white); margin-bottom: 1.6rem;
+  opacity:0; animation: fadeUp 0.7s ease 0.22s forwards;
+}
+
+.grad-text {
+  background: linear-gradient(90deg, var(--blue-glow) 0%, var(--cyan) 50%, var(--blue-glow) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+.hero-desc {
+  font-size: 1rem; line-height: 1.85; color: var(--white-dim);
+  max-width: 460px; margin-bottom: 2.4rem; font-weight: 300;
+  opacity:0; animation: fadeUp 0.7s ease 0.35s forwards;
+}
+
+.hero-cta {
+  display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+  opacity:0; animation: fadeUp 0.7s ease 0.48s forwards;
+}
+
+.btn-glow {
+  padding: 0.9rem 2rem; background: var(--blue); color: white;
+  border: none; border-radius: 8px; font-family: 'Inter', sans-serif;
+  font-size: 0.9rem; font-weight: 500; cursor: none; text-decoration: none;
+  transition: all 0.25s; display: inline-block;
+  box-shadow: 0 0 30px rgba(46,91,255,0.45);
+}
+.btn-glow:hover { background: var(--blue-glow); box-shadow: 0 0 55px rgba(46,91,255,0.65); transform: translateY(-2px); }
+
+.btn-ghost {
+  padding: 0.9rem 2rem; background: transparent; color: var(--white-dim);
+  border: 1px solid var(--white-faint); border-radius: 8px;
+  font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 400;
+  cursor: none; text-decoration: none; transition: all 0.25s; display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--border-bright); color: var(--white); box-shadow: 0 0 20px rgba(0,212,255,0.1); transform: translateY(-2px); }
+
+.hero-stats {
+  display: flex; gap: 2.5rem; margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  opacity:0; animation: fadeUp 0.7s ease 0.6s forwards;
+}
+
+.stat-big {
+  font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800;
+  color: var(--white); letter-spacing: -0.03em; line-height: 1;
+}
+.stat-big span { color: var(--cyan); }
+.stat-small { font-size: 0.75rem; color: var(--white-dim); margin-top: 0.3rem; }
+
+/* HERO VISUAL */
+.hero-visual {
+  position: relative; display: flex; justify-content: center; align-items: center;
+  opacity:0; animation: fadeUp 0.9s ease 0.3s forwards;
+}
+
+.hero-card {
+  width: 360px;
+  background: linear-gradient(145deg, rgba(25,42,86,0.55) 0%, rgba(12,18,32,0.85) 100%);
+  border: 1px solid rgba(46,91,255,0.25);
+  border-radius: 22px; padding: 2rem;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(46,91,255,0.1);
+  animation: card-float 7s ease-in-out infinite;
+  position: relative; overflow: hidden;
+}
+
+.hero-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0,212,255,0.6) 50%, transparent 100%);
+}
+
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.card-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); font-weight: 500; }
+.card-status { display: flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; color: #4ade80; }
+.status-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 6px #4ade80; animation: pulse 2s ease infinite; }
+
+.card-photo {
+  width: 78px; height: 78px; border-radius: 50%; overflow: hidden;
+  border: 2px solid rgba(0,212,255,0.4); margin: 0 auto 1rem;
+  box-shadow: 0 0 24px rgba(0,212,255,0.25);
+}
+.card-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.card-name { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; text-align: center; margin-bottom: 0.25rem; letter-spacing: -0.02em; }
+.card-role { font-size: 0.77rem; color: var(--white-dim); text-align: center; margin-bottom: 1.4rem; }
+
+.card-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1.4rem; }
+.stat-box {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  border-radius: 10px; padding: 0.75rem 0.4rem; text-align: center;
+}
+.stat-box .n { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--cyan); display: block; }
+.stat-box .l { font-size: 0.62rem; color: var(--white-dim); letter-spacing: 0.05em; text-transform: uppercase; }
+
+.card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+.card-tag {
+  padding: 0.22rem 0.65rem; background: rgba(46,91,255,0.1);
+  border: 1px solid rgba(46,91,255,0.22); border-radius: 100px;
+  font-size: 0.67rem; color: rgba(180,200,255,0.8);
+}
+
+.float-badge {
+  position: absolute;
+  background: rgba(10,14,24,0.92); border: 1px solid var(--border-bright);
+  border-radius: 12px; padding: 0.65rem 1rem;
+  backdrop-filter: blur(12px); font-size: 0.72rem;
+}
+.float-badge-1 { top: 10px; right: -30px; animation: badge-bob 5s ease-in-out infinite; }
+.float-badge-2 { bottom: 40px; left: -35px; animation: badge-bob 7s ease-in-out infinite reverse; }
+.fb-val { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--cyan); }
+.fb-lbl { color: var(--white-dim); font-size: 0.67rem; margin-top: 0.1rem; }
+
+/* SECTIONS */
+section { padding: 7rem 5%; }
+
+.section-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--cyan); font-weight: 500; margin-bottom: 1rem;
+}
+.section-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
+
+.section-title {
+  font-family: 'Syne', sans-serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 800; letter-spacing: -0.03em; color: var(--white);
+  line-height: 1.1; margin-bottom: 1rem;
+}
+
+.section-sub { font-size: 1rem; color: var(--white-dim); line-height: 1.8; font-weight: 300; max-width: 500px; }
+
+/* ABOUT */
+#about { background: var(--bg2); }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 6rem; align-items: center; margin-top: 4rem; }
+
+.about-img-wrap { position: relative; }
+.about-img-frame { width: 100%; aspect-ratio: 4/5; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); position: relative; }
+.about-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+.about-img-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, rgba(8,12,20,0.45)); }
+.img-glow { position: absolute; inset: -1px; border-radius: 20px; box-shadow: 0 0 50px rgba(46,91,255,0.2), inset 0 0 30px rgba(46,91,255,0.04); pointer-events: none; }
+
+.exp-badge {
+  position: absolute; bottom: -20px; right: -20px;
+  background: var(--navy); border: 1px solid var(--border-bright);
+  border-radius: 16px; padding: 1.1rem 1.5rem;
+  box-shadow: 0 0 30px rgba(0,212,255,0.15);
+}
+.exp-badge .en { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--cyan); line-height: 1; }
+.exp-badge .el { font-size: 0.7rem; color: var(--white-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.3rem; }
+
+.about-content p { font-size: 0.96rem; line-height: 1.9; color: var(--white-dim); font-weight: 300; margin-bottom: 1.4rem; }
+.about-content strong { color: var(--white); font-weight: 500; }
+
+.skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2rem; }
+.skill-chip {
+  padding: 0.32rem 0.9rem; background: rgba(46,91,255,0.07);
+  border: 1px solid rgba(46,91,255,0.18); border-radius: 6px;
+  font-size: 0.77rem; color: rgba(180,200,255,0.8); transition: all 0.2s;
+}
+.skill-chip:hover { background: rgba(46,91,255,0.16); border-color: rgba(0,212,255,0.3); color: var(--cyan); }
+
+/* PROJECTS */
+#projects { background: var(--bg); }
+
+.projects-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; }
+
+.projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+
+.project-card {
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 18px;
+  overflow: hidden; transition: all 0.3s; text-decoration: none; color: inherit; display: block; position: relative;
+}
+.project-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(46,91,255,0.05), transparent);
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.project-card:hover { border-color: rgba(0,212,255,0.22); box-shadow: 0 0 40px rgba(46,91,255,0.12), 0 20px 60px rgba(0,0,0,0.35); transform: translateY(-6px); }
+.project-card:hover::after { opacity: 1; }
+.project-card.featured { grid-column: span 2; display: grid; grid-template-columns: 1.2fr 1fr; }
+
+.project-img { aspect-ratio: 16/9; overflow: hidden; position: relative; }
+.project-card.featured .project-img { aspect-ratio: auto; min-height: 320px; }
+.project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; filter: brightness(0.8) saturate(0.85); }
+.project-card:hover .project-img img { transform: scale(1.05); filter: brightness(0.95) saturate(1.05); }
+.project-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(8,12,20,0.55)); }
+
+.project-body { padding: 1.8rem; }
+.project-cat { font-size: 0.69rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); font-weight: 500; margin-bottom: 0.6rem; }
+.project-body h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 0.7rem; line-height: 1.3; letter-spacing: -0.02em; }
+.project-body p { font-size: 0.87rem; color: var(--white-dim); line-height: 1.75; font-weight: 300; margin-bottom: 1.2rem; }
+.project-body p strong { color: var(--cyan); font-weight: 500; }
+.project-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.project-chip { padding: 0.2rem 0.6rem; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 4px; font-size: 0.68rem; color: var(--white-dim); }
+.project-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--cyan); font-weight: 500; transition: gap 0.2s; }
+.project-card:hover .project-link { gap: 0.7rem; }
+
+/* RESUME */
+#resume { background: var(--bg2); }
+
+.resume-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; }
+.resume-col h3 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--white); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border); }
+
+.tl { display: grid; grid-template-columns: 1px 1fr; gap: 0 1.4rem; margin-bottom: 2.2rem; }
+.tl-bar { background: linear-gradient(to bottom, var(--cyan) 0%, transparent 100%); position: relative; }
+.tl-bar::before { content: ''; position: absolute; top: 5px; left: -4px; width: 9px; height: 9px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 10px var(--cyan); }
+.tl-date { font-size: 0.69rem; color: var(--cyan); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.tl-role { font-family: 'Syne', sans-serif; font-size: 0.96rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; letter-spacing: -0.01em; }
+.tl-company { font-size: 0.81rem; color: var(--white-dim); margin-bottom: 0.45rem; }
+.tl-desc { font-size: 0.81rem; color: rgba(180,200,255,0.5); line-height: 1.7; font-weight: 300; }
+
+.resume-cta { margin-top: 3.5rem; display: flex; justify-content: center; }
+
+/* TESTIMONIALS */
+#testimonials { background: var(--bg); }
+
+.t-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 4rem; }
+
+.t-card {
+  background: var(--bg3); border: 1px solid var(--border); border-radius: 18px;
+  padding: 2rem; position: relative; overflow: hidden; transition: all 0.3s;
+}
+.t-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--blue), transparent); opacity: 0; transition: opacity 0.3s; }
+.t-card:hover { border-color: var(--border-bright); box-shadow: 0 0 30px rgba(46,91,255,0.1); }
+.t-card:hover::before { opacity: 1; }
+
+.t-qt { font-family: 'Syne', sans-serif; font-size: 3.5rem; color: var(--blue); line-height: 0.7; margin-bottom: 1rem; opacity: 0.35; }
+.t-text { font-size: 0.9rem; line-height: 1.82; color: var(--white-dim); font-weight: 300; font-style: italic; margin-bottom: 1.6rem; }
+.t-author { display: flex; align-items: center; gap: 0.9rem; }
+.t-av { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem; color: white; flex-shrink: 0; border: 1px solid var(--border); }
+.av1 { background: linear-gradient(135deg, #192a56, #2e5bff); }
+.av2 { background: linear-gradient(135deg, #0d3355, #0ea5e9); }
+.av3 { background: linear-gradient(135deg, #1e1b4b, #6366f1); }
+.t-name { font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700; color: var(--white); }
+.t-role { font-size: 0.74rem; color: var(--white-dim); }
+
+/* CONTACT */
+#contact { background: var(--bg2); position: relative; overflow: hidden; }
+#contact::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(46,91,255,0.07) 0%, transparent 70%); pointer-events: none; }
+
+.contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: start; margin-top: 4rem; position: relative; z-index: 2; }
+
+.contact-links { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 2.5rem; }
+.contact-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0.9rem 1.1rem; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 12px; text-decoration: none; color: var(--white-dim); font-size: 0.88rem; transition: all 0.2s;
+}
+.contact-link:hover { border-color: var(--border-bright); color: var(--cyan); background: rgba(0,212,255,0.04); transform: translateX(5px); }
+.contact-link-icon { width: 36px; height: 36px; background: rgba(46,91,255,0.1); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-field label { font-size: 0.73rem; color: var(--white-dim); letter-spacing: 0.08em; text-transform: uppercase; }
+.form-field input, .form-field textarea {
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.82rem 1.1rem; color: var(--white); font-family: 'Inter', sans-serif;
+  font-size: 0.9rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-field input::placeholder, .form-field textarea::placeholder { color: rgba(240,244,255,0.18); }
+.form-field input:focus, .form-field textarea:focus { border-color: rgba(0,212,255,0.4); box-shadow: 0 0 0 3px rgba(0,212,255,0.05); }
+.form-field textarea { resize: vertical; min-height: 130px; }
+
+footer {
+  background: var(--bg); border-top: 1px solid var(--border);
+  padding: 1.8rem 5%; display: flex; justify-content: space-between; align-items: center;
+}
+.footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--white-dim); }
+footer .copy { font-size: 0.75rem; color: rgba(240,244,255,0.2); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: 0.75rem; color: rgba(240,244,255,0.28); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--cyan); }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--navy-mid); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+@media (max-width: 960px) {
+  .hero-inner, .about-grid, .contact-layout { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .projects-grid, .t-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+  .resume-layout { grid-template-columns: 1fr; gap: 2rem; }
+  .projects-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .about-grid { gap: 3rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo"><span class="nav-dot"></span>Erlangga Rianto</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact" class="nav-cta">Let's talk</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Currently at DOT · Open to opportunities</div>
+      <h1>UX that bridges<br><span class="grad-text">design & technology</span></h1>
+      <p class="hero-desc">4.5+ years designing end-to-end across B2B SaaS, logistics, and edtech in SEA & EMEA. From research to engineers — I stay until it ships.</p>
+      <div class="hero-cta">
+        <a href="https://erlanggarianto.github.io/assets/(Web)%20Erlangga_UXDesigner_ResumePortfolio.pdf" target="_blank" class="btn-glow">View Portfolio</a>
+        <a href="#projects" class="btn-ghost">See case studies</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-big">4.5<span>+</span></div><div class="stat-small">Years experience</div></div>
+        <div><div class="stat-big">57<span>%</span></div><div class="stat-small">Faster quotations</div></div>
+        <div><div class="stat-big">8746<span>%</span></div><div class="stat-small">Sales growth</div></div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="card-top">
+          <span class="card-label">UX / Product Designer</span>
+          <span class="card-status"><span class="status-dot"></span>Available</span>
+        </div>
+        <div class="card-photo"><img src="https://erlanggarianto.github.io/assets/Erlangga.png" alt="Erlangga"></div>
+        <div class="card-name">Erlangga Rianto</div>
+        <div class="card-role">Indonesia · SEA & EMEA</div>
+        <div class="card-stats">
+          <div class="stat-box"><span class="n">4+</span><span class="l">Companies</span></div>
+          <div class="stat-box"><span class="n">40+</span><span class="l">Projects</span></div>
+          <div class="stat-box"><span class="n">650K</span><span class="l">Users</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">Figma</span>
+          <span class="card-tag">React</span>
+          <span class="card-tag">WCAG</span>
+          <span class="card-tag">AI workflows</span>
+        </div>
+      </div>
+      <div class="float-badge float-badge-1"><div class="fb-val">95.5%</div><div class="fb-lbl">Delivery fulfillment</div></div>
+      <div class="float-badge float-badge-2"><div class="fb-val">+66%</div><div class="fb-lbl">User adoption</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <div class="about-img-frame">
+        <img src="https://erlanggarianto.github.io/assets/About 1.png" alt="Erlangga at work">
+      </div>
+      <div class="img-glow"></div>
+      <div class="exp-badge"><div class="en">4.5+</div><div class="el">Years experience</div></div>
+    </div>
+    <div class="about-content">
+      <p class="section-eyebrow">About me</p>
+      <h2 class="section-title">Design that connects dots others miss</h2>
+      <p>I'm Erlangga — a UX/Product Designer from Indonesia with a Computer Science degree from <strong>Universitas Indonesia</strong> and a Google UX Design certification. I've worked across <strong>B2B tech agencies, logistics SaaS, and B2C edtech</strong> serving markets across Southeast Asia and EMEA.</p>
+      <p>I thrive at the intersection of design, research, data, and engineering. I work through the <strong>entire development process</strong> — from user interviews and product strategy to technical implementation and shipping alongside engineers. I don't hand off Figma files and disappear.</p>
+      <p>I actively use AI to improve workflows and build prototypes faster. Always learning. Always improving. Always sharing.</p>
+      <div class="skills-grid">
+        <span class="skill-chip">User Research</span>
+        <span class="skill-chip">Product Strategy</span>
+        <span class="skill-chip">Figma</span>
+        <span class="skill-chip">Design Systems</span>
+        <span class="skill-chip">Prototyping</span>
+        <span class="skill-chip">Usability Testing</span>
+        <span class="skill-chip">WCAG / Accessibility</span>
+        <span class="skill-chip">React · HTML · CSS</span>
+        <span class="skill-chip">Webflow · Framer</span>
+        <span class="skill-chip">AI Workflows</span>
+        <span class="skill-chip">Maze · FigJam · Miro</span>
+        <span class="skill-chip">Cursor · GitHub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="projects-header">
+    <div>
+      <p class="section-eyebrow">Selected work</p>
+      <h2 class="section-title">Case Studies</h2>
+    </div>
+    <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank" class="btn-ghost">View all on Figma</a>
+  </div>
+  <div class="projects-grid">
+
+    <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank" class="project-card featured">
+      <div class="project-img"><img src="https://erlanggarianto.github.io/assets/Waresix.png" alt="Waresix"></div>
+      <div class="project-body">
+        <p class="project-cat">Logistics · B2B SaaS · Responsive Web</p>
+        <h3>Waresix Quotation System Redesign</h3>
+        <p>Quotation was too slow — sales were slipping. Led cross-functional research and redesign of key workflows for 1,500+ enterprise clients. Result: <strong>57.2% reduction in quotation time</strong>, 66% increase in user adoption, 95.5% delivery fulfillment.</p>
+        <div class="project-chips">
+          <span class="project-chip">User Research</span>
+          <span class="project-chip">Cross-functional</span>
+          <span class="project-chip">Design System</span>
+          <span class="project-chip">A/B Testing</span>
+          <span class="project-chip">WCAG</span>
+        </div>
+        <span class="project-link">View case study →</span>
+      </div>
+    </a>
+
+    <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank" class="project-card">
+      <div class="project-img"><img src="https://erlanggarianto.github.io/assets/Rumah Siap Kerja.png" alt="Rumah Siap Kerja"></div>
+      <div class="project-body">
+        <p class="project-cat">EdTech · B2C · Mobile App</p>
+        <h3>Rumah Siap Kerja: Class Market & Learning</h3>
+        <p>Redesigned funnel for 650K+ users. Sales grew from <strong>~5K to ~712K</strong> and completions from ~4K to ~459K through mobile-first redesign and IA restructuring.</p>
+        <div class="project-chips">
+          <span class="project-chip">Funnel Analysis</span>
+          <span class="project-chip">Mobile UX</span>
+          <span class="project-chip">IA Redesign</span>
+        </div>
+        <span class="project-link">View case study →</span>
+      </div>
+    </a>
+
+    <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank" class="project-card">
+      <div class="project-img"><img src="https://erlanggarianto.github.io/assets/Suarise.png" alt="Suarise"></div>
+      <div class="project-body">
+        <p class="project-cat">Social Enterprise · Design System</p>
+        <h3>Suarise Accessible Design System</h3>
+        <p>Built a WCAG-compliant design system with <strong>24 components</strong>, real user testing, and full guidelines for typography, colors, and iconography — advancing inclusive design in Indonesia.</p>
+        <div class="project-chips">
+          <span class="project-chip">Accessibility</span>
+          <span class="project-chip">WCAG</span>
+          <span class="project-chip">Component Library</span>
+        </div>
+        <span class="project-link">View case study →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section id="resume">
+  <p class="section-eyebrow">Experience & Education</p>
+  <h2 class="section-title">My journey so far</h2>
+  <div class="resume-layout">
+    <div class="resume-col">
+      <h3>Work Experience</h3>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Aug 2025 – Present</div><div class="tl-role">UI/UX Designer</div><div class="tl-company">DOT · B2B Tech Agency, Indonesia</div><div class="tl-desc">Partnered with a UAE enterprise spanning 30+ countries. Designed 7+ interactive features, implemented design token system to streamline QA and developer handoff.</div></div></div>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Sep 2024 – Mar 2025</div><div class="tl-role">UI/UX Designer</div><div class="tl-company">Startrick · B2B Tech Agency, Malaysia</div><div class="tl-desc">Delivered solutions for 30+ Malaysian clients. Led product strategy for 8+ projects, conducted UX audits and competitive benchmarking across a cross-border team.</div></div></div>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Dec 2021 – Mar 2024</div><div class="tl-role">Product Designer</div><div class="tl-company">Waresix · B2B Logistics SaaS, Indonesia</div><div class="tl-desc">Served 1,500+ enterprise clients. Cut completion time 57.2%, boosted adoption 66%, achieved 95.5% delivery fulfillment. Mentored 4+ junior designers.</div></div></div>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Nov 2020 – Nov 2021</div><div class="tl-role">UI/UX Designer</div><div class="tl-company">Rumah Siap Kerja · B2C EdTech, Indonesia</div><div class="tl-desc">Scaled platform serving 650K+ users. Mobile-first redesign drove sales from ~5K to ~712K and completions from ~4K to ~459K.</div></div></div>
+    </div>
+    <div class="resume-col">
+      <h3>Education & Skills</h3>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Universitas Indonesia</div><div class="tl-role">Bachelor of Computer Science</div><div class="tl-company">Information Systems</div><div class="tl-desc">Foundation in systems thinking, HCI, and software engineering at Indonesia's top university.</div></div></div>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Google</div><div class="tl-role">UX Design Professional Certificate</div><div class="tl-company">Full design process · Research to testing</div></div></div>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Design & Research</div><div class="tl-role">Figma · Maze · FigJam · Miro · Stark</div><div class="tl-company">Photoshop · Illustrator · Forms</div></div></div>
+      <div class="tl"><div class="tl-bar"></div><div><div class="tl-date">Development</div><div class="tl-role">React · JavaScript · HTML · CSS</div><div class="tl-company">Cursor · GitHub · Webflow · Framer</div></div></div>
+    </div>
+  </div>
+  <div class="resume-cta">
+    <a href="https://erlanggarianto.github.io/assets/(Web)%20Erlangga_UXDesigner_ResumePortfolio.pdf" target="_blank" class="btn-glow">Download Full Resume (PDF)</a>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div style="text-align:center">
+    <p class="section-eyebrow" style="justify-content:center">Kind words</p>
+    <h2 class="section-title">What collaborators say</h2>
+  </div>
+  <div class="t-grid">
+    <div class="t-card">
+      <div class="t-qt">"</div>
+      <p class="t-text">I hired Erlangga for a website UI and what I got was far more. He ensured the design matched our brand and delivered insights beyond expectations. Worth every penny.</p>
+      <div class="t-author"><div class="t-av av1">FW</div><div><div class="t-name"><a href="https://www.linkedin.com/in/wajdifarid/" target="_blank" style="color:inherit;text-decoration:none;">Farid Wajdi</a></div><div class="t-role">Co-Founder, WedMemoir</div></div></div>
+    </div>
+    <div class="t-card">
+      <div class="t-qt">"</div>
+      <p class="t-text">Erlangga's adaptability and strategic thinking are exceptional. He translates complex requirements into elegant UX and consistently exceeds stakeholder expectations.</p>
+      <div class="t-author"><div class="t-av av2">AS</div><div><div class="t-name"><a href="https://www.linkedin.com/in/asapnugraha/" target="_blank" style="color:inherit;text-decoration:none;">Adi Saputra</a></div><div class="t-role">Design Manager, Waresix</div></div></div>
+    </div>
+    <div class="t-card">
+      <div class="t-qt">"</div>
+      <p class="t-text">He brings innovation, best practices, and positive energy. A solid UX/UI partner who makes digital products truly work.</p>
+      <div class="t-author"><div class="t-av av3">HA</div><div><div class="t-name"><a href="https://www.linkedin.com/in/hilmibukhori/" target="_blank" style="color:inherit;text-decoration:none;">Hilmi Aziz</a></div><div class="t-role">Product Manager, Rumah Siap Kerja</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-layout">
+    <div>
+      <p class="section-eyebrow">Get in touch</p>
+      <h2 class="section-title">Let's build something great</h2>
+      <p class="section-sub">Open to new roles, freelance projects, and collaborations. If you're building something meaningful — I'd love to hear about it.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/erlanggarianto/" target="_blank" class="contact-link"><div class="contact-link-icon">💼</div>linkedin.com/in/erlanggarianto</a>
+        <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank" class="contact-link"><div class="contact-link-icon">🎨</div>View Figma Portfolio</a>
+        <a href="https://github.com/erlanggarianto" target="_blank" class="contact-link"><div class="contact-link-icon">💻</div>github.com/erlanggarianto</a>
+        <div class="contact-link" style="cursor:default;"><div class="contact-link-icon">📍</div>Indonesia · Open to remote & relocation</div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="form-field"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="form-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+      </div>
+      <div class="form-field"><label>Subject</label><input type="text" placeholder="What's this about?"></div>
+      <div class="form-field"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+      <button class="btn-glow" style="align-self:flex-start;border:none;cursor:none;">Send message ✦</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Erlangga Rianto</span>
+  <span class="copy">© 2026 · Built with care</span>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/erlanggarianto/" target="_blank">LinkedIn</a>
+    <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank">Figma</a>
+    <a href="https://github.com/erlanggarianto" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx-5}px,${my-5}px)`;
+});
+
+(function animRing(){
+  rx += (mx - rx - 18) * 0.12;
+  ry += (my - ry - 18) * 0.12;
+  ring.style.transform = `translate(${rx}px,${ry}px)`;
+  requestAnimationFrame(animRing);
+})();
+
+document.querySelectorAll('a,button').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ ring.style.width='52px'; ring.style.height='52px'; ring.style.borderColor='rgba(0,212,255,0.8)'; });
+  el.addEventListener('mouseleave',()=>{ ring.style.width='36px'; ring.style.height='36px'; ring.style.borderColor='rgba(0,212,255,0.5)'; });
+});
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+  });
+}, {threshold:0.1});
+
+document.querySelectorAll('.project-card,.t-card,.tl,.about-grid,.contact-layout,.exp-badge').forEach(el => {
+  el.style.opacity='0';
+  el.style.transform='translateY(28px)';
+  el.style.transition='opacity 0.7s ease, transform 0.7s ease';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
