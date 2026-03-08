@@ -21,19 +21,22 @@ if (!isTouch) {
 // Hamburger menu
 const hamburger = document.getElementById('navHamburger');
 const navLinks = document.getElementById('navLinks');
+const navEl = hamburger.closest('nav');
+
+function closeMenu() {
+  hamburger.classList.remove('active');
+  navEl.classList.remove('menu-open');
+  document.body.style.overflow = '';
+}
 
 hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('active');
-  navLinks.classList.toggle('open');
-  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  const isOpen = navEl.classList.toggle('menu-open');
+  hamburger.classList.toggle('active', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 });
 
 navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    navLinks.classList.remove('open');
-    document.body.style.overflow = '';
-  });
+  link.addEventListener('click', closeMenu);
 });
 
 if (!isTouch) {
