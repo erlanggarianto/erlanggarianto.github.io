@@ -520,7 +520,7 @@ nav {
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--white-faint);
   font-weight: 600;
 }
 .card-status {
@@ -588,7 +588,7 @@ nav {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 1rem;
   font-weight: 700;
-  color: var(--cyan);
+  color: var(--white);
   display: block;
 }
 .stat-box .l {
@@ -607,10 +607,10 @@ nav {
 .card-tag {
   padding: 0.22rem 0.65rem;
   background: rgba(23, 64, 216, 0.08);
-  border: 1px solid rgba(23, 64, 216, 0.2);
+  border: 1px solid rgba(13, 17, 32, 0.15);
   border-radius: 100px;
   font-size: 0.67rem;
-  color: var(--blue);
+  color: var(--white-dim);
   font-weight: 500;
 }
 
@@ -658,7 +658,7 @@ section {
   font-size: 0.72rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--white-faint);
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -666,7 +666,7 @@ section {
   content: "";
   width: 22px;
   height: 1px;
-  background: var(--cyan);
+  background: var(--white-faint);
 }
 
 .section-title {
@@ -750,7 +750,7 @@ section {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 2.2rem;
   font-weight: 800;
-  color: var(--cyan);
+  color: var(--white);
   line-height: 1;
 }
 .exp-badge .el {
@@ -782,17 +782,17 @@ section {
 .skill-chip {
   padding: 0.32rem 0.9rem;
   background: rgba(23, 64, 216, 0.06);
-  border: 1px solid rgba(23, 64, 216, 0.18);
+  border: 1px solid rgba(13, 17, 32, 0.15);
   border-radius: 6px;
   font-size: 0.77rem;
-  color: var(--blue);
+  color: var(--white-dim);
   font-weight: 500;
   transition: all 0.2s;
 }
 .skill-chip:hover {
-  background: rgba(23, 64, 216, 0.13);
-  border-color: rgba(0, 96, 187, 0.35);
-  color: var(--cyan);
+  background: rgba(23, 64, 216, 0.1);
+  border-color: rgba(13, 17, 32, 0.25);
+  color: var(--white);
 }
 
 /* PROJECTS */
@@ -878,7 +878,7 @@ section {
   font-size: 0.69rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--white-faint);
   font-weight: 600;
   margin-bottom: 0.6rem;
 }
@@ -899,7 +899,7 @@ section {
   margin-bottom: 1.2rem;
 }
 .project-body p strong {
-  color: var(--cyan);
+  color: var(--white);
   font-weight: 600;
 }
 .project-chips {
@@ -959,7 +959,7 @@ section {
   margin-bottom: 2.2rem;
 }
 .tl-bar {
-  background: linear-gradient(to bottom, var(--cyan) 0%, transparent 100%);
+  background: linear-gradient(to bottom, var(--navy-mid) 0%, transparent 100%);
   position: relative;
 }
 .tl-bar::before {
@@ -975,7 +975,7 @@ section {
 }
 .tl-date {
   font-size: 0.69rem;
-  color: var(--cyan);
+  color: var(--white-faint);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1050,7 +1050,7 @@ section {
 .t-qt {
   font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 3.5rem;
-  color: var(--blue);
+  color: var(--white-dim);
   line-height: 0.7;
   margin-bottom: 1rem;
   opacity: 0.25;
