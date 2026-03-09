@@ -705,16 +705,11 @@ section {
 }
 .about-img-frame {
   width: 100%;
-  aspect-ratio: 4/5;
+  aspect-ratio: 3/2;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--border);
   position: relative;
-}
-.about-img-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 .about-img-frame::after {
   content: "";
@@ -725,6 +720,52 @@ section {
     transparent 55%,
     rgba(234, 237, 246, 0.35)
   );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.about-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.ac-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.9s ease;
+  will-change: opacity;
+}
+.ac-slide.ac-active {
+  opacity: 1;
+}
+
+.ac-dots {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(6px);
+  padding: 6px 10px;
+  border-radius: 100px;
+}
+.ac-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: background 0.3s, transform 0.3s;
+}
+.ac-dot.ac-dot-active {
+  background: #ffffff;
+  transform: scale(1.4);
 }
 .img-glow {
   position: absolute;

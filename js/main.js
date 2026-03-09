@@ -97,6 +97,30 @@ document
     io.observe(el);
   });
 
+// About section carousel
+const acSlides = document.querySelectorAll(".ac-slide");
+const acDots = document.querySelectorAll(".ac-dot");
+let acIndex = 0;
+let acTimer;
+
+function acGoTo(i) {
+  acSlides[acIndex].classList.remove("ac-active");
+  acDots[acIndex].classList.remove("ac-dot-active");
+  acIndex = (i + acSlides.length) % acSlides.length;
+  acSlides[acIndex].classList.add("ac-active");
+  acDots[acIndex].classList.add("ac-dot-active");
+}
+
+function acStart() {
+  acTimer = setInterval(() => acGoTo(acIndex + 1), 4000);
+}
+
+if (acSlides.length) {
+  acStart();
+  document.querySelector(".about-img-frame")?.addEventListener("mouseenter", () => clearInterval(acTimer));
+  document.querySelector(".about-img-frame")?.addEventListener("mouseleave", acStart);
+}
+
 // Contact form — validation + async submit
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
