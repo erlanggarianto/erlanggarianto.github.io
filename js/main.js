@@ -23,8 +23,8 @@ if (!isTouch) {
   });
 
   (function animRing() {
-    rx += (mx - rx - 18) * 0.12;
-    ry += (my - ry - 18) * 0.12;
+    rx += (mx - rx - 18) * 0.25;
+    ry += (my - ry - 18) * 0.25;
     ring.style.transform = `translate(${rx}px,${ry}px)`;
     requestAnimationFrame(animRing);
   })();

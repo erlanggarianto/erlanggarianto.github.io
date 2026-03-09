@@ -117,9 +117,9 @@ body {
   pointer-events: none;
   z-index: 9998;
   transition:
-    width 0.3s,
-    height 0.3s,
-    border-color 0.3s;
+    width 0.15s,
+    height 0.15s,
+    border-color 0.15s;
 }
 
 body::before {
