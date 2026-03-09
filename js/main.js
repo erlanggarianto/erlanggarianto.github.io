@@ -97,18 +97,81 @@ document
     io.observe(el);
   });
 
-// Contact form — async submit with status message
+// Contact form — validation + async submit
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 
+function setStatus(msg, type) {
+  formStatus.textContent = msg;
+  formStatus.className = "form-status" + (type ? ` form-status--${type}` : "");
+}
+
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function showFieldError(input, msg) {
+  input.classList.add("invalid");
+  input.setAttribute("aria-invalid", "true");
+  let err = input.parentElement.querySelector(".field-error");
+  if (!err) {
+    err = document.createElement("span");
+    err.className = "field-error";
+    input.parentElement.appendChild(err);
+  }
+  err.textContent = msg;
+}
+
+function clearFieldError(input) {
+  input.classList.remove("invalid");
+  input.removeAttribute("aria-invalid");
+  const err = input.parentElement.querySelector(".field-error");
+  if (err) err.textContent = "";
+}
+
 if (contactForm && formStatus) {
+  contactForm.querySelectorAll("input, textarea").forEach((el) => {
+    el.addEventListener("input", () => clearFieldError(el));
+  });
+
   contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    const nameEl = document.getElementById("contact-name");
+    const emailEl = document.getElementById("contact-email");
+    const messageEl = document.getElementById("contact-message");
+
+    [nameEl, emailEl, messageEl].forEach(clearFieldError);
+    setStatus("", "");
+
+    let valid = true;
+
+    if (!nameEl.value.trim()) {
+      showFieldError(nameEl, "Please enter your name.");
+      valid = false;
+    }
+    if (!emailEl.value.trim()) {
+      showFieldError(emailEl, "Please enter your email.");
+      valid = false;
+    } else if (!isValidEmail(emailEl.value.trim())) {
+      showFieldError(emailEl, "Please enter a valid email address.");
+      valid = false;
+    }
+    if (!messageEl.value.trim()) {
+      showFieldError(messageEl, "Please write a message.");
+      valid = false;
+    }
+
+    if (!valid) {
+      contactForm.querySelector(".invalid")?.focus();
+      return;
+    }
+
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.textContent;
     btn.disabled = true;
     btn.textContent = "Sending…";
-    formStatus.textContent = "";
+
     try {
       const res = await fetch(contactForm.action, {
         method: "POST",
@@ -116,16 +179,21 @@ if (contactForm && formStatus) {
         headers: { Accept: "application/json" },
       });
       if (res.ok) {
-        formStatus.textContent = "Message sent! I'll get back to you soon.";
+        setStatus("Message sent! I'll get back to you soon.", "success");
         contactForm.reset();
       } else {
-        formStatus.textContent =
-          "Something went wrong. Please try again or reach out via LinkedIn.";
+        setStatus(
+          "Something went wrong. Please try again or reach out via LinkedIn.",
+          "error",
+        );
       }
     } catch {
-      formStatus.textContent =
-        "Could not send — please check your connection and try again.";
+      setStatus(
+        "Could not send — please check your connection and try again.",
+        "error",
+      );
     }
+
     btn.disabled = false;
     btn.textContent = originalText;
   });
