@@ -1010,8 +1010,11 @@ section {
   left: -4px;
   width: 9px;
   height: 9px;
-  background: var(--cyan);
+  background: var(--white-faint);
   border-radius: 50%;
+}
+.resume-col .tl:first-of-type .tl-bar::before {
+  background: var(--cyan);
   box-shadow: 0 0 8px rgba(0, 96, 187, 0.4);
 }
 .tl-date {
