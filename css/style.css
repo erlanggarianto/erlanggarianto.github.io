@@ -1535,9 +1535,14 @@ nav.menu-open .nav-links .nav-cta {
   .projects-grid {
     grid-template-columns: 1fr;
   }
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
 
   .section-title {
-    font-size: 1.9rem;
+    font-size: 1.7rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   section {
     padding: 5rem 5%;
