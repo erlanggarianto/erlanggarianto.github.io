@@ -746,8 +746,8 @@ section {
 .ac-dots {
   position: absolute;
   bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 14px;
+  transform: none;
   display: flex;
   gap: 6px;
   z-index: 2;
