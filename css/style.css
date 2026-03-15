@@ -1,16 +1,16 @@
 :root {
-  --bg: #fdf5f5;
-  --bg2: #faecec;
+  --bg: #f7f7f7;
+  --bg2: #f0f0f0;
   --bg3: #ffffff;
-  --navy: #f5dede;
-  --navy-mid: #e0b8b8;
+  --navy: #e8e8e8;
+  --navy-mid: #c8c8c8;
   --blue: #b91c1c;
   --blue-glow: #dc2626;
   --cyan: #9f1515;
   --cyan-dim: rgba(159, 21, 21, 0.1);
-  --white: #1a0808;
-  --white-dim: rgba(26, 8, 8, 0.62);
-  --white-faint: rgba(26, 8, 8, 0.38);
+  --white: #111111;
+  --white-dim: rgba(17, 17, 17, 0.62);
+  --white-faint: rgba(17, 17, 17, 0.38);
   --border: rgba(185, 28, 28, 0.15);
   --border-bright: rgba(159, 21, 21, 0.3);
 }
@@ -142,7 +142,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1.4rem 5%;
-  background: rgba(253, 245, 245, 0.88);
+  background: rgba(247, 247, 247, 0.88);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
@@ -482,7 +482,7 @@ nav {
   width: 360px;
   background: linear-gradient(
     145deg,
-    rgba(245, 222, 222, 0.7) 0%,
+    rgba(235, 235, 235, 0.7) 0%,
     rgba(255, 255, 255, 0.95) 100%
   );
   border: 1px solid rgba(185, 28, 28, 0.18);
@@ -610,7 +610,7 @@ nav {
 .card-tag {
   padding: 0.22rem 0.65rem;
   background: rgba(185, 28, 28, 0.08);
-  border: 1px solid rgba(26, 8, 8, 0.15);
+  border: 1px solid rgba(17, 17, 17, 0.15);
   border-radius: 100px;
   font-size: 0.67rem;
   color: var(--white-dim);
@@ -722,7 +722,7 @@ section {
   background: linear-gradient(
     to bottom,
     transparent 55%,
-    rgba(250, 236, 236, 0.35)
+    rgba(240, 240, 240, 0.35)
   );
   pointer-events: none;
   z-index: 1;
@@ -828,7 +828,7 @@ section {
 .skill-chip {
   padding: 0.32rem 0.9rem;
   background: rgba(185, 28, 28, 0.06);
-  border: 1px solid rgba(26, 8, 8, 0.15);
+  border: 1px solid rgba(17, 17, 17, 0.15);
   border-radius: 6px;
   font-size: 0.77rem;
   color: var(--white-dim);
@@ -837,7 +837,7 @@ section {
 }
 .skill-chip:hover {
   background: rgba(185, 28, 28, 0.1);
-  border-color: rgba(26, 8, 8, 0.25);
+  border-color: rgba(17, 17, 17, 0.25);
   color: var(--white);
 }
 
@@ -1248,7 +1248,7 @@ section {
 .form-field input,
 .form-field textarea {
   background: var(--bg3);
-  border: 1px solid rgba(26, 8, 8, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.2);
   border-radius: 10px;
   padding: 0.82rem 1.1rem;
   color: var(--white);
@@ -1261,7 +1261,7 @@ section {
 }
 .form-field input::placeholder,
 .form-field textarea::placeholder {
-  color: rgba(26, 8, 8, 0.32);
+  color: rgba(17, 17, 17, 0.32);
 }
 .form-field input:focus,
 .form-field textarea:focus {
@@ -1326,7 +1326,7 @@ footer {
 footer .copy {
   font-size: 0.75rem;
   font-weight: 400;
-  color: rgba(26, 8, 8, 0.45);
+  color: rgba(17, 17, 17, 0.45);
 }
 .footer-links {
   display: flex;
@@ -1335,7 +1335,7 @@ footer .copy {
 .footer-links a {
   font-size: 0.75rem;
   font-weight: 500;
-  color: rgba(26, 8, 8, 0.55);
+  color: rgba(17, 17, 17, 0.55);
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -1472,7 +1472,7 @@ footer .copy {
 /* Mobile menu open — nav expands to full screen */
 nav.menu-open {
   bottom: 0;
-  background: rgba(253, 245, 245, 0.99);
+  background: rgba(247, 247, 247, 0.99);
   flex-direction: column;
   justify-content: center;
   align-items: center;
