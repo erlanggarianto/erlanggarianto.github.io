@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv \"About 1.webp\" \"About 2.webp\" \"About 3.webp\" \"About 4.webp\" \"About 5.webp\" \"About 6.webp\" images/about/)",
+      "Bash(mv Erlangga.webp images/)",
+      "Bash(mv Farid.webp Adi.webp Hilmi.webp images/avatars/)",
+      "Bash(mv \"Rumah Siap Kerja.webp\" Suarise.webp Waresix.webp images/projects/)",
+      "Bash(mv Erlangga_UXDesigner_Resume.pdf Erlangga_UXDesigner_Portfolio_DesignSystem.pdf Erlangga_UXDesigner_Portfolio_Website.pdf Erlangga_UXDesigner_Portfolio-MobileApp.pdf docs/)"
+    ]
+  }
+}

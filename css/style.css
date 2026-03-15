@@ -2,12 +2,12 @@
   --bg: #f7f7f7;
   --bg2: #f0f0f0;
   --bg3: #ffffff;
-  --navy: #e8e8e8;
-  --navy-mid: #c8c8c8;
-  --blue: #b91c1c;
-  --blue-glow: #dc2626;
-  --cyan: #9f1515;
-  --cyan-dim: rgba(159, 21, 21, 0.1);
+  --surface: #e8e8e8;
+  --divider: #c8c8c8;
+  --red: #b91c1c;
+  --red-hover: #dc2626;
+  --crimson: #9f1515;
+  --crimson-dim: rgba(159, 21, 21, 0.1);
   --white: #111111;
   --white-dim: rgba(17, 17, 17, 0.62);
   --white-faint: rgba(17, 17, 17, 0.38);
@@ -50,9 +50,9 @@ body {
   height: auto;
   overflow: visible;
   background: var(--bg3);
-  color: var(--cyan);
+  color: var(--crimson);
   padding: 0.6rem 1.2rem;
-  border: 2px solid var(--cyan);
+  border: 2px solid var(--crimson);
   border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 500;
@@ -60,22 +60,10 @@ body {
   text-decoration: none;
 }
 
-/* Screen-reader-only utility */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
 
 /* Focus visible — keyboard navigation indicator */
 :focus-visible {
-  outline: 2px solid var(--cyan);
+  outline: 2px solid var(--crimson);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -97,7 +85,7 @@ body {
 .cursor {
   width: 10px;
   height: 10px;
-  background: var(--cyan);
+  background: var(--crimson);
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -162,7 +150,7 @@ nav {
 .nav-dot {
   width: 7px;
   height: 7px;
-  background: var(--cyan);
+  background: var(--crimson);
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(159, 21, 21, 0.5);
   animation: pulse 2s ease infinite;
@@ -241,13 +229,13 @@ nav {
   transition: color 0.2s;
 }
 .nav-links a:hover {
-  color: var(--cyan);
+  color: var(--crimson);
 }
 .nav-cta {
   padding: 0.5rem 1.2rem !important;
   border: 1px solid var(--border-bright) !important;
   border-radius: 6px;
-  color: var(--cyan) !important;
+  color: var(--crimson) !important;
   font-weight: 600 !important;
   background: transparent;
   transition:
@@ -331,7 +319,7 @@ nav {
   font-size: 0.73rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--cyan);
+  color: var(--crimson);
   font-weight: 600;
   margin-bottom: 1.6rem;
   padding: 0.4rem 1rem 0.4rem 0.6rem;
@@ -346,7 +334,7 @@ nav {
 .eyebrow-dot {
   width: 6px;
   height: 6px;
-  background: var(--cyan);
+  background: var(--crimson);
   border-radius: 50%;
   box-shadow: 0 0 8px rgba(159, 21, 21, 0.5);
   animation: pulse 2s ease infinite;
@@ -367,9 +355,9 @@ nav {
 .grad-text {
   background: linear-gradient(
     90deg,
-    var(--blue) 0%,
-    var(--cyan) 50%,
-    var(--blue) 100%
+    var(--red) 0%,
+    var(--crimson) 50%,
+    var(--red) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -400,7 +388,7 @@ nav {
 
 .btn-glow {
   padding: 0.9rem 2rem;
-  background: var(--blue);
+  background: var(--red);
   color: white;
   border: none;
   border-radius: 8px;
@@ -414,7 +402,7 @@ nav {
   box-shadow: 0 4px 24px rgba(185, 28, 28, 0.35);
 }
 .btn-glow:hover {
-  background: var(--blue-glow);
+  background: var(--red-hover);
   box-shadow: 0 8px 40px rgba(185, 28, 28, 0.5);
   transform: translateY(-2px);
 }
@@ -459,7 +447,7 @@ nav {
   line-height: 1;
 }
 .stat-big span {
-  color: var(--cyan);
+  color: var(--crimson);
 }
 .stat-small {
   font-size: 0.75rem;
@@ -642,7 +630,7 @@ nav {
   font-size: 1.05rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--cyan);
+  color: var(--crimson);
 }
 .fb-lbl {
   color: var(--white-dim);
@@ -750,8 +738,8 @@ section {
 .ac-dots {
   position: absolute;
   bottom: 14px;
-  left: 14px;
-  transform: none;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 6px;
   z-index: 2;
@@ -785,7 +773,7 @@ section {
   position: absolute;
   bottom: -20px;
   right: -20px;
-  background: var(--navy);
+  background: var(--surface);
   border: 1px solid var(--border-bright);
   border-radius: 16px;
   padding: 1.1rem 1.5rem;
@@ -968,7 +956,7 @@ section {
   align-items: center;
   gap: 0.4rem;
   font-size: 0.82rem;
-  color: var(--cyan);
+  color: var(--crimson);
   font-weight: 600;
   transition: gap 0.2s;
 }
@@ -1006,7 +994,7 @@ section {
   margin-bottom: 2.2rem;
 }
 .tl-bar {
-  background: linear-gradient(to bottom, var(--navy-mid) 0%, transparent 100%);
+  background: linear-gradient(to bottom, var(--divider) 0%, transparent 100%);
   position: relative;
 }
 .tl-bar::before {
@@ -1020,7 +1008,7 @@ section {
   border-radius: 50%;
 }
 .resume-col .tl:first-of-type .tl-bar::before {
-  background: var(--cyan);
+  background: var(--crimson);
   box-shadow: 0 0 8px rgba(159, 21, 21, 0.4);
 }
 .tl-date {
@@ -1085,7 +1073,7 @@ section {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -1205,7 +1193,7 @@ section {
 }
 .contact-link:hover {
   border-color: var(--border-bright);
-  color: var(--cyan);
+  color: var(--crimson);
   background: rgba(159, 21, 21, 0.05);
   transform: translateX(3px);
 }
@@ -1340,7 +1328,7 @@ footer .copy {
   transition: color 0.2s;
 }
 .footer-links a:hover {
-  color: var(--cyan);
+  color: var(--crimson);
 }
 
 ::-webkit-scrollbar {
@@ -1350,11 +1338,11 @@ footer .copy {
   background: var(--bg2);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--navy-mid);
+  background: var(--divider);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--blue);
+  background: var(--red);
 }
 
 /* HAMBURGER */
@@ -1444,6 +1432,10 @@ footer .copy {
   }
   .about-img-frame {
     aspect-ratio: 3/2;
+  }
+  .ac-dots {
+    bottom: auto;
+    top: 14px;
   }
   .exp-badge {
     right: 10px;
