@@ -147,9 +147,16 @@
         letter-spacing: -0.01em;
       }
 
+      /* ── Wider inner (impact, full-bleed images) ── */
+      .cs-inner-wide {
+        max-width: 1040px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
       /* ── Section shell (full-width stripes) ── */
       .cs-section {
-        padding: 5rem 5%;
+        padding: 6rem 5%;
       }
       .cs-section--light { background: var(--bg); }
       .cs-section--tint  { background: var(--bg2); }
@@ -192,9 +199,9 @@
       }
       .cs-p {
         font-size: 0.96rem;
-        line-height: 1.85;
+        line-height: 1.9;
         color: var(--white-dim);
-        margin-bottom: 1.1rem;
+        margin-bottom: 1.4rem;
       }
       .cs-p strong { color: var(--white); font-weight: 600; }
 
@@ -316,14 +323,20 @@
         text-align: center;
         min-height: 200px;
       }
-      .cs-img-placeholder.ratio-wide { aspect-ratio: 16/9; min-height: unset; padding: 0; }
-      .cs-img-placeholder.ratio-tall { aspect-ratio: 4/3; min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-wide  { aspect-ratio: 16/9; min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-3-2   { aspect-ratio: 3/2;  min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-tall  { aspect-ratio: 4/3;  min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-2-1   { aspect-ratio: 2/1;  min-height: unset; padding: 0; }
       .cs-img-placeholder.ratio-wide,
-      .cs-img-placeholder.ratio-tall {
+      .cs-img-placeholder.ratio-3-2,
+      .cs-img-placeholder.ratio-tall,
+      .cs-img-placeholder.ratio-2-1 {
         position: relative;
       }
       .cs-img-placeholder.ratio-wide > *,
-      .cs-img-placeholder.ratio-tall > * {
+      .cs-img-placeholder.ratio-3-2 > *,
+      .cs-img-placeholder.ratio-tall > *,
+      .cs-img-placeholder.ratio-2-1 > * {
         position: absolute;
         left: 50%; top: 50%;
         transform: translate(-50%, -50%);
@@ -440,20 +453,20 @@
       }
       .cs-metric-before {
         font-family: "Plus Jakarta Sans", sans-serif;
-        font-size: 0.95rem;
+        font-size: 0.82rem;
         font-weight: 600;
         color: var(--white-faint);
         text-decoration: line-through;
         text-decoration-color: rgba(17,17,17,0.3);
         display: block;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.4rem;
       }
       .cs-metric-after {
         font-family: "Plus Jakarta Sans", sans-serif;
-        font-size: 2rem;
+        font-size: 2.8rem;
         font-weight: 800;
         color: var(--crimson);
-        letter-spacing: -0.03em;
+        letter-spacing: -0.04em;
         line-height: 1;
         display: block;
       }
@@ -471,13 +484,13 @@
         font-weight: 500;
       }
       .cs-metric-growth {
-        font-size: 0.7rem;
+        font-size: 0.76rem;
         font-weight: 700;
         color: #15803d;
         background: rgba(74,222,128,0.1);
         border: 1px solid rgba(74,222,128,0.22);
         border-radius: 100px;
-        padding: 0.15rem 0.55rem;
+        padding: 0.2rem 0.65rem;
       }
 
       /* ── Tools list ── */
@@ -516,6 +529,125 @@
         flex-wrap: wrap;
         gap: 0.5rem;
         margin-top: 1.2rem;
+      }
+
+      /* ── Reading progress bar ── */
+      .cs-progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 2px;
+        width: 0%;
+        background: var(--crimson);
+        z-index: 10000;
+        pointer-events: none;
+      }
+
+      /* ── Finding cards (Discovery friction points) ── */
+      .cs-findings {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin: 1.8rem 0;
+      }
+      .cs-finding-card {
+        display: grid;
+        grid-template-columns: 2.4rem 1fr;
+        gap: 1rem;
+        align-items: start;
+        padding: 1.25rem 1.4rem;
+        background: var(--bg3);
+        border: 1px solid var(--divider);
+        border-left: 3px solid var(--border);
+        border-radius: 0 10px 10px 0;
+      }
+      .cs-finding-num {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--white-dim);
+        opacity: 0.35;
+        line-height: 1.6;
+      }
+      .cs-finding-body {
+        font-size: 0.94rem;
+        line-height: 1.78;
+        color: var(--white-dim);
+      }
+      .cs-finding-body strong {
+        display: block;
+        font-weight: 700;
+        color: var(--white);
+        font-size: 0.93rem;
+        margin-bottom: 0.3rem;
+      }
+
+      /* ── Option A vs B cards ── */
+      .cs-option-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1.8rem 0;
+      }
+      .cs-option-card {
+        padding: 1.4rem 1.5rem;
+        border: 1px solid var(--divider);
+        border-radius: 12px;
+        background: var(--bg3);
+      }
+      .cs-option-card--b {
+        border-color: var(--white-faint);
+        background: var(--surface);
+      }
+      .cs-option-tag {
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--white-faint);
+        margin-bottom: 0.5rem;
+      }
+      .cs-option-title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 0.6rem;
+      }
+      .cs-option-body {
+        font-size: 0.9rem;
+        line-height: 1.75;
+        color: var(--white-dim);
+      }
+      @media (max-width: 600px) {
+        .cs-option-grid { grid-template-columns: 1fr; }
+      }
+
+      /* ── Iteration changes list (→ marker) ── */
+      .cs-ul--changes li::before {
+        content: "→";
+        background: none;
+        border-radius: 0;
+        width: auto;
+        height: auto;
+        font-size: 0.78rem;
+        color: var(--white-faint);
+        margin-top: 0.3rem;
+        flex-shrink: 0;
+      }
+
+      /* ── Design system chips (neutral override) ── */
+      .cs-chip-group .skill-chip {
+        background: var(--bg3);
+        border: 1px solid var(--divider);
+        color: var(--white-dim);
+        border-radius: 100px;
+        font-size: 0.76rem;
+        padding: 0.28rem 0.9rem;
+      }
+      .cs-chip-group .skill-chip:hover {
+        background: var(--surface);
+        border-color: var(--white-faint);
+        color: var(--white);
       }
 
       /* ── Section nav ── */
@@ -598,22 +730,17 @@
       }
       @media (max-width: 768px) {
         .cs-hero { padding: 6rem 5% 3.5rem; }
-        .cs-section { padding: 3.5rem 5%; }
+        .cs-section { padding: 4rem 5%; }
         .cs-metrics-grid { grid-template-columns: 1fr; }
         .cs-meta-item { flex: 1 1 120px; }
         .cs-next-inner { flex-direction: column; align-items: flex-start; }
         .cs-img-placeholder.ratio-wide,
-        .cs-img-placeholder.ratio-tall {
+        .cs-img-placeholder.ratio-3-2,
+        .cs-img-placeholder.ratio-tall,
+        .cs-img-placeholder.ratio-2-1 {
           aspect-ratio: unset;
           min-height: 160px;
-        }
-        .cs-img-placeholder.ratio-wide > *,
-        .cs-img-placeholder.ratio-tall > * {
-          position: static;
-          transform: none;
-        }
-        .cs-img-placeholder.ratio-wide,
-        .cs-img-placeholder.ratio-tall {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -621,12 +748,20 @@
           gap: 0.4rem;
           padding: 2rem;
         }
+        .cs-img-placeholder.ratio-wide > *,
+        .cs-img-placeholder.ratio-3-2 > *,
+        .cs-img-placeholder.ratio-tall > *,
+        .cs-img-placeholder.ratio-2-1 > * {
+          position: static;
+          transform: none;
+        }
       }
     </style>
   </head>
 
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="cs-progress" id="csProgress" aria-hidden="true"></div>
     <div class="cursor" id="cursor" aria-hidden="true"></div>
     <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
@@ -749,14 +884,26 @@
           <p class="cs-p">Phone interviews helped me understand why these problems were happening. Most of RSK's users had low digital literacy. Many had never used an e-learning app before. The app was not necessarily designed for advanced users. It was just cluttered and confusing, with too much going on and not enough clear direction for what to do next.</p>
           <p class="cs-p">I do not have exact drop-off numbers for each step, but the patterns from the tickets and interviews were consistent enough to identify four clear friction points:</p>
 
-          <ol class="cs-ol">
-            <li><div><strong>Registration felt too long.</strong> The sign-up form had too many required fields shown all at once. For users who were already unsure about using the app, this was overwhelming. Several people I interviewed said they gave up halfway through registration.</div></li>
-            <li><div><strong>Payment was where most users got stuck.</strong> Kartu Prakerja users needed to enter a redemption code to unlock a class. But the existing payment flow was confusing. There were multiple action buttons with unclear names, and the redemption code flow itself was hard to follow. Users did not understand what they were supposed to do at each step.</div></li>
-            <li><div><strong>The dashboard did not show what users were looking for.</strong> After buying a class, users came back to the app expecting to see their class right away. Instead, they landed on a homepage filled with promotional banners and announcements. Finding a purchased class or certificate took multiple taps through unclear menus.</div></li>
-            <li><div><strong>The learning experience gave no sense of progress.</strong> Inside a course, lessons appeared as a flat list with no progress indicators, completion markers, or feedback. Users could not tell how far along they were, what was left, or whether they passed.</div></li>
-          </ol>
+          <div class="cs-findings">
+            <div class="cs-finding-card">
+              <span class="cs-finding-num">1</span>
+              <div class="cs-finding-body"><strong>Registration felt too long.</strong>The sign-up form had too many required fields shown all at once. For users who were already unsure about using the app, this was overwhelming. Several people I interviewed said they gave up halfway through registration.</div>
+            </div>
+            <div class="cs-finding-card">
+              <span class="cs-finding-num">2</span>
+              <div class="cs-finding-body"><strong>Payment was where most users got stuck.</strong>Kartu Prakerja users needed to enter a redemption code to unlock a class. But the existing payment flow was confusing. There were multiple action buttons with unclear names, and the redemption code flow itself was hard to follow. Users did not understand what they were supposed to do at each step.</div>
+            </div>
+            <div class="cs-finding-card">
+              <span class="cs-finding-num">3</span>
+              <div class="cs-finding-body"><strong>The dashboard did not show what users were looking for.</strong>After buying a class, users came back to the app expecting to see their class right away. Instead, they landed on a homepage filled with promotional banners and announcements. Finding a purchased class or certificate took multiple taps through unclear menus.</div>
+            </div>
+            <div class="cs-finding-card">
+              <span class="cs-finding-num">4</span>
+              <div class="cs-finding-body"><strong>The learning experience gave no sense of progress.</strong>Inside a course, lessons appeared as a flat list with no progress indicators, completion markers, or feedback. Users could not tell how far along they were, what was left, or whether they passed.</div>
+            </div>
+          </div>
 
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="User persona — Fani, showing her goals, frustrations, and background">
+          <div class="cs-img-placeholder ratio-tall" role="img" aria-label="User persona — Fani, showing her goals, frustrations, and background">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">User Persona — Fani</span>
             <span class="cs-img-ph-sub">Goals, frustrations, and background</span>
@@ -804,8 +951,18 @@
           <p class="cs-section-label">Strategy</p>
           <h2 class="cs-h2">The Strategic Decision: Structural Redesign Over Quick Fixes</h2>
           <p class="cs-p">At this point the project could have gone two ways.</p>
-          <p class="cs-p"><strong>Option A: Small fixes.</strong> Improve button labels, add clearer payment instructions, redesign a few cards. Lower risk and faster to ship, but unlikely to change much because the underlying structure was the problem.</p>
-          <p class="cs-p"><strong>Option B: Full structural redesign.</strong> Rebuild the information architecture, restructure every core flow, and simplify aggressively. More work and more risk, but it addressed the actual root cause.</p>
+          <div class="cs-option-grid">
+            <div class="cs-option-card cs-option-card--a">
+              <div class="cs-option-tag">Option A</div>
+              <div class="cs-option-title">Small fixes</div>
+              <div class="cs-option-body">Improve button labels, add clearer payment instructions, redesign a few cards. Lower risk and faster to ship, but unlikely to change much because the underlying structure was the problem.</div>
+            </div>
+            <div class="cs-option-card cs-option-card--b">
+              <div class="cs-option-tag">Option B — chosen</div>
+              <div class="cs-option-title">Full structural redesign</div>
+              <div class="cs-option-body">Rebuild the information architecture, restructure every core flow, and simplify aggressively. More work and more risk, but it addressed the actual root cause.</div>
+            </div>
+          </div>
           <p class="cs-p">I pushed for Option B. The patterns from my research showed that users were not just failing at one step. Registration, payment, class discovery, learning, and certification all had problems. The app had grown organically without a clear structure, and it showed. Fixing individual screens would not solve that.</p>
           <p class="cs-p">My goal was to reduce every core flow to as few steps as possible. Sign up, find a class, buy it, start learning, get your certificate. If any of these flows felt long or complicated, the information architecture needed to change.</p>
 
@@ -831,7 +988,7 @@
             <li><div><strong>Track progress</strong> — Dashboard with classes, grades, and certificates</div></li>
           </ol>
 
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Information architecture diagram, old vs new structure">
+          <div class="cs-img-placeholder ratio-2-1" role="img" aria-label="Information architecture diagram, old vs new structure">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Information Architecture Diagram</span>
             <span class="cs-img-ph-sub">Old vs. new IA structure</span>
@@ -851,7 +1008,7 @@
 
           <h3 class="cs-h3">Registration: fewer fields + social sign-in</h3>
           <p class="cs-p">Users abandoned registration because it felt too long. I removed non-essential fields and added Google sign-in as the primary option so users could register with one tap. Manual registration kept only four fields: name, email, phone, password. Since Kartu Prakerja required the registered name to match government records, I added clear helper text explaining this upfront instead of letting users fail later at payment.</p>
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Registration screen redesign, before and after">
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Registration screen redesign, before and after">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Registration Screen Redesign</span>
             <span class="cs-img-ph-sub">Before and after</span>
@@ -859,7 +1016,7 @@
 
           <h3 class="cs-h3">Catalog and search: category chips + unified search</h3>
           <p class="cs-p">Users could not find relevant classes in the existing layout. I replaced the cluttered homepage grid with a clean catalog using category filter chips (Business & Finance, IT, Marketing, etc.) and a search that showed both individual classes and categories. I added sort options (highest rating, newest, price) so users could narrow results quickly.</p>
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Catalog, search, and filter screens">
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Catalog, search, and filter screens">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Catalog, Search, and Filter Screens</span>
             <span class="cs-img-ph-sub">Category chips and unified search</span>
@@ -867,7 +1024,7 @@
 
           <h3 class="cs-h3">Class details: sticky buy button + clear syllabus</h3>
           <p class="cs-p">Users were not sure what a class included before buying. I redesigned the class detail page with a purchase button that stayed visible at the bottom of the screen, learning outcomes shown near the top ("What did you get from this class?"), and an expandable syllabus with module names and durations. Users could see exactly what they would get before they committed.</p>
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Class details and syllabus screens">
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Class details and syllabus screens">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Class Details and Syllabus Screens</span>
             <span class="cs-img-ph-sub">Sticky CTA and expandable syllabus</span>
@@ -875,7 +1032,7 @@
 
           <h3 class="cs-h3">Payment: default to Kartu Prakerja + simplified flow</h3>
           <p class="cs-p">Payment was the biggest source of confusion. Since almost all users paid with Kartu Prakerja, I made it the default payment method. I simplified the redemption code flow by removing the confusing action buttons and replacing them with a clear, single-step input for the voucher code with short explanation text on the screen. Other payment methods like bank transfer were available through a "Change Method" button but did not compete for attention.</p>
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Payment flow screens, Kartu Prakerja default and alternative method">
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Payment flow screens, Kartu Prakerja default and alternative method">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Payment Flow Screens</span>
             <span class="cs-img-ph-sub">Kartu Prakerja default and alternative method</span>
@@ -883,7 +1040,7 @@
 
           <h3 class="cs-h3">Dashboard: My Class tab</h3>
           <p class="cs-p">Users could not find their purchased classes or certificates. I made "My Class" the default dashboard tab with search and sort. Certificates were accessible right from the completed class card instead of being in a separate section. I also added a grade chart showing test scores against the passing threshold so users could see how they were doing at a glance.</p>
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Dashboard, navigation menu, and grading screens">
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Dashboard, navigation menu, and grading screens">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Dashboard, Navigation Menu, and Grading Screens</span>
             <span class="cs-img-ph-sub">My Class tab and grade chart</span>
@@ -891,7 +1048,7 @@
 
           <h3 class="cs-h3">Learning experience: playlist structure + quizzes</h3>
           <p class="cs-p">Flat lesson lists gave users no sense of progress. I restructured course content into a playlist-style player with collapsible modules, time durations, and clear indicators for completed and current lessons. Quizzes between modules gave immediate feedback (showing the correct answer and explanation) to keep users engaged. I also added a workbook/essay section for hands-on practice.</p>
-          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Class learning, readings, quizzes, and essay screens">
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Class learning, readings, quizzes, and essay screens">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Class Learning, Readings, Quizzes, and Essay Screens</span>
             <span class="cs-img-ph-sub">Playlist player and quiz flow</span>
@@ -899,7 +1056,7 @@
 
           <h3 class="cs-h3">Help center: in-app Kartu Prakerja guide</h3>
           <p class="cs-p">Customer support was overwhelmed with Kartu Prakerja questions. I built an in-app help center with step-by-step visual guides for common questions like how to register for Kartu Prakerja and how to redeem vouchers. This reduced support tickets because customer service could now redirect users to the help center instead of answering the same questions repeatedly. It also helped prevent the payment confusion that was causing drop-off in the first place.</p>
-          <div class="cs-img-placeholder ratio-tall" role="img" aria-label="Help center screen">
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Help center screen">
             <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
             <span class="cs-img-ph-label">Help Center Screen</span>
             <span class="cs-img-ph-sub">In-app Kartu Prakerja guide</span>
@@ -958,7 +1115,7 @@
           </ol>
 
           <h3 class="cs-h3">What I changed after Round 1</h3>
-          <ul class="cs-ul">
+          <ul class="cs-ul cs-ul--changes">
             <li>Added a visible "Prakerja" badge on eligible course cards in the catalog so users could spot them without opening each class.</li>
             <li>Added Active/Completed filter tabs to the dashboard so completed classes (with certificate downloads) were immediately accessible.</li>
             <li>Added direct links to the marketplaces (Tokopedia, Bukalapak, etc.) on the payment screen so users could easily go buy the redemption code and come back to enter it.</li>
@@ -979,7 +1136,8 @@
         <div class="cs-inner">
           <p class="cs-section-label">Results</p>
           <h2 class="cs-h2">Impact</h2>
-
+        </div>
+        <div class="cs-inner-wide">
           <div class="cs-metrics-grid">
             <div class="cs-metric-card">
               <div class="cs-metric-label">Total Customers</div>
@@ -1009,7 +1167,8 @@
               </div>
             </div>
           </div>
-
+        </div>
+        <div class="cs-inner">
           <div class="cs-callout">
             <p>Note: some classes issued multiple certificates, which is why the certificate count is higher than redemptions.</p>
             <p>I want to be upfront about something. These numbers reflect both the redesign and the broader growth of the Kartu Prakerja program during this period. The government was enrolling many more citizens, so RSK was receiving a lot more traffic regardless.</p>
@@ -1136,6 +1295,17 @@
 
     <script src="js/main.js"></script>
     <script>
+      // Reading progress bar
+      (function () {
+        const bar = document.getElementById('csProgress');
+        if (!bar) return;
+        window.addEventListener('scroll', function () {
+          const scrolled = window.scrollY;
+          const total = document.documentElement.scrollHeight - window.innerHeight;
+          bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+        }, { passive: true });
+      })();
+
       // Section nav active state
       (function () {
         const navLinks = document.querySelectorAll('.cs-section-nav a');
