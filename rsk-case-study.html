@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSK Case Study — Erlangga Rianto</title>
+    <meta name="description" content="Redesigning an EdTech Mobile App: From ~5K to ~712K Certificates in One Year. A UX case study by Erlangga Rianto." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/webp" href="./assets/favicon.webp" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+
+      /* ── Shared inner width ── */
+      .cs-inner {
+        max-width: 780px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* ── Breadcrumb (lives inside hero) ── */
+      .cs-breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.78rem;
+        color: var(--white-faint);
+        font-weight: 500;
+        margin-bottom: 1.8rem;
+      }
+      .cs-breadcrumb a {
+        color: var(--white-faint);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .cs-breadcrumb a:hover { color: var(--crimson); }
+      .cs-breadcrumb-sep { opacity: 0.35; margin: 0 0.1rem; }
+      .cs-breadcrumb-current { color: var(--white-dim); }
+
+      /* ── Hero ── */
+      .cs-hero {
+        background: var(--bg);
+        padding: 7rem 5% 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Grid lines — same as main site hero */
+      .cs-hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(185,28,28,0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(185,28,28,0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 0%, transparent 100%);
+        pointer-events: none;
+      }
+      .cs-hero-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+      }
+      .cs-hero-orb-1 {
+        width: 600px; height: 600px;
+        top: -200px; right: -100px;
+        background: radial-gradient(circle, rgba(185,28,28,0.12) 0%, transparent 70%);
+      }
+      .cs-hero-orb-2 {
+        width: 380px; height: 380px;
+        bottom: -80px; left: -60px;
+        background: radial-gradient(circle, rgba(159,21,21,0.08) 0%, transparent 70%);
+      }
+      .cs-hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 860px;
+      }
+      .cs-hero-cat {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--crimson);
+        font-weight: 600;
+        margin-bottom: 1.6rem;
+        padding: 0.35rem 1rem 0.35rem 0.65rem;
+        background: rgba(159,21,21,0.07);
+        border: 1px solid rgba(159,21,21,0.2);
+        border-radius: 100px;
+      }
+      .cs-hero-cat span {
+        width: 5px; height: 5px;
+        background: var(--crimson);
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(159,21,21,0.5);
+        animation: pulse 2s ease infinite;
+      }
+      .cs-hero h1 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: clamp(2.2rem, 4vw, 3.6rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.08;
+        color: var(--white);
+        margin-bottom: 1.4rem;
+        max-width: 820px;
+      }
+      .cs-hero-summary {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: var(--white-dim);
+        max-width: 580px;
+        margin-bottom: 3rem;
+      }
+      .cs-meta-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--border);
+        max-width: 860px;
+      }
+      .cs-meta-item {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 0.9rem 1.3rem;
+        flex: 1 1 130px;
+      }
+      .cs-meta-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+      .cs-meta-value {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: -0.01em;
+      }
+
+      /* ── Section shell (full-width stripes) ── */
+      .cs-section {
+        padding: 5rem 5%;
+      }
+      .cs-section--light { background: var(--bg); }
+      .cs-section--tint  { background: var(--bg2); }
+
+      /* ── Section header ── */
+      .cs-section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        margin-bottom: 0.7rem;
+      }
+      .cs-section-label::before {
+        content: "";
+        width: 20px; height: 1px;
+        background: var(--divider);
+      }
+      .cs-h2 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--white);
+        line-height: 1.15;
+        margin-bottom: 1.6rem;
+      }
+      .cs-h3 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: -0.01em;
+        margin: 2.2rem 0 0.6rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .cs-p {
+        font-size: 0.96rem;
+        line-height: 1.85;
+        color: var(--white-dim);
+        margin-bottom: 1.1rem;
+      }
+      .cs-p strong { color: var(--white); font-weight: 600; }
+
+      /* ── Numbered list ── */
+      .cs-ol {
+        list-style: none;
+        counter-reset: cs-counter;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        margin: 1.4rem 0;
+      }
+      .cs-ol li {
+        counter-increment: cs-counter;
+        display: grid;
+        grid-template-columns: 2rem 1fr;
+        gap: 0.9rem;
+        align-items: start;
+        font-size: 0.95rem;
+        line-height: 1.78;
+        color: var(--white-dim);
+      }
+      .cs-ol li::before {
+        content: counter(cs-counter);
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 700;
+        font-size: 0.75rem;
+        color: var(--white-dim);
+        background: var(--surface);
+        border: 1px solid var(--divider);
+        border-radius: 6px;
+        width: 1.75rem; height: 1.75rem;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        margin-top: 0.1rem;
+      }
+      .cs-ol li strong { color: var(--white); font-weight: 600; }
+
+      /* ── Bullet list ── */
+      .cs-ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin: 1.2rem 0;
+      }
+      .cs-ul li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        font-size: 0.95rem;
+        line-height: 1.78;
+        color: var(--white-dim);
+      }
+      .cs-ul li::before {
+        content: "";
+        width: 4px; height: 4px;
+        background: var(--divider);
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 0.7rem;
+      }
+      .cs-ul li strong { color: var(--white); font-weight: 600; }
+
+      /* ── Item list (title + description, stacked cards) ── */
+      .cs-item-list {
+        list-style: none;
+        margin: 1.4rem 0;
+        border: 1px solid var(--divider);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .cs-item-list li {
+        padding: 1.1rem 1.4rem;
+        border-bottom: 1px solid var(--divider);
+        font-size: 0.93rem;
+        line-height: 1.75;
+        color: var(--white-dim);
+      }
+      .cs-item-list li:last-child { border-bottom: none; }
+      .cs-item-list li strong {
+        display: block;
+        color: var(--white);
+        font-weight: 600;
+        font-size: 0.88rem;
+        margin-bottom: 0.2rem;
+      }
+
+      /* ── Callout (neutral) ── */
+      .cs-callout {
+        background: var(--bg2);
+        border: 1px solid var(--divider);
+        border-radius: 10px;
+        padding: 1.4rem 1.6rem;
+        margin: 2rem 0;
+      }
+      .cs-callout p {
+        font-size: 0.94rem;
+        line-height: 1.82;
+        color: var(--white-dim);
+        margin: 0;
+      }
+      .cs-callout p + p { margin-top: 0.9rem; }
+      .cs-callout strong { color: var(--white); font-weight: 600; }
+
+      /* ── Image placeholders ── */
+      .cs-img-placeholder {
+        width: 100%;
+        background: var(--surface);
+        border: 1.5px dashed var(--divider);
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 3rem 2rem;
+        margin: 2rem 0;
+        text-align: center;
+        min-height: 200px;
+      }
+      .cs-img-placeholder.ratio-wide { aspect-ratio: 16/9; min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-tall { aspect-ratio: 4/3; min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-wide,
+      .cs-img-placeholder.ratio-tall {
+        position: relative;
+      }
+      .cs-img-placeholder.ratio-wide > *,
+      .cs-img-placeholder.ratio-tall > * {
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .cs-img-ph-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.4rem;
+        display: block;
+        opacity: 0.4;
+      }
+      .cs-img-ph-label {
+        font-size: 0.82rem;
+        color: var(--white-dim);
+        font-weight: 600;
+        display: block;
+      }
+      .cs-img-ph-sub {
+        font-size: 0.72rem;
+        color: var(--white-faint);
+        display: block;
+        margin-top: 0.2rem;
+      }
+
+      /* ── Two-col image grid ── */
+      .cs-img-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      /* ── Usability table ── */
+      .cs-table-wrap {
+        overflow-x: auto;
+        margin: 1.8rem 0;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--bg3);
+      }
+      .cs-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+      }
+      .cs-table th {
+        background: var(--bg2);
+        padding: 0.85rem 1.3rem;
+        text-align: left;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 700;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--white-dim);
+        border-bottom: 1px solid var(--border);
+      }
+      .cs-table td {
+        padding: 0.9rem 1.3rem;
+        border-bottom: 1px solid var(--border);
+        color: var(--white-dim);
+        line-height: 1.6;
+      }
+      .cs-table tr:last-child td { border-bottom: none; }
+      .cs-rate-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: 100px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .cs-rate-100 {
+        background: rgba(74,222,128,0.12);
+        color: #15803d;
+        border: 1px solid rgba(74,222,128,0.28);
+      }
+      .cs-rate-80 {
+        background: rgba(251,191,36,0.12);
+        color: #b45309;
+        border: 1px solid rgba(251,191,36,0.3);
+      }
+
+      /* ── Impact metrics ── */
+      .cs-metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        margin: 2.2rem 0;
+      }
+      .cs-metric-card {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.6rem 1.4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .cs-metric-card::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 1px;
+        background: var(--divider);
+      }
+      .cs-metric-label {
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        margin-bottom: 1.1rem;
+      }
+      .cs-metric-before {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--white-faint);
+        text-decoration: line-through;
+        text-decoration-color: rgba(17,17,17,0.3);
+        display: block;
+        margin-bottom: 0.25rem;
+      }
+      .cs-metric-after {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--crimson);
+        letter-spacing: -0.03em;
+        line-height: 1;
+        display: block;
+      }
+      .cs-metric-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+        padding-top: 0.9rem;
+        border-top: 1px solid var(--border);
+      }
+      .cs-metric-year {
+        font-size: 0.66rem;
+        color: var(--white-faint);
+        font-weight: 500;
+      }
+      .cs-metric-growth {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #15803d;
+        background: rgba(74,222,128,0.1);
+        border: 1px solid rgba(74,222,128,0.22);
+        border-radius: 100px;
+        padding: 0.15rem 0.55rem;
+      }
+
+      /* ── Tools list ── */
+      .cs-tools-list {
+        margin: 1.4rem 0;
+        border: 1px solid var(--divider);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .cs-tool-item {
+        display: grid;
+        grid-template-columns: 7rem 1fr;
+        gap: 1.2rem;
+        align-items: baseline;
+        padding: 1rem 1.4rem;
+        border-bottom: 1px solid var(--divider);
+      }
+      .cs-tool-item:last-child { border-bottom: none; }
+      .cs-tool-category {
+        font-size: 0.65rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .cs-tool-value {
+        font-size: 0.9rem;
+        color: var(--white-dim);
+        line-height: 1.65;
+      }
+
+      /* ── Chip group ── */
+      .cs-chip-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.2rem;
+      }
+
+      /* ── Section nav ── */
+      .cs-section-nav {
+        position: sticky;
+        top: 58px;
+        z-index: 90;
+        background: rgba(247,247,247,0.94);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--divider);
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .cs-section-nav::-webkit-scrollbar { display: none; }
+      .cs-section-nav-inner {
+        display: flex;
+        padding: 0 5%;
+        width: max-content;
+        min-width: 100%;
+      }
+      .cs-section-nav a {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--white-faint);
+        text-decoration: none;
+        white-space: nowrap;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
+        letter-spacing: 0.01em;
+      }
+      .cs-section-nav a:hover { color: var(--white-dim); }
+      .cs-section-nav a.cs-nav-active {
+        color: var(--white);
+        border-bottom-color: var(--white);
+      }
+      @media (max-width: 640px) {
+        .cs-section-nav-inner { padding: 0 1rem; }
+        .cs-section-nav a { padding: 0.35rem 0.6rem; font-size: 0.72rem; }
+      }
+
+      /* ── Next project ── */
+      .cs-next {
+        background: var(--bg2);
+        border-top: 1px solid var(--border);
+        padding: 5rem 5%;
+      }
+      .cs-next-inner {
+        max-width: 780px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .cs-next-label {
+        font-size: 0.66rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .cs-next-title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--white);
+        letter-spacing: -0.02em;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 900px) {
+        .cs-metrics-grid { grid-template-columns: 1fr 1fr; }
+        .cs-img-2col { grid-template-columns: 1fr; }
+        .cs-tools-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 768px) {
+        .cs-hero { padding: 6rem 5% 3.5rem; }
+        .cs-section { padding: 3.5rem 5%; }
+        .cs-metrics-grid { grid-template-columns: 1fr; }
+        .cs-meta-item { flex: 1 1 120px; }
+        .cs-next-inner { flex-direction: column; align-items: flex-start; }
+        .cs-img-placeholder.ratio-wide,
+        .cs-img-placeholder.ratio-tall {
+          aspect-ratio: unset;
+          min-height: 160px;
+        }
+        .cs-img-placeholder.ratio-wide > *,
+        .cs-img-placeholder.ratio-tall > * {
+          position: static;
+          transform: none;
+        }
+        .cs-img-placeholder.ratio-wide,
+        .cs-img-placeholder.ratio-tall {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          padding: 2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+    <nav aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Erlangga Rianto, Home">
+        <span class="nav-dot" aria-hidden="true"></span>Erlangga Rianto
+      </a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#projects">Work</a></li>
+        <li><a href="/#resume">Resume</a></li>
+        <li><a href="/#testimonials">Reviews</a></li>
+        <li><a href="/#contact" class="nav-cta">Let's talk</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-content">
+
+      <!-- Hero (breadcrumb lives inside) -->
+      <section class="cs-hero" aria-label="Case study introduction">
+        <div class="cs-hero-grid" aria-hidden="true"></div>
+        <div class="cs-hero-orb cs-hero-orb-1" aria-hidden="true"></div>
+        <div class="cs-hero-orb cs-hero-orb-2" aria-hidden="true"></div>
+        <div class="cs-hero-inner">
+          <nav class="cs-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span class="cs-breadcrumb-sep" aria-hidden="true">›</span>
+            <a href="/#projects">Work</a>
+            <span class="cs-breadcrumb-sep" aria-hidden="true">›</span>
+            <span class="cs-breadcrumb-current">Rumah Siap Kerja</span>
+          </nav>
+          <div class="cs-hero-cat">
+            <span aria-hidden="true"></span>EdTech · B2C · Mobile App
+          </div>
+          <h1>Redesigning an EdTech Mobile App: From ~5K to ~712K Certificates in One Year</h1>
+          <p class="cs-hero-summary">
+            Rumah Siap Kerja's app was confusing users at every step. I rebuilt the information architecture, simplified every core flow, and built a component system — helping the platform scale from ~8K to ~574K+ customers in one year.
+          </p>
+          <div class="cs-meta-grid">
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Role</div>
+              <div class="cs-meta-value">Lead UX Designer</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Team</div>
+              <div class="cs-meta-value">2 Interns · PMs · Eng</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Duration</div>
+              <div class="cs-meta-value">~1 Month Intensive</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Platform</div>
+              <div class="cs-meta-value">Mobile App</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Tools</div>
+              <div class="cs-meta-value">Figma · Maze</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section nav -->
+      <nav class="cs-section-nav" aria-label="Case study sections">
+        <div class="cs-section-nav-inner">
+          <a href="#s-overview">Overview</a>
+          <a href="#s-context">Context</a>
+          <a href="#s-discovery">Discovery</a>
+          <a href="#s-audit">UX Audit</a>
+          <a href="#s-strategy">Strategy</a>
+          <a href="#s-ia">Architecture</a>
+          <a href="#s-design">Design</a>
+          <a href="#s-testing">Testing</a>
+          <a href="#s-impact">Impact</a>
+          <a href="#s-system">Design System</a>
+          <a href="#s-reflection">Reflection</a>
+          <a href="#s-tools">Tools</a>
+        </div>
+      </nav>
+
+      <!-- 01 The Short Version -->
+      <section id="s-overview" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Overview</p>
+          <h2 class="cs-h2">The Short Version</h2>
+          <p class="cs-p">Rumah Siap Kerja (RSK) is an Indonesian edtech platform partnered with Kartu Prakerja, a government program that gives citizens vouchers to take online job-skills courses. When I joined, the platform had around 8K+ users with about ~5K+ redemptions and ~4K+ certificates. Almost all of these users came through Kartu Prakerja, and the program was about to scale up significantly.</p>
+          <p class="cs-p">Through user interviews, support ticket analysis, and usability audits, I found that users were motivated to learn but the app was cluttered and confusing. The payment flow had unclear action buttons, the homepage was overloaded with banners, and the dashboard buried the things users needed most.</p>
+          <p class="cs-p">I restructured the information architecture, simplified every core flow, and built a component system to keep the experience consistent. From 2020 to 2021, total customers grew to ~574K+, total redemptions reached ~459K+, and total certificates issued grew to ~712K+.</p>
+        </div>
+      </section>
+
+      <!-- 02 Context -->
+      <section id="s-context" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Context</p>
+          <h2 class="cs-h2">Context</h2>
+
+          <h3 class="cs-h3">What is Rumah Siap Kerja?</h3>
+          <p class="cs-p">RSK is an online learning platform where Indonesian citizens can take video courses on topics like business, marketing, IT, and agriculture. Most of its users are fresh graduates or workers looking to pick up new job skills. Almost all users pay using Kartu Prakerja vouchers from the government. The payment process involves entering a redemption code that users purchase from a third-party marketplace (like Tokopedia or Bukalapak). This is not a standard checkout, and the existing flow at the time made it even more confusing than it needed to be.</p>
+
+          <h3 class="cs-h3">Why this project mattered</h3>
+          <p class="cs-p">The Kartu Prakerja program was growing fast, and RSK needed to keep up. The platform had around 8K+ users when I joined, with ~5K+ redemptions and ~4K+ certificates. While conversion was not terrible, RSK was about to receive a lot more traffic as the government scaled up enrollment. Since almost all users came through Kartu Prakerja, the voucher purchase and learning flow needed to be smooth enough to handle that growth. If users found the experience confusing, they would just go to a competing platform.</p>
+
+          <h3 class="cs-h3">My role</h3>
+          <p class="cs-p">I was the lead and sole UX designer. I managed two design interns and worked with PMs, engineers, marketing, and C-level stakeholders. I owned the full process: research, IA restructuring, interaction design, prototyping, usability testing, and design iteration. The intensive redesign work took about one month.</p>
+        </div>
+      </section>
+
+      <!-- 03 Discovery -->
+      <section id="s-discovery" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Research</p>
+          <h2 class="cs-h2">Discovery: Understanding What Was Going Wrong</h2>
+          <p class="cs-p">I started with two parallel research tracks: reviewing customer service ticket data to find patterns, and conducting phone interviews with both active users (who had bought classes) and inactive users (who registered but never purchased anything).</p>
+          <p class="cs-p">Customer service tickets showed the most common complaints: payment confusion, difficulty finding classes after purchasing, and not knowing where to download certificates.</p>
+          <p class="cs-p">Phone interviews helped me understand why these problems were happening. Most of RSK's users had low digital literacy. Many had never used an e-learning app before. The app was not necessarily designed for advanced users. It was just cluttered and confusing, with too much going on and not enough clear direction for what to do next.</p>
+          <p class="cs-p">I do not have exact drop-off numbers for each step, but the patterns from the tickets and interviews were consistent enough to identify four clear friction points:</p>
+
+          <ol class="cs-ol">
+            <li><div><strong>Registration felt too long.</strong> The sign-up form had too many required fields shown all at once. For users who were already unsure about using the app, this was overwhelming. Several people I interviewed said they gave up halfway through registration.</div></li>
+            <li><div><strong>Payment was where most users got stuck.</strong> Kartu Prakerja users needed to enter a redemption code to unlock a class. But the existing payment flow was confusing. There were multiple action buttons with unclear names, and the redemption code flow itself was hard to follow. Users did not understand what they were supposed to do at each step.</div></li>
+            <li><div><strong>The dashboard did not show what users were looking for.</strong> After buying a class, users came back to the app expecting to see their class right away. Instead, they landed on a homepage filled with promotional banners and announcements. Finding a purchased class or certificate took multiple taps through unclear menus.</div></li>
+            <li><div><strong>The learning experience gave no sense of progress.</strong> Inside a course, lessons appeared as a flat list with no progress indicators, completion markers, or feedback. Users could not tell how far along they were, what was left, or whether they passed.</div></li>
+          </ol>
+
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="User persona — Fani, showing her goals, frustrations, and background">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">User Persona — Fani</span>
+            <span class="cs-img-ph-sub">Goals, frustrations, and background</span>
+          </div>
+
+          <h3 class="cs-h3">Building the persona</h3>
+          <p class="cs-p">From these findings, I created a primary persona: Fani, a 25-year-old recent graduate from Bekasi looking for her first job. She registered for Kartu Prakerja to take certification courses but found the voucher process confusing. She represents the typical RSK user: motivated to learn, but not experienced with digital products, and quick to give up when something feels unclear.</p>
+          <p class="cs-p">I used this persona as the main filter for every design decision going forward. If Fani would not understand something on her first try, it needed to be simpler.</p>
+        </div>
+      </section>
+
+      <!-- 04 UX Audit -->
+      <section id="s-audit" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Analysis</p>
+          <h2 class="cs-h2">UX Audit: Mapping the Specific Issues</h2>
+          <p class="cs-p">Before designing solutions, I ran a heuristic evaluation using Shneiderman's 8 Golden Rules. Two rules were especially relevant here: "Strive for Consistency" and "Reduce Short-Term Memory Load." These focus on making interfaces predictable and reducing how much users need to remember, which are the most important things when designing for users with low digital literacy.</p>
+          <p class="cs-p">The audit showed several issues across the app:</p>
+          <ul class="cs-ul">
+            <li>Buttons and interactions behaved differently on different screens</li>
+            <li>The homepage was overloaded with promotional banners, sliders, and marketing content that competed with the actual navigation</li>
+            <li>Getting from "I want to take a class" to actually enrolling took too many steps through confusing menus</li>
+            <li>Users completed actions (like buying a class) without getting clear confirmation, so they were not sure if it worked</li>
+          </ul>
+
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Heuristic evaluation with annotated screenshots of the old app">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Heuristic Evaluation / UX Audit</span>
+            <span class="cs-img-ph-sub">Annotated screenshots of the old app</span>
+          </div>
+
+          <p class="cs-p">I also studied competitors like Ruangguru (Indonesia's largest edtech) and Udacity. Two things stood out that RSK was missing. First, successful edtech apps kept each screen focused on one decision instead of showing a bunch of options at once. Second, they used progress bars, completion badges, and grade displays to keep users engaged throughout multi-session learning.</p>
+
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Competitive analysis comparison">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Competitive Analysis</span>
+            <span class="cs-img-ph-sub">RSK vs Ruangguru vs Udacity</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 Strategy -->
+      <section id="s-strategy" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Strategy</p>
+          <h2 class="cs-h2">The Strategic Decision: Structural Redesign Over Quick Fixes</h2>
+          <p class="cs-p">At this point the project could have gone two ways.</p>
+          <p class="cs-p"><strong>Option A: Small fixes.</strong> Improve button labels, add clearer payment instructions, redesign a few cards. Lower risk and faster to ship, but unlikely to change much because the underlying structure was the problem.</p>
+          <p class="cs-p"><strong>Option B: Full structural redesign.</strong> Rebuild the information architecture, restructure every core flow, and simplify aggressively. More work and more risk, but it addressed the actual root cause.</p>
+          <p class="cs-p">I pushed for Option B. The patterns from my research showed that users were not just failing at one step. Registration, payment, class discovery, learning, and certification all had problems. The app had grown organically without a clear structure, and it showed. Fixing individual screens would not solve that.</p>
+          <p class="cs-p">My goal was to reduce every core flow to as few steps as possible. Sign up, find a class, buy it, start learning, get your certificate. If any of these flows felt long or complicated, the information architecture needed to change.</p>
+
+          <h3 class="cs-h3">The disagreement about banners</h3>
+          <div class="cs-callout">
+            <p>This is where I ran into pushback. The C-level and marketing team believed that having a lot of promotional banners and featured content on the homepage would lead to more sales. More visibility, more conversions, was the thinking.</p>
+            <p>I disagreed. I argued that all these banners and promotions were actually driving users away because they were overwhelmed. The customer service data backed this up. Users were coming to the app with a clear goal (find a class, buy it) and the homepage was making that harder, not easier. The clutter was not helping sales. It was hurting them.</p>
+            <p>After showing the evidence from the research and ticket data, I got buy-in for a cleaner homepage. Promotional content would still exist but would not compete with the core navigation. We agreed to measure the impact after launch.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 Information Architecture -->
+      <section id="s-ia" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Architecture</p>
+          <h2 class="cs-h2">Information Architecture: Rebuilding the Structure</h2>
+          <p class="cs-p">The old IA spread primary actions across multiple layers. Courses, categories, settings, transactions, and support were scattered across navigation that had grown without a clear plan.</p>
+          <p class="cs-p">I rebuilt the IA around three user goals:</p>
+          <ol class="cs-ol">
+            <li><div><strong>Find classes</strong> — Home + Catalog</div></li>
+            <li><div><strong>Learn</strong> — Class player + content</div></li>
+            <li><div><strong>Track progress</strong> — Dashboard with classes, grades, and certificates</div></li>
+          </ol>
+
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Information architecture diagram, old vs new structure">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Information Architecture Diagram</span>
+            <span class="cs-img-ph-sub">Old vs. new IA structure</span>
+          </div>
+
+          <p class="cs-p">Everything else (profile settings, transaction history, help center) went into secondary navigation through a side menu. The bottom tab bar was only for the three primary goals.</p>
+          <p class="cs-p">I considered making "Payment" a fourth main section but decided against it. Payment is not a goal on its own. It is a step within buying a class. Making it a separate destination would have made the purchase flow feel more complicated, not less. Payment needed to feel like a natural next step after selecting a class.</p>
+        </div>
+      </section>
+
+      <!-- 07 Design Solutions -->
+      <section id="s-design" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Design</p>
+          <h2 class="cs-h2">Design Solutions: Connected to Research Findings</h2>
+          <p class="cs-p">Each design change came directly from something I found in research.</p>
+
+          <h3 class="cs-h3">Registration: fewer fields + social sign-in</h3>
+          <p class="cs-p">Users abandoned registration because it felt too long. I removed non-essential fields and added Google sign-in as the primary option so users could register with one tap. Manual registration kept only four fields: name, email, phone, password. Since Kartu Prakerja required the registered name to match government records, I added clear helper text explaining this upfront instead of letting users fail later at payment.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Registration screen redesign, before and after">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Registration Screen Redesign</span>
+            <span class="cs-img-ph-sub">Before and after</span>
+          </div>
+
+          <h3 class="cs-h3">Catalog and search: category chips + unified search</h3>
+          <p class="cs-p">Users could not find relevant classes in the existing layout. I replaced the cluttered homepage grid with a clean catalog using category filter chips (Business & Finance, IT, Marketing, etc.) and a search that showed both individual classes and categories. I added sort options (highest rating, newest, price) so users could narrow results quickly.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Catalog, search, and filter screens">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Catalog, Search, and Filter Screens</span>
+            <span class="cs-img-ph-sub">Category chips and unified search</span>
+          </div>
+
+          <h3 class="cs-h3">Class details: sticky buy button + clear syllabus</h3>
+          <p class="cs-p">Users were not sure what a class included before buying. I redesigned the class detail page with a purchase button that stayed visible at the bottom of the screen, learning outcomes shown near the top ("What did you get from this class?"), and an expandable syllabus with module names and durations. Users could see exactly what they would get before they committed.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Class details and syllabus screens">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Class Details and Syllabus Screens</span>
+            <span class="cs-img-ph-sub">Sticky CTA and expandable syllabus</span>
+          </div>
+
+          <h3 class="cs-h3">Payment: default to Kartu Prakerja + simplified flow</h3>
+          <p class="cs-p">Payment was the biggest source of confusion. Since almost all users paid with Kartu Prakerja, I made it the default payment method. I simplified the redemption code flow by removing the confusing action buttons and replacing them with a clear, single-step input for the voucher code with short explanation text on the screen. Other payment methods like bank transfer were available through a "Change Method" button but did not compete for attention.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Payment flow screens, Kartu Prakerja default and alternative method">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Payment Flow Screens</span>
+            <span class="cs-img-ph-sub">Kartu Prakerja default and alternative method</span>
+          </div>
+
+          <h3 class="cs-h3">Dashboard: My Class tab</h3>
+          <p class="cs-p">Users could not find their purchased classes or certificates. I made "My Class" the default dashboard tab with search and sort. Certificates were accessible right from the completed class card instead of being in a separate section. I also added a grade chart showing test scores against the passing threshold so users could see how they were doing at a glance.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Dashboard, navigation menu, and grading screens">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Dashboard, Navigation Menu, and Grading Screens</span>
+            <span class="cs-img-ph-sub">My Class tab and grade chart</span>
+          </div>
+
+          <h3 class="cs-h3">Learning experience: playlist structure + quizzes</h3>
+          <p class="cs-p">Flat lesson lists gave users no sense of progress. I restructured course content into a playlist-style player with collapsible modules, time durations, and clear indicators for completed and current lessons. Quizzes between modules gave immediate feedback (showing the correct answer and explanation) to keep users engaged. I also added a workbook/essay section for hands-on practice.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Class learning, readings, quizzes, and essay screens">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Class Learning, Readings, Quizzes, and Essay Screens</span>
+            <span class="cs-img-ph-sub">Playlist player and quiz flow</span>
+          </div>
+
+          <h3 class="cs-h3">Help center: in-app Kartu Prakerja guide</h3>
+          <p class="cs-p">Customer support was overwhelmed with Kartu Prakerja questions. I built an in-app help center with step-by-step visual guides for common questions like how to register for Kartu Prakerja and how to redeem vouchers. This reduced support tickets because customer service could now redirect users to the help center instead of answering the same questions repeatedly. It also helped prevent the payment confusion that was causing drop-off in the first place.</p>
+          <div class="cs-img-placeholder ratio-tall" role="img" aria-label="Help center screen">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Help Center Screen</span>
+            <span class="cs-img-ph-sub">In-app Kartu Prakerja guide</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 Testing -->
+      <section id="s-testing" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Usability Testing</p>
+          <h2 class="cs-h2">Testing and Iteration</h2>
+          <p class="cs-p">I ran two rounds of remote usability testing through Maze with users who matched our persona profile: first-time digital learners.</p>
+          <p class="cs-p"><strong>Round 1 results:</strong></p>
+
+          <div class="cs-table-wrap">
+            <table class="cs-table">
+              <thead>
+                <tr>
+                  <th>Scenario</th>
+                  <th>Completion Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Create an RSK account</td>
+                  <td><span class="cs-rate-pill cs-rate-100">100% (5/5)</span></td>
+                </tr>
+                <tr>
+                  <td>Find a specific class ("Menanam Hidroponik")</td>
+                  <td><span class="cs-rate-pill cs-rate-80">80% (4/5)</span></td>
+                </tr>
+                <tr>
+                  <td>Buy a class using Kartu Prakerja</td>
+                  <td><span class="cs-rate-pill cs-rate-80">80% (4/5)</span></td>
+                </tr>
+                <tr>
+                  <td>Enter the class and start learning</td>
+                  <td><span class="cs-rate-pill cs-rate-80">80% (4/5)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Maze usability test setup and results">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Maze Usability Test Setup and Results</span>
+            <span class="cs-img-ph-sub">Round 1 test flow</span>
+          </div>
+
+          <p class="cs-p">Three issues came up:</p>
+          <ol class="cs-ol">
+            <li><div>Users could not tell which classes were Kartu Prakerja-eligible just from the catalog view. They had to tap into each class to check.</div></li>
+            <li><div>During payment, users still struggled to find where to get their redemption code since it had to be purchased from an external marketplace (Tokopedia, Bukalapak, etc.), and there was no guidance pointing them there.</div></li>
+            <li><div>Certificates were findable but users expected to see them directly on the dashboard without extra navigation.</div></li>
+          </ol>
+
+          <h3 class="cs-h3">What I changed after Round 1</h3>
+          <ul class="cs-ul">
+            <li>Added a visible "Prakerja" badge on eligible course cards in the catalog so users could spot them without opening each class.</li>
+            <li>Added Active/Completed filter tabs to the dashboard so completed classes (with certificate downloads) were immediately accessible.</li>
+            <li>Added direct links to the marketplaces (Tokopedia, Bukalapak, etc.) on the payment screen so users could easily go buy the redemption code and come back to enter it.</li>
+          </ul>
+
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Before/after comparison showing catalog with Prakerja badges and dashboard with filter tabs">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Before / After Comparison</span>
+            <span class="cs-img-ph-sub">Prakerja badges + dashboard filter tabs</span>
+          </div>
+
+          <p class="cs-p">Round 2 testing confirmed these fixes worked. All scenarios reached 100% completion.</p>
+        </div>
+      </section>
+
+      <!-- 09 Impact -->
+      <section id="s-impact" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Results</p>
+          <h2 class="cs-h2">Impact</h2>
+
+          <div class="cs-metrics-grid">
+            <div class="cs-metric-card">
+              <div class="cs-metric-label">Total Customers</div>
+              <span class="cs-metric-before">~8K+</span>
+              <span class="cs-metric-after">~574K+</span>
+              <div class="cs-metric-footer">
+                <span class="cs-metric-year">2020 → 2021</span>
+                <span class="cs-metric-growth">71× growth</span>
+              </div>
+            </div>
+            <div class="cs-metric-card">
+              <div class="cs-metric-label">Total Redemptions</div>
+              <span class="cs-metric-before">~5K+</span>
+              <span class="cs-metric-after">~459K+</span>
+              <div class="cs-metric-footer">
+                <span class="cs-metric-year">2020 → 2021</span>
+                <span class="cs-metric-growth">91× growth</span>
+              </div>
+            </div>
+            <div class="cs-metric-card">
+              <div class="cs-metric-label">Total Certificates</div>
+              <span class="cs-metric-before">~4K+</span>
+              <span class="cs-metric-after">~712K+</span>
+              <div class="cs-metric-footer">
+                <span class="cs-metric-year">2020 → 2021</span>
+                <span class="cs-metric-growth">178× growth</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cs-callout">
+            <p>Note: some classes issued multiple certificates, which is why the certificate count is higher than redemptions.</p>
+            <p>I want to be upfront about something. These numbers reflect both the redesign and the broader growth of the Kartu Prakerja program during this period. The government was enrolling many more citizens, so RSK was receiving a lot more traffic regardless.</p>
+            <p>My contribution was making sure the product could handle that growth. When tens of thousands of new users arrived each month, they needed to be able to find, buy, and complete courses without getting confused and giving up. The redesign removed the friction that would have turned that incoming traffic into lost users.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 Design System -->
+      <section id="s-system" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">System</p>
+          <h2 class="cs-h2">Design System Contribution</h2>
+          <p class="cs-p">While not the main focus of this project, I built foundational design patterns that became the standard for RSK's product going forward:</p>
+          <ul class="cs-item-list">
+            <li><strong>Component library in Figma</strong>Reusable components for buttons, form fields, cards, navigation, and modals. Each component included all states (default, hover, active, disabled, error) to keep things consistent across screens.</li>
+            <li><strong>Color and typography tokens</strong>A systematic palette with primary blue, semantic colors (green for success, red for errors, yellow for warnings), and a clear type scale for headings, body text, captions, and labels.</li>
+            <li><strong>Spacing and layout patterns</strong>Consistent 8px grid, standardized card sizes, and predictable padding to keep the visual design clean.</li>
+            <li><strong>Documented interaction patterns</strong>Patterns for bottom-sheet modals, filter chips, tab navigation, and persistent action buttons, so future screens could be built consistently even without my direct involvement.</li>
+          </ul>
+          <p class="cs-p">This mattered because I was managing two interns. With documented patterns, they could build screens that matched the design language without needing me to review every detail. It also made the engineering handoff smoother since developers could reference the component library instead of guessing from individual screen mockups.</p>
+          <div class="cs-chip-group">
+            <span class="skill-chip">Component Library</span>
+            <span class="skill-chip">Color Tokens</span>
+            <span class="skill-chip">Typography Scale</span>
+            <span class="skill-chip">8px Grid</span>
+            <span class="skill-chip">Interaction Patterns</span>
+            <span class="skill-chip">Engineering Handoff</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 Mentorship -->
+      <section id="s-mentorship" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Team</p>
+          <h2 class="cs-h2">Mentorship</h2>
+          <p class="cs-p">As the sole designer managing two interns, I set up their work so they could learn while contributing:</p>
+          <ul class="cs-ul">
+            <li>I gave them ownership of specific screens within the design system so they were doing real work, not just exercises.</li>
+            <li>I ran regular critique sessions where I explained my reasoning on the screens I designed, including what I considered and rejected.</li>
+            <li>We used the persona as our shared quality bar. "Would Fani understand this?" became how we evaluated every screen.</li>
+          </ul>
+          <p class="cs-p">This was my first time managing other designers, and it taught me a lot about scaling design quality beyond just my own output.</p>
+        </div>
+      </section>
+
+      <!-- 12 Reflection -->
+      <section id="s-reflection" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Reflection</p>
+          <h2 class="cs-h2">Reflection</h2>
+
+          <h3 class="cs-h3">What went well</h3>
+          <ul class="cs-ul">
+            <li>Aiming to reduce every flow to as few steps as possible kept decisions focused. Whenever someone suggested adding a feature or an extra screen, we could check whether it was really necessary.</li>
+            <li>Building a persona from real interviews gave the whole team a shared reference point. Instead of debating opinions, we could ask "what would Fani do?"</li>
+            <li>Defaulting payment to Kartu Prakerja and later adding marketplace links to help users find their redemption codes were decisions that came directly from testing. They show how iteration based on real user feedback can solve problems that the initial design missed.</li>
+          </ul>
+
+          <h3 class="cs-h3">What I would do differently</h3>
+          <ul class="cs-item-list">
+            <li><strong>Set up analytics tracking from day one</strong>We launched without proper event tracking, so the impact numbers are platform-level totals rather than funnel-specific data. If I could redo this, I would track every step of every core flow so we could see exactly where the redesign helped most.</li>
+            <li><strong>Test with a wider range of users earlier</strong>Our test participants were mostly urban smartphone users. RSK's real user base included people in rural areas with older phones and slower internet. Testing with them earlier would have caught performance and layout issues sooner.</li>
+            <li><strong>Build a more complete design system</strong>The component library worked for this project, but it was not documented well enough to scale to a bigger team. With more time, I would have added usage guidelines, do/don't examples, and accessibility notes for each component.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 13 Tools and Methods -->
+      <section id="s-tools" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Process</p>
+          <h2 class="cs-h2">Tools and Methods</h2>
+          <div class="cs-tools-list">
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Research</div>
+              <div class="cs-tool-value">User interviews (phone), customer service ticket analysis, heuristic evaluation (Shneiderman's 8 Golden Rules), competitive analysis</div>
+            </div>
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Design</div>
+              <div class="cs-tool-value">Figma (wireframing, prototyping, component library)</div>
+            </div>
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Testing</div>
+              <div class="cs-tool-value">Remote usability testing via Maze</div>
+            </div>
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Collaboration</div>
+              <div class="cs-tool-value">Cross-functional work with PMs, engineers, marketing, and C-levels</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Next project -->
+      <div class="cs-next">
+        <div class="cs-next-inner">
+          <div>
+            <div class="cs-next-label">Next case study</div>
+            <div class="cs-next-title">Waresix Quotation System Redesign</div>
+          </div>
+          <a
+            href="./assets/docs/Erlangga_UXDesigner_Portfolio_Website.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-glow"
+            aria-label="View Waresix case study, opens PDF in new tab"
+          >View case study →</a>
+        </div>
+      </div>
+
+    </main>
+
+    <footer>
+      <span class="footer-logo">Erlangga Rianto</span>
+      <span class="copy">© 2026</span>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/erlanggarianto/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn, opens in new tab">LinkedIn</a>
+        <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank" rel="noopener noreferrer" aria-label="Figma portfolio, opens in new tab">Figma</a>
+        <a href="https://github.com/erlanggarianto" target="_blank" rel="noopener noreferrer" aria-label="GitHub, opens in new tab">GitHub</a>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+      // Section nav active state
+      (function () {
+        const navLinks = document.querySelectorAll('.cs-section-nav a');
+        const sections = document.querySelectorAll('section[id^="s-"]');
+        if (!navLinks.length || !sections.length) return;
+
+        const navHeight = 58 + 34; // main nav + section nav strip
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach((a) => {
+                  a.classList.toggle('cs-nav-active', a.getAttribute('href') === '#' + id);
+                });
+                // scroll active link into view within the nav
+                const active = document.querySelector('.cs-section-nav a.cs-nav-active');
+                if (active) active.scrollIntoView({ block: 'nearest', inline: 'center' });
+              }
+            });
+          },
+          { rootMargin: `-${navHeight}px 0px -55% 0px`, threshold: 0 }
+        );
+
+        sections.forEach((s) => observer.observe(s));
+
+        // Offset anchor scroll for sticky navs
+        document.querySelectorAll('.cs-section-nav a').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+              const y = target.getBoundingClientRect().top + window.scrollY - navHeight;
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
