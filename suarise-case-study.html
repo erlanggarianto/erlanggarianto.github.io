@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suarise Case Study — Erlangga Rianto</title>
+    <meta name="description" content="Building a WCAG-Compliant Design System for an Accessibility Platform from Scratch. A UX case study by Erlangga Rianto." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/webp" href="./assets/favicon.webp" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+
+      /* ── Shared inner width ── */
+      .cs-inner {
+        max-width: 780px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .cs-inner-wide {
+        max-width: 1040px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* ── Breadcrumb ── */
+      .cs-breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.78rem;
+        color: var(--white-faint);
+        font-weight: 500;
+        margin-bottom: 1.8rem;
+      }
+      .cs-breadcrumb a {
+        color: var(--white-faint);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .cs-breadcrumb a:hover { color: var(--crimson); }
+      .cs-breadcrumb-sep { opacity: 0.35; margin: 0 0.1rem; }
+      .cs-breadcrumb-current { color: var(--white-dim); }
+
+      /* ── Hero ── */
+      .cs-hero {
+        background: var(--bg);
+        padding: 7rem 5% 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .cs-hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(185,28,28,0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(185,28,28,0.05) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 0%, transparent 100%);
+        pointer-events: none;
+      }
+      .cs-hero-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+      }
+      .cs-hero-orb-1 {
+        width: 600px; height: 600px;
+        top: -200px; right: -100px;
+        background: radial-gradient(circle, rgba(185,28,28,0.12) 0%, transparent 70%);
+      }
+      .cs-hero-orb-2 {
+        width: 380px; height: 380px;
+        bottom: -80px; left: -60px;
+        background: radial-gradient(circle, rgba(159,21,21,0.08) 0%, transparent 70%);
+      }
+      .cs-hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 860px;
+      }
+      .cs-hero-cat {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--crimson);
+        font-weight: 600;
+        margin-bottom: 1.6rem;
+        padding: 0.35rem 1rem 0.35rem 0.65rem;
+        background: rgba(159,21,21,0.07);
+        border: 1px solid rgba(159,21,21,0.2);
+        border-radius: 100px;
+      }
+      .cs-hero-cat span {
+        width: 5px; height: 5px;
+        background: var(--crimson);
+        border-radius: 50%;
+        box-shadow: 0 0 6px rgba(159,21,21,0.5);
+        animation: pulse 2s ease infinite;
+      }
+      .cs-hero h1 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: clamp(2.2rem, 4vw, 3.6rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.08;
+        color: var(--white);
+        margin-bottom: 1.4rem;
+        max-width: 820px;
+      }
+      .cs-hero-summary {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: var(--white-dim);
+        max-width: 580px;
+        margin-bottom: 3rem;
+      }
+      .cs-meta-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--border);
+        max-width: 860px;
+      }
+      .cs-meta-item {
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 0.9rem 1.3rem;
+        flex: 1 1 130px;
+      }
+      .cs-meta-label {
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+      .cs-meta-value {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: -0.01em;
+      }
+
+      /* ── Section shell ── */
+      .cs-section {
+        padding: 6rem 5%;
+      }
+      .cs-section--light { background: var(--bg); }
+      .cs-section--tint  { background: var(--bg2); }
+
+      /* ── Section header ── */
+      .cs-section-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        margin-bottom: 0.7rem;
+      }
+      .cs-section-label::before {
+        content: "";
+        width: 20px; height: 1px;
+        background: var(--divider);
+      }
+      .cs-h2 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--white);
+        line-height: 1.15;
+        margin-bottom: 1.6rem;
+      }
+      .cs-h3 {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--white);
+        letter-spacing: -0.01em;
+        margin: 2.2rem 0 0.6rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .cs-p {
+        font-size: 0.96rem;
+        line-height: 1.9;
+        color: var(--white-dim);
+        margin-bottom: 1.4rem;
+      }
+      .cs-p strong { color: var(--white); font-weight: 600; }
+
+      /* ── Bullet list ── */
+      .cs-ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin: 1.2rem 0;
+      }
+      .cs-ul li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        font-size: 0.95rem;
+        line-height: 1.78;
+        color: var(--white-dim);
+      }
+      .cs-ul li::before {
+        content: "";
+        width: 4px; height: 4px;
+        background: var(--divider);
+        border-radius: 50%;
+        flex-shrink: 0;
+        margin-top: 0.7rem;
+      }
+      .cs-ul li strong { color: var(--white); font-weight: 600; }
+
+      /* ── Iteration changes list (→ marker) ── */
+      .cs-ul--changes li::before {
+        content: "→";
+        background: none;
+        border-radius: 0;
+        width: auto;
+        height: auto;
+        font-size: 0.78rem;
+        color: var(--white-faint);
+        margin-top: 0.3rem;
+        flex-shrink: 0;
+      }
+
+      /* ── Item list (title + description, stacked cards) ── */
+      .cs-item-list {
+        list-style: none;
+        margin: 1.4rem 0;
+        border: 1px solid var(--divider);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .cs-item-list li {
+        padding: 1.1rem 1.4rem;
+        border-bottom: 1px solid var(--divider);
+        font-size: 0.93rem;
+        line-height: 1.75;
+        color: var(--white-dim);
+      }
+      .cs-item-list li:last-child { border-bottom: none; }
+      .cs-item-list li strong {
+        display: block;
+        color: var(--white);
+        font-weight: 600;
+        font-size: 0.88rem;
+        margin-bottom: 0.2rem;
+      }
+
+      /* ── Callout (neutral) ── */
+      .cs-callout {
+        background: var(--bg2);
+        border: 1px solid var(--divider);
+        border-radius: 10px;
+        padding: 1.4rem 1.6rem;
+        margin: 2rem 0;
+      }
+      .cs-callout p {
+        font-size: 0.94rem;
+        line-height: 1.82;
+        color: var(--white-dim);
+        margin: 0;
+      }
+      .cs-callout p + p { margin-top: 0.9rem; }
+      .cs-callout strong { color: var(--white); font-weight: 600; }
+
+      /* ── Finding cards (testing issues) ── */
+      .cs-findings {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin: 1.8rem 0;
+      }
+      .cs-finding-card {
+        display: grid;
+        grid-template-columns: 2.4rem 1fr;
+        gap: 1rem;
+        align-items: start;
+        padding: 1.25rem 1.4rem;
+        background: var(--bg3);
+        border: 1px solid var(--divider);
+        border-left: 3px solid var(--border);
+        border-radius: 0 10px 10px 0;
+      }
+      .cs-finding-num {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--white-dim);
+        opacity: 0.35;
+        line-height: 1.6;
+      }
+      .cs-finding-body {
+        font-size: 0.94rem;
+        line-height: 1.78;
+        color: var(--white-dim);
+      }
+      .cs-finding-body strong {
+        display: block;
+        font-weight: 700;
+        color: var(--white);
+        font-size: 0.93rem;
+        margin-bottom: 0.3rem;
+      }
+
+      /* ── Image placeholders ── */
+      .cs-img-placeholder {
+        width: 100%;
+        background: var(--surface);
+        border: 1.5px dashed var(--divider);
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 3rem 2rem;
+        margin: 2rem 0;
+        text-align: center;
+        min-height: 200px;
+      }
+      .cs-img-placeholder.ratio-wide  { aspect-ratio: 16/9; min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-3-2   { aspect-ratio: 3/2;  min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-tall  { aspect-ratio: 4/3;  min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-2-1   { aspect-ratio: 2/1;  min-height: unset; padding: 0; }
+      .cs-img-placeholder.ratio-wide,
+      .cs-img-placeholder.ratio-3-2,
+      .cs-img-placeholder.ratio-tall,
+      .cs-img-placeholder.ratio-2-1 { position: relative; }
+      .cs-img-placeholder.ratio-wide > *,
+      .cs-img-placeholder.ratio-3-2 > *,
+      .cs-img-placeholder.ratio-tall > *,
+      .cs-img-placeholder.ratio-2-1 > * {
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .cs-img-ph-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.4rem;
+        display: block;
+        opacity: 0.4;
+      }
+      .cs-img-ph-label {
+        font-size: 0.82rem;
+        color: var(--white-dim);
+        font-weight: 600;
+        display: block;
+      }
+      .cs-img-ph-sub {
+        font-size: 0.72rem;
+        color: var(--white-faint);
+        display: block;
+        margin-top: 0.2rem;
+      }
+
+      /* ── Two-col image grid ── */
+      .cs-img-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+      }
+
+      /* ── Result chip group ── */
+      .cs-chip-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1.6rem;
+      }
+      .cs-chip-group .skill-chip {
+        background: var(--bg3);
+        border: 1px solid var(--divider);
+        color: var(--white-dim);
+        border-radius: 100px;
+        font-size: 0.76rem;
+        padding: 0.28rem 0.9rem;
+      }
+      .cs-chip-group .skill-chip:hover {
+        background: var(--surface);
+        border-color: var(--white-faint);
+        color: var(--white);
+      }
+
+      /* ── Tools list ── */
+      .cs-tools-list {
+        margin: 1.4rem 0;
+        border: 1px solid var(--divider);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .cs-tool-item {
+        display: grid;
+        grid-template-columns: 7rem 1fr;
+        gap: 1.2rem;
+        align-items: baseline;
+        padding: 1rem 1.4rem;
+        border-bottom: 1px solid var(--divider);
+      }
+      .cs-tool-item:last-child { border-bottom: none; }
+      .cs-tool-category {
+        font-size: 0.65rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .cs-tool-value {
+        font-size: 0.9rem;
+        color: var(--white-dim);
+        line-height: 1.65;
+      }
+
+      /* ── Reading progress bar ── */
+      .cs-progress {
+        position: fixed;
+        top: 0; left: 0;
+        height: 2px;
+        width: 0%;
+        background: var(--crimson);
+        z-index: 10000;
+        pointer-events: none;
+      }
+
+      /* ── Section nav ── */
+      .cs-section-nav {
+        position: sticky;
+        top: 58px;
+        z-index: 90;
+        background: rgba(247,247,247,0.94);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--divider);
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      .cs-section-nav::-webkit-scrollbar { display: none; }
+      .cs-section-nav-inner {
+        display: flex;
+        padding: 0 5%;
+        width: max-content;
+        min-width: 100%;
+      }
+      .cs-section-nav a {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--white-faint);
+        text-decoration: none;
+        white-space: nowrap;
+        border-bottom: 2px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
+        letter-spacing: 0.01em;
+      }
+      .cs-section-nav a:hover { color: var(--white-dim); }
+      .cs-section-nav a.cs-nav-active {
+        color: var(--white);
+        border-bottom-color: var(--white);
+      }
+
+      /* ── Next project ── */
+      .cs-next {
+        background: var(--bg2);
+        border-top: 1px solid var(--border);
+        padding: 5rem 5%;
+      }
+      .cs-next-inner {
+        max-width: 780px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .cs-next-label {
+        font-size: 0.66rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--white-faint);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .cs-next-title {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--white);
+        letter-spacing: -0.02em;
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 900px) {
+        .cs-img-2col { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 768px) {
+        .cs-hero { padding: 6rem 5% 3.5rem; }
+        .cs-section { padding: 4rem 5%; }
+        .cs-meta-item { flex: 1 1 120px; }
+        .cs-next-inner { flex-direction: column; align-items: flex-start; }
+        .cs-img-placeholder.ratio-wide,
+        .cs-img-placeholder.ratio-3-2,
+        .cs-img-placeholder.ratio-tall,
+        .cs-img-placeholder.ratio-2-1 {
+          aspect-ratio: unset;
+          min-height: 160px;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          padding: 2rem;
+        }
+        .cs-img-placeholder.ratio-wide > *,
+        .cs-img-placeholder.ratio-3-2 > *,
+        .cs-img-placeholder.ratio-tall > *,
+        .cs-img-placeholder.ratio-2-1 > * {
+          position: static;
+          transform: none;
+        }
+      }
+      @media (max-width: 640px) {
+        .cs-section-nav-inner { padding: 0 1rem; }
+        .cs-section-nav a { padding: 0.35rem 0.6rem; font-size: 0.72rem; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="cs-progress" id="csProgress" aria-hidden="true"></div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+    <nav aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Erlangga Rianto, Home">
+        <span class="nav-dot" aria-hidden="true"></span>Erlangga Rianto
+      </a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#projects">Work</a></li>
+        <li><a href="/#resume">Resume</a></li>
+        <li><a href="/#testimonials">Reviews</a></li>
+        <li><a href="/#contact" class="nav-cta">Let's talk</a></li>
+      </ul>
+    </nav>
+
+    <main id="main-content">
+
+      <!-- Hero -->
+      <section class="cs-hero" aria-label="Case study introduction">
+        <div class="cs-hero-grid" aria-hidden="true"></div>
+        <div class="cs-hero-orb cs-hero-orb-1" aria-hidden="true"></div>
+        <div class="cs-hero-orb cs-hero-orb-2" aria-hidden="true"></div>
+        <div class="cs-hero-inner">
+          <nav class="cs-breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span class="cs-breadcrumb-sep" aria-hidden="true">›</span>
+            <a href="/#projects">Work</a>
+            <span class="cs-breadcrumb-sep" aria-hidden="true">›</span>
+            <span class="cs-breadcrumb-current">Suarise</span>
+          </nav>
+          <div class="cs-hero-cat">
+            <span aria-hidden="true"></span>Social Enterprise · Design System · Accessibility
+          </div>
+          <h1>Building a WCAG-Compliant Design System for an Accessibility Platform from Scratch</h1>
+          <p class="cs-hero-summary">
+            Suarise needed an accessible foundation before anything could be built. I designed a complete system covering typography, color, icons, and 24 WCAG-compliant components — then tested the onboarding flow with users who have low to no vision.
+          </p>
+          <div class="cs-meta-grid">
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Role</div>
+              <div class="cs-meta-value">UX Designer (Freelance)</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Team</div>
+              <div class="cs-meta-value">Director · UX Researcher · UX Writer · Engineers</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Duration</div>
+              <div class="cs-meta-value">~1 Month</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Platform</div>
+              <div class="cs-meta-value">Website and Mobile App</div>
+            </div>
+            <div class="cs-meta-item">
+              <div class="cs-meta-label">Tools</div>
+              <div class="cs-meta-value">Figma · Stark</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section nav -->
+      <nav class="cs-section-nav" aria-label="Case study sections">
+        <div class="cs-section-nav-inner">
+          <a href="#s-overview">Overview</a>
+          <a href="#s-context">Context</a>
+          <a href="#s-research">Research</a>
+          <a href="#s-system">Design System</a>
+          <a href="#s-testing">Testing</a>
+          <a href="#s-result">Result</a>
+          <a href="#s-reflection">Reflection</a>
+          <a href="#s-tools">Tools</a>
+        </div>
+      </nav>
+
+      <!-- 01 Overview -->
+      <section id="s-overview" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Overview</p>
+          <h2 class="cs-h2">The Short Version</h2>
+          <p class="cs-p">Suarise is an Indonesian company focused on digital accessibility. They were building a new platform where differently-abled users could report accessibility issues on websites and apps, and developers could learn how to fix them. I was brought in as a freelance UX designer to build the design system from the ground up.</p>
+          <p class="cs-p">During early reviews, I found that the platform needed an accessibility-first foundation before any features could be built on top of it. I studied existing accessibility-focused tools and design systems, then built a complete system covering typography, color, icons, and 24 reusable components, all grounded in WCAG standards. We tested the sign-up and onboarding flows with users who have low to no vision, found real usability issues that compliance checklists alone would not have caught, and iterated until the flows worked.</p>
+        </div>
+      </section>
+
+      <!-- 02 Context -->
+      <section id="s-context" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Context</p>
+          <h2 class="cs-h2">Context</h2>
+
+          <h3 class="cs-h3">What is Suarise?</h3>
+          <p class="cs-p">Suarise is an Indonesian social enterprise focused on digital accessibility. They wanted to build a platform that serves two purposes: let differently-abled users report accessibility problems they encounter on websites and apps, and provide resources for developers to learn how to fix those problems. The platform was being built from scratch, so there was no existing product or design system to work from.</p>
+
+          <h3 class="cs-h3">Why this project mattered</h3>
+          <p class="cs-p">An accessibility platform that is not itself accessible would be a contradiction. The design system had to be built with WCAG compliance as a foundation, not as an afterthought. Every component, every color choice, every interaction pattern needed to work for users with disabilities, including users with low to no vision who rely on screen readers.</p>
+
+          <h3 class="cs-h3">My role</h3>
+          <p class="cs-p">I was the sole UX designer on this freelance project, working with the Suarise director, a UX researcher, a UX writer, and frontend engineers. I handled user and competitor research, accessibility standards and design principles, component design and documentation, and prototyping and testing with differently-abled users. The project took about one month.</p>
+        </div>
+      </section>
+
+      <!-- 03 Research -->
+      <section id="s-research" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Research</p>
+          <h2 class="cs-h2">Research: Understanding the Space</h2>
+          <p class="cs-p">I started by studying two things: accessibility-focused tools that already existed, and established design systems that handled accessibility well.</p>
+
+          <h3 class="cs-h3">Competitor analysis</h3>
+          <p class="cs-p">I looked at tools like ARC Toolkit and axe DevTools to understand how they designed for feedback and reporting. Most of these tools were very technical and built for developers, not for everyday users. Since Suarise wanted their platform to be usable by non-developers as well, I aimed to create something that was approachable while still being fully compliant.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Competitive analysis of accessibility tools like ARC Toolkit, axe DevTools, and Fable">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Competitive Analysis</span>
+            <span class="cs-img-ph-sub">ARC Toolkit, axe DevTools, and Fable</span>
+          </div>
+
+          <h3 class="cs-h3">Design systems research</h3>
+          <p class="cs-p">I studied Google's Material Design and Apple's Human Interface Guidelines to understand how they balanced accessibility with aesthetics. Material Design had strong scalability and contrast systems. Apple's HIG focused on clarity and visual hierarchy. I combined ideas from both to create a system that felt modern and structured while meeting accessibility requirements.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Review of Google Material Design and Apple HIG accessibility guidelines">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Design Systems Research</span>
+            <span class="cs-img-ph-sub">Google Material Design and Apple HIG accessibility guidelines</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 Design System -->
+      <section id="s-system" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Design System</p>
+          <h2 class="cs-h2">Building the Design System</h2>
+
+          <h3 class="cs-h3">Deciding on WCAG compliance levels</h3>
+          <p class="cs-p">Before building any components, we needed to agree on which WCAG compliance standards to follow for each type of element. This was not as straightforward as it sounds.</p>
+          <p class="cs-p">The team went back and forth on this. Everyone had their own opinion on what mattered and what did not. For example, some elements had multiple WCAG criteria that could apply, and not all of them were equally important for our specific use case. We discussed each element type (buttons, toggles, form fields, etc.) and tried to reach agreement on which compliance level to target and which specific criteria to prioritize.</p>
+          <p class="cs-p">This process was important because blindly applying every WCAG rule without discussion would have led to an overly rigid system. Instead, we made intentional choices about where to be strict and where to be pragmatic, always with our actual users in mind.</p>
+
+          <h3 class="cs-h3">Accessibility standards check</h3>
+          <p class="cs-p">I audited the kinds of UI elements we would need (buttons, forms, text, navigation) against WCAG criteria for contrast and hierarchy. I created a checklist to evaluate each element, which helped the team identify what standards each component needed to meet.</p>
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="WCAG audit checklist with element compliance mapping">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">WCAG Audit Checklist</span>
+            <span class="cs-img-ph-sub">Element compliance mapping</span>
+          </div>
+
+          <h3 class="cs-h3">Typography</h3>
+          <p class="cs-p">I defined a clear type hierarchy with readable type scales. Each level (Display, Heading, Body, Caption) had specific size, line-height, and weight values, with usage guidelines for where each should be used (hero sections, page titles, body content, metadata, etc.).</p>
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Typography scale showing Display, Heading, Body, and Caption levels with specs">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Typography Scale</span>
+            <span class="cs-img-ph-sub">Display, Heading, Body, and Caption levels with specs</span>
+          </div>
+
+          <h3 class="cs-h3">Color</h3>
+          <p class="cs-p">I built a contrast-safe color palette based on WCAG standards. Every color combination was tested using Stark to verify it met minimum contrast ratios. The palette included semantic colors (red for errors, green for success, yellow for warnings, blue for information) and a gray scale ranging from primary text to secondary surfaces.</p>
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Color palette with contrast ratios and semantic color definitions">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Color Palette</span>
+            <span class="cs-img-ph-sub">Contrast ratios and semantic color definitions</span>
+          </div>
+
+          <h3 class="cs-h3">Icons</h3>
+          <p class="cs-p">I designed simple icon shapes that remained readable at any size, important for users with low vision who may be using magnification.</p>
+
+          <h3 class="cs-h3">Components</h3>
+          <p class="cs-p">I built 24 reusable components, including buttons, toggles, checkboxes, radio buttons, text fields, tips, banners, bottom sheets, cards, and calendar elements. Each component included:</p>
+          <ul class="cs-ul">
+            <li>Multiple states (default, hover, active, disabled, error)</li>
+            <li>Focus states for keyboard navigation</li>
+            <li>ARIA labels for screen reader compatibility</li>
+            <li>Sticker sheets showing all variants</li>
+            <li>Overview, purpose, and usage guidelines</li>
+          </ul>
+          <div class="cs-img-placeholder ratio-3-2" role="img" aria-label="Component documentation showing toggle component with sticker sheets, overview, purpose, and guidelines">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Component Documentation</span>
+            <span class="cs-img-ph-sub">Toggle component — sticker sheets, overview, purpose, and guidelines</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 Testing -->
+      <section id="s-testing" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Usability Testing</p>
+          <h2 class="cs-h2">Testing with Differently-Abled Users</h2>
+          <p class="cs-p">When I presented the first version of the design system to the team, engineers requested real-world validation beyond just compliance checklists. So we built a sign-up and onboarding flow prototype and tested it with users who have low to no vision.</p>
+          <p class="cs-p">The testers were recruited through the Suarise director's existing network. She had been working in the disability space for a while and had conducted many activities with this community. The testers were already familiar with Suarise and what the organization does.</p>
+
+          <h3 class="cs-h3">What we tested</h3>
+          <p class="cs-p">We focused specifically on the authentication and onboarding flow, which included account creation, personal information forms, and initial setup steps. This was the first experience new users would have with the platform, so it had to work.</p>
+
+          <h3 class="cs-h3">What we found</h3>
+          <p class="cs-p">Testing revealed three issues that compliance checklists alone would not have caught:</p>
+
+          <div class="cs-findings">
+            <div class="cs-finding-card">
+              <span class="cs-finding-num">1</span>
+              <div class="cs-finding-body"><strong>Too many form fields.</strong>The onboarding forms asked for a lot of personal information at once. For screen reader users, long forms are especially tiring because they have to navigate through each field sequentially. What felt like a normal form for sighted users felt endless for screen reader users.</div>
+            </div>
+            <div class="cs-finding-card">
+              <span class="cs-finding-num">2</span>
+              <div class="cs-finding-body"><strong>Screen readers could not read nested labels.</strong>Some form fields used nested label structures that sighted users could parse visually, but screen readers could not interpret correctly. Users heard incomplete or confusing label text, making it unclear what information was being asked for.</div>
+            </div>
+            <div class="cs-finding-card">
+              <span class="cs-finding-num">3</span>
+              <div class="cs-finding-body"><strong>Too much content on one page.</strong>The onboarding packed too much information onto a single screen. For screen reader users, this meant listening to a lot of content before reaching the actual interactive elements. The cognitive load was too high.</div>
+            </div>
+          </div>
+
+          <div class="cs-img-placeholder ratio-wide" role="img" aria-label="Testing the sign-up and onboarding flow with screen reader users, showing before and after versions">
+            <span class="cs-img-ph-icon" aria-hidden="true">🖼</span>
+            <span class="cs-img-ph-label">Usability Testing</span>
+            <span class="cs-img-ph-sub">Sign-up and onboarding flow with screen reader users — before and after</span>
+          </div>
+
+          <h3 class="cs-h3">What I changed</h3>
+          <p class="cs-p">I worked with engineers to address each issue:</p>
+          <ul class="cs-ul cs-ul--changes">
+            <li>Broke the onboarding into shorter, focused steps so each screen had fewer fields and less content.</li>
+            <li>Simplified the layout and improved navigation between steps.</li>
+            <li>Fixed ARIA labeling so screen readers could correctly read every form field and its purpose.</li>
+          </ul>
+          <p class="cs-p">After implementing the changes, users completed the sign-up flow faster and made fewer mistakes.</p>
+        </div>
+      </section>
+
+      <!-- 06 Result -->
+      <section id="s-result" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Result</p>
+          <h2 class="cs-h2">The Result</h2>
+          <p class="cs-p">The design system gave Suarise a solid, accessible foundation to build their platform on. It standardized typography, colors, icons, and 24 components, helping the team design and build faster while ensuring inclusivity for all users, including those with disabilities.</p>
+          <p class="cs-p">The system was documented with usage guidelines for each component, making it possible for engineers to implement components consistently without needing to consult me on every detail.</p>
+          <div class="cs-chip-group">
+            <span class="skill-chip">24 Components</span>
+            <span class="skill-chip">WCAG Compliant</span>
+            <span class="skill-chip">Typography Scale</span>
+            <span class="skill-chip">Color Tokens</span>
+            <span class="skill-chip">Icon Set</span>
+            <span class="skill-chip">Component Documentation</span>
+            <span class="skill-chip">ARIA Labels</span>
+            <span class="skill-chip">Contrast Tested</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 Reflection -->
+      <section id="s-reflection" class="cs-section cs-section--tint">
+        <div class="cs-inner">
+          <p class="cs-section-label">Reflection</p>
+          <h2 class="cs-h2">Reflection</h2>
+
+          <h3 class="cs-h3">What went well</h3>
+          <ul class="cs-ul">
+            <li>Testing with real users who have low to no vision was the most valuable part of this project. It showed us problems that no amount of WCAG checklist compliance would have revealed. Accessibility is not just about meeting technical criteria. It is about whether real people can actually use the product.</li>
+            <li>The team discussions about which WCAG compliance levels to target for each element were productive. Instead of blindly following every rule, we made intentional decisions about where to be strict and where to be practical. This gave us a system that was genuinely accessible without being unnecessarily rigid.</li>
+            <li>Building the design system from scratch meant there was no legacy baggage to work around. Every decision was made with accessibility in mind from the start, which is much easier than retrofitting an existing system.</li>
+          </ul>
+
+          <h3 class="cs-h3">What I would do differently</h3>
+          <ul class="cs-item-list">
+            <li><strong>Introduce accessibility testing earlier in the process</strong>We built most of the components before testing with real users. If we had tested earlier with even rough prototypes, we could have caught the label and layout issues sooner and saved time on rework.</li>
+            <li><strong>Strengthen the feedback loop between design and engineering</strong>Some accessibility issues only showed up when components were implemented in code, because the way a screen reader interprets HTML can differ from what you see in a Figma prototype. Closer collaboration during implementation would have caught these faster.</li>
+            <li><strong>Add more detailed accessibility annotations to each component</strong>The current documentation covered states, guidelines, and ARIA labels, but more specific notes about keyboard navigation patterns, focus order, and screen reader behavior for each component would have made the engineering handoff even smoother.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 08 Tools and Methods -->
+      <section id="s-tools" class="cs-section cs-section--light">
+        <div class="cs-inner">
+          <p class="cs-section-label">Process</p>
+          <h2 class="cs-h2">Tools and Methods</h2>
+          <div class="cs-tools-list">
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Research</div>
+              <div class="cs-tool-value">Competitor analysis (ARC Toolkit, axe DevTools, Fable), design systems research (Material Design, Apple HIG)</div>
+            </div>
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Design</div>
+              <div class="cs-tool-value">Figma (component library, typography, color tokens, icon set, documentation)</div>
+            </div>
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Accessibility</div>
+              <div class="cs-tool-value">WCAG standards, Stark for contrast testing, ARIA labeling</div>
+            </div>
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Testing</div>
+              <div class="cs-tool-value">Usability testing with users who have low to no vision</div>
+            </div>
+            <div class="cs-tool-item">
+              <div class="cs-tool-category">Collaboration</div>
+              <div class="cs-tool-value">Suarise director, UX researcher, UX writer, frontend engineers</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Next project -->
+      <div class="cs-next">
+        <div class="cs-next-inner">
+          <div>
+            <div class="cs-next-label">Next case study</div>
+            <div class="cs-next-title">Redesigning an EdTech Mobile App</div>
+          </div>
+          <a
+            href="./rsk-case-study.html"
+            class="btn-glow"
+            aria-label="View RSK case study"
+          >View case study →</a>
+        </div>
+      </div>
+
+    </main>
+
+    <footer>
+      <span class="footer-logo">Erlangga Rianto</span>
+      <span class="copy">© 2026</span>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/erlanggarianto/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn, opens in new tab">LinkedIn</a>
+        <a href="https://www.figma.com/design/oBhvQ98ivZrHAwck6VdaN6/Erlangga-Design-Works?node-id=24-18899&t=4Xl10uxZdFhechgW-1" target="_blank" rel="noopener noreferrer" aria-label="Figma portfolio, opens in new tab">Figma</a>
+        <a href="https://github.com/erlanggarianto" target="_blank" rel="noopener noreferrer" aria-label="GitHub, opens in new tab">GitHub</a>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+      // Reading progress bar
+      (function () {
+        const bar = document.getElementById('csProgress');
+        if (!bar) return;
+        window.addEventListener('scroll', function () {
+          const scrolled = window.scrollY;
+          const total = document.documentElement.scrollHeight - window.innerHeight;
+          bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+        }, { passive: true });
+      })();
+
+      // Section nav active state
+      (function () {
+        const navLinks = document.querySelectorAll('.cs-section-nav a');
+        const sections = document.querySelectorAll('section[id^="s-"]');
+        if (!navLinks.length || !sections.length) return;
+
+        const navHeight = 58 + 34;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach((a) => {
+                  a.classList.toggle('cs-nav-active', a.getAttribute('href') === '#' + id);
+                });
+                const active = document.querySelector('.cs-section-nav a.cs-nav-active');
+                if (active) active.scrollIntoView({ block: 'nearest', inline: 'center' });
+              }
+            });
+          },
+          { rootMargin: `-${navHeight}px 0px -55% 0px`, threshold: 0 }
+        );
+
+        sections.forEach((s) => observer.observe(s));
+
+        document.querySelectorAll('.cs-section-nav a').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+              const y = target.getBoundingClientRect().top + window.scrollY - navHeight;
+              window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
