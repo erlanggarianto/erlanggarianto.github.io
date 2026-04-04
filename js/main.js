@@ -33,12 +33,12 @@ if (!isTouch) {
     el.addEventListener("mouseenter", () => {
       ring.style.width = "52px";
       ring.style.height = "52px";
-      ring.style.borderColor = "rgba(0,212,255,0.8)";
+      ring.style.borderColor = "rgba(159,21,21,0.8)";
     });
     el.addEventListener("mouseleave", () => {
       ring.style.width = "36px";
       ring.style.height = "36px";
-      ring.style.borderColor = "rgba(0,212,255,0.5)";
+      ring.style.borderColor = "rgba(159,21,21,0.4)";
     });
   });
 }
