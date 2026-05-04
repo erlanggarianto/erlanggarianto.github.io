@@ -29,7 +29,7 @@ if (!isTouch) {
     requestAnimationFrame(animRing);
   })();
 
-  document.querySelectorAll("a,button").forEach((el) => {
+  document.querySelectorAll("a,button,.cs-figure img").forEach((el) => {
     el.addEventListener("mouseenter", () => {
       ring.style.width = "52px";
       ring.style.height = "52px";
@@ -72,6 +72,58 @@ navLinks.querySelectorAll("a").forEach((link) => {
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && navEl.classList.contains("menu-open")) closeMenu();
 });
+
+// Lightbox
+(function () {
+  const figures = document.querySelectorAll(".cs-figure img");
+  if (!figures.length) return;
+
+  const lb = document.createElement("div");
+  lb.className = "lb";
+  lb.setAttribute("role", "dialog");
+  lb.setAttribute("aria-modal", "true");
+  lb.setAttribute("aria-label", "Image preview");
+
+  const closeBtn = document.createElement("button");
+  closeBtn.className = "lb-close";
+  closeBtn.setAttribute("aria-label", "Close image preview");
+  closeBtn.innerHTML = "&times;";
+
+  const lbImg = document.createElement("img");
+  lbImg.className = "lb-img";
+
+  lb.appendChild(closeBtn);
+  lb.appendChild(lbImg);
+  document.body.appendChild(lb);
+
+  let lastFocused;
+
+  function openLightbox(src, alt) {
+    lastFocused = document.activeElement;
+    lbImg.src = src;
+    lbImg.alt = alt || "";
+    lb.classList.add("lb-open");
+    document.body.style.overflow = "hidden";
+    closeBtn.focus();
+  }
+
+  function closeLightbox() {
+    lb.classList.remove("lb-open");
+    document.body.style.overflow = "";
+    if (lastFocused) lastFocused.focus();
+  }
+
+  figures.forEach((img) => {
+    img.style.cursor = "zoom-in";
+    img.addEventListener("click", () => openLightbox(img.src, img.alt));
+  });
+
+  closeBtn.addEventListener("click", closeLightbox);
+  lb.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lb.classList.contains("lb-open")) closeLightbox();
+  });
+})();
 
 // Scroll-triggered fade-in
 const io = new IntersectionObserver(
