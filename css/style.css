@@ -10,7 +10,7 @@
   --crimson-dim: rgba(159, 21, 21, 0.1);
   --white: #111111;
   --white-dim: rgba(17, 17, 17, 0.62);
-  --white-faint: rgba(17, 17, 17, 0.38);
+  --white-faint: rgba(17, 17, 17, 0.60);
   --border: rgba(185, 28, 28, 0.15);
   --border-bright: rgba(159, 21, 21, 0.3);
 }
@@ -147,14 +147,6 @@ nav {
   gap: 0.5rem;
 }
 
-.nav-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--crimson);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgba(159, 21, 21, 0.5);
-  animation: pulse 2s ease infinite;
-}
 
 @keyframes pulse {
   0%,
@@ -1279,7 +1271,7 @@ section {
 }
 .form-field input::placeholder,
 .form-field textarea::placeholder {
-  color: rgba(17, 17, 17, 0.32);
+  color: rgba(17, 17, 17, 0.50);
 }
 .form-field input:focus,
 .form-field textarea:focus {
@@ -1344,7 +1336,7 @@ footer {
 footer .copy {
   font-size: 0.75rem;
   font-weight: 400;
-  color: rgba(17, 17, 17, 0.45);
+  color: rgba(17, 17, 17, 0.60);
 }
 .footer-links {
   display: flex;
@@ -1353,7 +1345,7 @@ footer .copy {
 .footer-links a {
   font-size: 0.75rem;
   font-weight: 500;
-  color: rgba(17, 17, 17, 0.55);
+  color: var(--white-dim);
   text-decoration: none;
   transition: color 0.2s;
 }
