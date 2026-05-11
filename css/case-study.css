@@ -45,8 +45,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(185,28,28,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(185,28,28,0.05) 1px, transparent 1px);
+    linear-gradient(#b91c1c0d 1px, transparent 1px),
+    linear-gradient(90deg, #b91c1c0d 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 0%, transparent 100%);
   pointer-events: none;
@@ -60,12 +60,12 @@
 .cs-hero-orb-1 {
   width: 600px; height: 600px;
   top: -200px; right: -100px;
-  background: radial-gradient(circle, rgba(185,28,28,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, #b91c1c1f 0%, transparent 70%);
 }
 .cs-hero-orb-2 {
   width: 380px; height: 380px;
   bottom: -80px; left: -60px;
-  background: radial-gradient(circle, rgba(159,21,21,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, #9f151514 0%, transparent 70%);
 }
 .cs-hero-inner {
   position: relative;
@@ -83,15 +83,15 @@
   font-weight: 600;
   margin-bottom: 1.6rem;
   padding: 0.35rem 1rem 0.35rem 0.65rem;
-  background: rgba(159,21,21,0.07);
-  border: 1px solid rgba(159,21,21,0.2);
+  background: #9f151512;
+  border: 1px solid #9f151533;
   border-radius: 100px;
 }
 .cs-hero-cat span {
   width: 5px; height: 5px;
   background: var(--crimson);
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(159,21,21,0.5);
+  box-shadow: 0 0 6px #9f151580;
   animation: pulse 2s ease infinite;
 }
 .cs-hero h1 {
@@ -390,7 +390,7 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.88);
+  background: #000000e0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -412,7 +412,7 @@
   width: auto;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 24px 80px #00000099;
   cursor: default;
   display: block;
 }
@@ -420,9 +420,9 @@
   position: absolute;
   top: 1.2rem;
   right: 1.4rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.7);
+  background: #ffffff14;
+  border: 1px solid #ffffff2e;
+  color: #ffffffb2;
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 50%;
@@ -435,7 +435,7 @@
   transition: background 0.18s, color 0.18s;
 }
 .lb-close:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: #ffffff2e;
   color: #fff;
 }
 
@@ -613,7 +613,7 @@
   position: sticky;
   top: 58px;
   z-index: 90;
-  background: rgba(247,247,247,0.94);
+  background: #f7f7f7f0;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--divider);
