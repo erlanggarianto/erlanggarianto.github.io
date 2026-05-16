@@ -613,7 +613,7 @@
   position: sticky;
   top: 58px;
   z-index: 90;
-  background: #f7f7f7f0;
+  background: #ffffffd0;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--divider);
