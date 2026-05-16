@@ -247,7 +247,7 @@
 .cs-ul li::before {
   content: "";
   width: 4px; height: 4px;
-  background: var(--divider);
+  background: #b8b8b8;
   border-radius: 50%;
   flex-shrink: 0;
   margin-top: 0.7rem;
@@ -257,20 +257,24 @@
 /* ── Iteration changes list (→ marker) ── */
 .cs-ul--changes li::before {
   content: "→";
-  background: none;
-  border-radius: 0;
-  width: auto;
-  height: auto;
-  font-size: 0.78rem;
-  color: var(--white-faint);
-  margin-top: 0.3rem;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--white-dim);
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  border-radius: 6px;
+  width: 1.75rem; height: 1.75rem;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
+  margin-top: 0.1rem;
 }
 
 /* ── Item list (title + description, stacked cards) ── */
 .cs-item-list {
   list-style: none;
   margin: 1.4rem 0;
+  background: var(--bg3);
   border: 1px solid var(--divider);
   border-radius: 12px;
   overflow: hidden;
@@ -293,7 +297,7 @@
 
 /* ── Callout (neutral) ── */
 .cs-callout {
-  background: var(--bg2);
+  background: var(--bg3);
   border: 1px solid var(--divider);
   border-radius: 10px;
   padding: 1.4rem 1.6rem;
@@ -331,7 +335,6 @@
   font-size: 1rem;
   font-weight: 800;
   color: var(--white-dim);
-  opacity: 0.35;
   line-height: 1.6;
 }
 .cs-finding-body {
@@ -361,8 +364,11 @@
   background: var(--bg3);
 }
 .cs-option-card--b {
-  border-color: var(--white-faint);
-  background: var(--surface);
+  border-color: #9f151533;
+  background: #9f15150a;
+}
+.cs-option-card--b .cs-option-tag {
+  color: var(--crimson);
 }
 .cs-option-tag {
   font-size: 0.62rem;
@@ -549,6 +555,7 @@
 /* ── Tools list ── */
 .cs-tools-list {
   margin: 1.4rem 0;
+  background: var(--bg3);
   border: 1px solid var(--divider);
   border-radius: 12px;
   overflow: hidden;
@@ -585,7 +592,7 @@
 }
 .cs-chip-group .skill-chip {
   background: var(--bg3);
-  border: 1px solid var(--divider);
+  border: 1px solid var(--border);
   color: var(--white-dim);
   border-radius: 100px;
   font-size: 0.76rem;
@@ -593,7 +600,7 @@
 }
 .cs-chip-group .skill-chip:hover {
   background: var(--surface);
-  border-color: var(--white-faint);
+  border-color: var(--border-bright);
   color: var(--white);
 }
 
