@@ -603,15 +603,14 @@
       <!-- Next project -->
       <div class="cs-next">
         <div class="cs-next-inner">
-          <div>
-            <div class="cs-next-label">Next case study</div>
+          <a href="./suarise-case-study.html" class="cs-next-col" aria-label="View Suarise case study">
+            <div class="cs-next-label">← Previous</div>
+            <div class="cs-next-title">Suarise Accessible Design System</div>
+          </a>
+          <a href="./waresix-case-study.html" class="cs-next-col cs-next-col--right" aria-label="View Waresix case study">
+            <div class="cs-next-label">Next →</div>
             <div class="cs-next-title">Waresix Quotation System Redesign</div>
-          </div>
-          <a
-            href="./waresix-case-study.html"
-            class="btn-glow"
-            aria-label="View Waresix case study"
-          >View case study →</a>
+          </a>
         </div>
       </div>
 
@@ -646,7 +645,11 @@
         const sections = document.querySelectorAll('section[id^="s-"]');
         if (!navLinks.length || !sections.length) return;
 
-        const navHeight = 58 + 34; // main nav + section nav strip
+        const mainNavEl = document.querySelector('nav');
+        const sectionNavEl = document.querySelector('.cs-section-nav');
+        const mainNavH = mainNavEl?.offsetHeight ?? 58;
+        if (mainNavEl) document.documentElement.style.setProperty('--nav-h', mainNavH + 'px');
+        const navHeight = mainNavH + (sectionNavEl?.offsetHeight ?? 34);
 
         const observer = new IntersectionObserver(
           (entries) => {
@@ -678,6 +681,37 @@
             }
           });
         });
+      })();
+
+      // Navbar hide on scroll down when section nav is sticky
+      (function () {
+        const mainNavEl = document.querySelector('nav');
+        const sectionNavEl = document.querySelector('.cs-section-nav');
+        if (!mainNavEl || !sectionNavEl) return;
+
+        const mainNavH = mainNavEl.offsetHeight;
+        const stickyThreshold = sectionNavEl.getBoundingClientRect().top + window.scrollY - mainNavH;
+
+        let lastScrollY = window.scrollY;
+        let navHidden = false;
+
+        window.addEventListener('scroll', function () {
+          const currentY = window.scrollY;
+          const isStickyActive = currentY >= stickyThreshold;
+          const isScrollingDown = currentY > lastScrollY;
+
+          if (isStickyActive && isScrollingDown && !navHidden) {
+            mainNavEl.style.transform = 'translateY(-100%)';
+            sectionNavEl.style.top = '0px';
+            navHidden = true;
+          } else if (!isScrollingDown && navHidden) {
+            mainNavEl.style.transform = '';
+            sectionNavEl.style.top = mainNavH + 'px';
+            navHidden = false;
+          }
+
+          lastScrollY = currentY;
+        }, { passive: true });
       })();
     </script>
   </body>

@@ -133,6 +133,7 @@ nav {
   background: #ffffffd0;
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
+  transition: transform 0.3s ease;
 }
 
 .nav-logo {
@@ -599,7 +600,7 @@ nav {
 
 .float-badge {
   position: absolute;
-  background: #fffffff2;
+  background: #ffffffd0;
   border: 1px solid var(--border-bright);
   border-radius: 12px;
   padding: 0.65rem 1rem;
@@ -765,7 +766,9 @@ section {
   position: absolute;
   bottom: -20px;
   right: -20px;
-  background: #ffffff;
+  background: #ffffffd0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-bright);
   border-radius: 16px;
   padding: 1.1rem 1.5rem;
@@ -1026,7 +1029,7 @@ section {
   left: -4px;
   width: 9px;
   height: 9px;
-  background: #d8d8d8;
+  background: #a8a8a8;
   border-radius: 50%;
 }
 .resume-col .tl:first-of-type .tl-bar::before {
