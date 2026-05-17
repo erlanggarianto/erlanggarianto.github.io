@@ -217,8 +217,7 @@ nav {
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--white-dim);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   transition: color 0.2s;
 }
 .nav-links a:hover {
@@ -501,8 +500,7 @@ nav {
 }
 .card-label {
   font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--white-faint);
   font-weight: 600;
 }
@@ -845,13 +843,13 @@ section {
   color: var(--white);
 }
 .skill-chip--highlight {
-  border-color: var(--border-bright);
-  background: #f5f5f5;
-  color: var(--white);
+  border-color: #9f151533;
+  background: var(--crimson-dim);
+  color: var(--crimson);
 }
 .skill-chip--highlight:hover {
-  border-color: var(--border-bright);
-  background: #eeeeee;
+  border-color: #9f15154d;
+  background: #9f151526;
 }
 
 /* PROJECTS */
@@ -935,8 +933,7 @@ section {
 }
 .project-cat {
   font-size: 0.69rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   color: var(--white-faint);
   font-weight: 400;
   margin-bottom: 0.6rem;
