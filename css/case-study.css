@@ -419,8 +419,14 @@
   height: auto;
   border-radius: 10px;
   box-shadow: 0 24px 80px #00000099;
-  cursor: default;
+  cursor: zoom-in;
   display: block;
+  transform-origin: center center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.lb-img.lb-zoomed {
+  transform: scale(2);
+  cursor: zoom-out;
 }
 .lb-close {
   position: absolute;
@@ -624,7 +630,7 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--divider);
-  transition: top 0.3s ease;
+  transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;

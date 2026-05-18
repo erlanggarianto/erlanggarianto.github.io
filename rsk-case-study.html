@@ -690,27 +690,55 @@
         if (!mainNavEl || !sectionNavEl) return;
 
         const mainNavH = mainNavEl.offsetHeight;
-        const stickyThreshold = sectionNavEl.getBoundingClientRect().top + window.scrollY - mainNavH;
+        const HIDE_AFTER = 64;
+        const SHOW_AFTER = 40;
 
-        let lastScrollY = window.scrollY;
         let navHidden = false;
+        let lastScrollY = window.scrollY;
+        let scrollDelta = 0;
+        let isStickyActive = false;
+
+        const sentinel = document.createElement('div');
+        sentinel.style.cssText = 'position:absolute;height:0;width:0;pointer-events:none;';
+        sectionNavEl.parentElement.insertBefore(sentinel, sectionNavEl);
+
+        new IntersectionObserver(
+          function (entries) { isStickyActive = !entries[0].isIntersecting; },
+          { rootMargin: '-' + mainNavH + 'px 0px 0px 0px', threshold: 0 }
+        ).observe(sentinel);
 
         window.addEventListener('scroll', function () {
           const currentY = window.scrollY;
-          const isStickyActive = currentY >= stickyThreshold;
-          const isScrollingDown = currentY > lastScrollY;
+          const diff = currentY - lastScrollY;
+          lastScrollY = currentY;
 
-          if (isStickyActive && isScrollingDown && !navHidden) {
+          if (diff > 0) {
+            scrollDelta = scrollDelta > 0 ? scrollDelta + diff : diff;
+          } else {
+            scrollDelta = scrollDelta < 0 ? scrollDelta + diff : diff;
+          }
+
+          if (!isStickyActive) {
+            if (navHidden) {
+              mainNavEl.style.transform = '';
+              sectionNavEl.style.top = mainNavH + 'px';
+              navHidden = false;
+              scrollDelta = 0;
+            }
+            return;
+          }
+
+          if (scrollDelta > HIDE_AFTER && !navHidden) {
             mainNavEl.style.transform = 'translateY(-100%)';
             sectionNavEl.style.top = '0px';
             navHidden = true;
-          } else if (!isScrollingDown && navHidden) {
+            scrollDelta = 0;
+          } else if (scrollDelta < -SHOW_AFTER && navHidden) {
             mainNavEl.style.transform = '';
             sectionNavEl.style.top = mainNavH + 'px';
             navHidden = false;
+            scrollDelta = 0;
           }
-
-          lastScrollY = currentY;
         }, { passive: true });
       })();
     </script>

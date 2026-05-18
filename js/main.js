@@ -97,9 +97,16 @@ document.addEventListener("keydown", (e) => {
   document.body.appendChild(lb);
 
   let lastFocused;
+  let lbZoomed = false;
+
+  function resetZoom() {
+    lbZoomed = false;
+    lbImg.classList.remove("lb-zoomed");
+  }
 
   function openLightbox(src, alt) {
     lastFocused = document.activeElement;
+    resetZoom();
     lbImg.src = src;
     lbImg.alt = alt || "";
     lb.classList.add("lb-open");
@@ -108,6 +115,7 @@ document.addEventListener("keydown", (e) => {
   }
 
   function closeLightbox() {
+    resetZoom();
     lb.classList.remove("lb-open");
     document.body.style.overflow = "";
     if (lastFocused) lastFocused.focus();
@@ -116,6 +124,11 @@ document.addEventListener("keydown", (e) => {
   figures.forEach((img) => {
     img.style.cursor = "zoom-in";
     img.addEventListener("click", () => openLightbox(img.src, img.alt));
+  });
+
+  lbImg.addEventListener("click", () => {
+    lbZoomed = !lbZoomed;
+    lbImg.classList.toggle("lb-zoomed", lbZoomed);
   });
 
   closeBtn.addEventListener("click", closeLightbox);
@@ -171,6 +184,8 @@ if (acSlides.length) {
   acStart();
   document.querySelector(".about-img-frame")?.addEventListener("mouseenter", () => clearInterval(acTimer));
   document.querySelector(".about-img-frame")?.addEventListener("mouseleave", acStart);
+  document.querySelector(".ac-btn-prev")?.addEventListener("click", () => { clearInterval(acTimer); acGoTo(acIndex - 1); acStart(); });
+  document.querySelector(".ac-btn-next")?.addEventListener("click", () => { clearInterval(acTimer); acGoTo(acIndex + 1); acStart(); });
 }
 
 // Contact form — validation + async submit

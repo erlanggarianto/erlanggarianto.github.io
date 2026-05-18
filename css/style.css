@@ -133,7 +133,7 @@ nav {
   background: #ffffffd0;
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-logo {
@@ -750,6 +750,31 @@ section {
   background: #ffffff;
   transform: scale(1.4);
 }
+.ac-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: #00000047;
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+.about-img-frame:hover .ac-btn { opacity: 1; }
+.ac-btn:hover { background: #00000070; }
+.ac-btn-prev { left: 10px; }
+.ac-btn-next { right: 10px; }
 .img-glow {
   position: absolute;
   inset: -1px;
@@ -1127,6 +1152,9 @@ section {
   display: flex;
   align-items: center;
   gap: 0.9rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 .t-av {
   width: 42px;
@@ -1251,8 +1279,7 @@ section {
 .form-field label {
   font-size: 0.73rem;
   color: var(--white-dim);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   font-weight: 500;
 }
 .form-field input,
