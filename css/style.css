@@ -420,6 +420,40 @@ nav {
   transform: translateY(-2px);
 }
 
+/* ── Scroll to top ── */
+.scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: #ffffffd0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  color: var(--white-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s, background 0.2s, border-color 0.2s, color 0.2s;
+}
+.scroll-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+.scroll-top:hover {
+  background: #ffffff;
+  border-color: var(--border-bright);
+  color: var(--crimson);
+}
+
 .hero-stats {
   display: flex;
   gap: 2.5rem;
