@@ -390,81 +390,6 @@ nav {
   margin-bottom: 1.4rem;
 }
 
-.card-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.7rem;
-  margin-bottom: 1.4rem;
-}
-.stat-box {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 0.75rem 0.4rem;
-  text-align: center;
-}
-.stat-box .n {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--white);
-  display: block;
-}
-.stat-box .l {
-  font-size: 0.62rem;
-  color: var(--white-dim);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  justify-content: center;
-}
-.card-tag {
-  padding: 0.22rem 0.65rem;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  font-size: 0.67rem;
-  color: var(--white-dim);
-  font-weight: 500;
-}
-
-.float-badge {
-  position: absolute;
-  background: #ffffffd0;
-  border: 1px solid var(--border-bright);
-  border-radius: 12px;
-  padding: 0.65rem 1rem;
-  backdrop-filter: blur(12px);
-  font-size: 0.72rem;
-  box-shadow: 0 8px 24px #00000014;
-}
-.float-badge-1 {
-  top: 10px;
-  right: -30px;
-}
-.float-badge-2 {
-  bottom: 40px;
-  left: -35px;
-}
-.fb-val {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--red);
-}
-.fb-lbl {
-  color: var(--white-dim);
-  font-size: 0.67rem;
-  margin-top: 0.1rem;
-}
-
 /* SECTIONS */
 section {
   padding: 6rem 5%;
@@ -610,33 +535,6 @@ main > section + section {
 .ac-btn:hover { background: #00000070; }
 .ac-btn-prev { left: 10px; }
 .ac-btn-next { right: 10px; }
-.exp-badge {
-  position: absolute;
-  bottom: -20px;
-  right: -20px;
-  background: #ffffffd0;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--border-bright);
-  border-radius: 16px;
-  padding: 1.1rem 1.5rem;
-}
-.exp-badge .en {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 1.75rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: var(--white);
-  line-height: 1;
-}
-.exp-badge .el {
-  font-size: 0.85rem;
-  color: var(--white-dim);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-top: 0.3rem;
-}
-
 .about-content p:not(.section-eyebrow) {
   font-size: 0.96rem;
   line-height: 1.8;
@@ -904,14 +802,6 @@ main > section + section {
   border-color: var(--border-bright);
 }
 
-.t-qt {
-  font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 3.5rem;
-  color: var(--white-dim);
-  line-height: 0.7;
-  margin-bottom: 1rem;
-  opacity: 0.55;
-}
 .t-text {
   font-size: 0.9rem;
   line-height: 1.8;
@@ -1180,12 +1070,6 @@ footer .copy {
   .hero-card {
     width: 300px;
   }
-  .float-badge-1 {
-    right: -10px;
-  }
-  .float-badge-2 {
-    left: -10px;
-  }
   .t-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1202,9 +1086,6 @@ footer .copy {
   .hero-visual {
     display: none;
   }
-  .float-badge {
-    display: none;
-  }
 
   .about-grid {
     grid-template-columns: 1fr;
@@ -1217,10 +1098,6 @@ footer .copy {
   .ac-dots {
     bottom: auto;
     top: 14px;
-  }
-  .exp-badge {
-    right: 10px;
-    bottom: -15px;
   }
 
   .contact-layout {

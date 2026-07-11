@@ -75,16 +75,12 @@
 .cs-meta-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 2rem;
   padding-top: 2.5rem;
   border-top: 1px solid var(--border);
   max-width: 860px;
 }
 .cs-meta-item {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 0.9rem 1.3rem;
   flex: 1 1 130px;
 }
 .cs-meta-label {
@@ -260,10 +256,8 @@ main > .cs-section + .cs-section {
 
 /* ── Callout (neutral) ── */
 .cs-callout {
-  background: var(--bg3);
-  border: 1px solid var(--divider);
-  border-radius: 10px;
-  padding: 1.4rem 1.6rem;
+  border-left: 2px solid var(--border-bright);
+  padding: 0.2rem 0 0.2rem 1.4rem;
   margin: 2rem 0;
 }
 .cs-callout p {
@@ -560,7 +554,7 @@ main > .cs-section + .cs-section {
   background: var(--bg3);
   border: 1px solid var(--border);
   color: var(--white-dim);
-  border-radius: 100px;
+  border-radius: 6px;
   font-size: 0.76rem;
   padding: 0.28rem 0.9rem;
 }
@@ -737,7 +731,7 @@ main > .cs-section + .cs-section {
 .cs-metric-card {
   background: var(--bg3);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 1.6rem 1.4rem;
   position: relative;
   overflow: hidden;

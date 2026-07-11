@@ -108,7 +108,7 @@ const io = new IntersectionObserver(
 
 document
   .querySelectorAll(
-    ".project-card,.t-card,.tl,.about-grid,.contact-layout,.exp-badge",
+    ".project-card,.t-card,.tl,.about-grid,.contact-layout",
   )
   .forEach((el) => {
     el.style.opacity = "0";
