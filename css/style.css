@@ -467,7 +467,10 @@ nav {
 
 /* SECTIONS */
 section {
-  padding: 4.5rem 5%;
+  padding: 6rem 5%;
+}
+main > section + section {
+  border-top: 1px solid var(--divider);
 }
 
 .section-eyebrow {
@@ -507,10 +510,6 @@ section {
 }
 
 /* ABOUT */
-#about {
-  background: var(--bg2);
-}
-
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -693,10 +692,6 @@ section {
   color: var(--white);
 }
 /* PROJECTS */
-#projects {
-  background: var(--bg);
-}
-
 .projects-header {
   display: flex;
   justify-content: space-between;
@@ -813,10 +808,6 @@ section {
 }
 
 /* RESUME */
-#resume {
-  background: var(--bg2);
-}
-
 .resume-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -893,10 +884,6 @@ section {
 }
 
 /* TESTIMONIALS */
-#testimonials {
-  background: var(--bg);
-}
-
 .t-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -975,35 +962,12 @@ section {
 }
 
 /* CONTACT */
-#contact {
-  background: var(--bg2);
-  position: relative;
-  overflow: hidden;
-}
-#contact::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px;
-  height: 400px;
-  background: radial-gradient(
-    ellipse,
-    #b91c1c0f 0%,
-    transparent 70%
-  );
-  pointer-events: none;
-}
-
 .contact-layout {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 6rem;
   align-items: start;
   margin-top: 4rem;
-  position: relative;
-  z-index: 2;
 }
 
 .contact-links {
@@ -1365,7 +1329,7 @@ nav.menu-open .nav-links .nav-cta {
     overflow-wrap: break-word;
   }
   section {
-    padding: 3.5rem 5%;
+    padding: 4.5rem 5%;
   }
 
   footer {

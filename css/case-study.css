@@ -36,10 +36,8 @@
 
 /* ── Hero ── */
 .cs-hero {
-  background: var(--bg);
   padding: 7rem 5% 5rem;
   position: relative;
-  overflow: hidden;
 }
 .cs-hero-inner {
   position: relative;
@@ -107,10 +105,12 @@
 
 /* ── Section shell ── */
 .cs-section {
-  padding: 6rem 5%;
+  padding: 6.5rem 5%;
 }
-.cs-section--light { background: var(--bg); }
-.cs-section--tint  { background: var(--bg2); }
+main > .cs-section + .cs-section {
+  border-top: 1px solid var(--divider);
+}
+/* --light/--tint classes retained in HTML as inert markers; single page background */
 
 /* ── Section header ── */
 .cs-section-label {
@@ -620,7 +620,6 @@
 
 /* ── Prev / Next project navigation ── */
 .cs-next {
-  background: var(--bg2);
   border-top: 1px solid var(--border);
   padding: 5rem 5%;
 }
@@ -674,7 +673,7 @@
 }
 @media (max-width: 768px) {
   .cs-hero { padding: 6rem 5% 3.5rem; }
-  .cs-section { padding: 4rem 5%; }
+  .cs-section { padding: 4.5rem 5%; }
   .cs-meta-item { flex: 1 1 120px; }
   .cs-next-inner { flex-direction: column; gap: 0; }
   .cs-option-grid { grid-template-columns: 1fr; }
