@@ -30,7 +30,7 @@
   text-decoration: none;
   transition: color 0.2s;
 }
-.cs-breadcrumb a:hover { color: var(--crimson); }
+.cs-breadcrumb a:hover { color: var(--red); }
 .cs-breadcrumb-sep { opacity: 0.35; margin: 0 0.1rem; }
 .cs-breadcrumb-current { color: var(--white-dim); }
 
@@ -53,13 +53,9 @@
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--crimson);
+  color: var(--white-dim);
   font-weight: 600;
   margin-bottom: 1.6rem;
-  padding: 0.35rem 1rem 0.35rem 0.65rem;
-  background: #9f151512;
-  border: 1px solid #9f151533;
-  border-radius: 100px;
 }
 .cs-hero h1 {
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -330,12 +326,9 @@
   border-radius: 12px;
   background: var(--bg3);
 }
-.cs-option-card--b {
-  border-color: #9f151533;
-  background: #9f15150a;
-}
 .cs-option-card--b .cs-option-tag {
-  color: var(--crimson);
+  color: var(--red);
+  font-weight: 700;
 }
 .cs-option-tag {
   font-size: 0.62rem;
@@ -583,7 +576,7 @@
   top: 0; left: 0;
   height: 2px;
   width: 0%;
-  background: var(--crimson);
+  background: var(--red);
   z-index: 10000;
   pointer-events: none;
 }
@@ -622,8 +615,7 @@
 }
 .cs-section-nav a:hover { color: var(--white-dim); }
 .cs-section-nav a.cs-nav-active {
-  color: var(--crimson);
-  background: var(--crimson-dim);
+  color: var(--red);
 }
 
 /* ── Prev / Next project navigation ── */
@@ -666,7 +658,7 @@
   transition: color 0.2s;
 }
 .cs-next-col:hover .cs-next-label {
-  color: var(--crimson);
+  color: var(--red);
 }
 .cs-next-title {
   font-family: "Plus Jakarta Sans", sans-serif;
@@ -710,4 +702,152 @@
 }
 @media (max-width: 640px) {
   .cs-section-nav a { padding: 0.35rem 0.6rem; }
+}
+
+/* ── Page-specific components ── */
+
+/* Rate pills (RSK usability table) */
+.cs-rate-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+.cs-rate-100 {
+  background: #4ade801f;
+  color: #15803d;
+  border: 1px solid #4ade8047;
+}
+.cs-rate-80 {
+  background: #fbbf241f;
+  color: #b45309;
+  border: 1px solid #fbbf244c;
+}
+
+/* Impact metrics (RSK) */
+.cs-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  margin: 2.2rem 0;
+}
+.cs-metric-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.6rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+.cs-metric-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--divider);
+}
+.cs-metric-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--white-faint);
+  font-weight: 600;
+  margin-bottom: 1.1rem;
+}
+.cs-metric-before {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--white-faint);
+  text-decoration: line-through;
+  text-decoration-color: #1111114c;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.cs-metric-after {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  display: block;
+}
+.cs-metric-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+.cs-metric-year {
+  font-size: 0.66rem;
+  color: var(--white-faint);
+  font-weight: 500;
+}
+.cs-metric-growth {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #15803d;
+  background: #4ade801a;
+  border: 1px solid #4ade8038;
+  border-radius: 100px;
+  padding: 0.2rem 0.65rem;
+}
+@media (max-width: 900px) {
+  .cs-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .cs-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Impact hero stat (Waresix) */
+.cs-impact-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.2rem 2.4rem;
+  margin: 2.4rem 0;
+}
+.cs-impact-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--white-faint);
+  font-weight: 600;
+}
+.cs-impact-number {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--white);
+  line-height: 1;
+}
+.cs-impact-desc {
+  font-size: 1rem;
+  color: var(--white-dim);
+  line-height: 1.6;
+  max-width: 480px;
+  margin-top: 0.3rem;
+}
+@media (max-width: 768px) {
+  .cs-impact-hero {
+    padding: 1.6rem 1.8rem;
+  }
 }
