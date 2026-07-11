@@ -41,32 +41,6 @@
   position: relative;
   overflow: hidden;
 }
-.cs-hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(#b91c1c0d 1px, transparent 1px),
-    linear-gradient(90deg, #b91c1c0d 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 0%, transparent 100%);
-  pointer-events: none;
-}
-.cs-hero-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  pointer-events: none;
-}
-.cs-hero-orb-1 {
-  width: 600px; height: 600px;
-  top: -200px; right: -100px;
-  background: radial-gradient(circle, #b91c1c1f 0%, transparent 70%);
-}
-.cs-hero-orb-2 {
-  width: 380px; height: 380px;
-  bottom: -80px; left: -60px;
-  background: radial-gradient(circle, #9f151514 0%, transparent 70%);
-}
 .cs-hero-inner {
   position: relative;
   z-index: 2;
@@ -86,13 +60,6 @@
   background: #9f151512;
   border: 1px solid #9f151533;
   border-radius: 100px;
-}
-.cs-hero-cat span {
-  width: 5px; height: 5px;
-  background: var(--crimson);
-  border-radius: 50%;
-  box-shadow: 0 0 6px #9f151580;
-  animation: pulse 2s ease infinite;
 }
 .cs-hero h1 {
   font-family: "Plus Jakarta Sans", sans-serif;
