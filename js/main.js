@@ -235,7 +235,7 @@ if (contactForm && formStatus) {
       }
     } catch {
       setStatus(
-        "Could not send — please check your connection and try again.",
+        "Could not send. Please check your connection and try again.",
         "error",
       );
     }
