@@ -1095,10 +1095,6 @@ footer .copy {
   .about-img-frame {
     aspect-ratio: 3/2;
   }
-  .ac-dots {
-    bottom: auto;
-    top: 14px;
-  }
 
   .contact-layout {
     grid-template-columns: 1fr;
