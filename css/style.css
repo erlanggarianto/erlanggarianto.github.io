@@ -322,11 +322,11 @@ nav {
 }
 
 .hero-card {
-  width: 360px;
+  width: 420px;
   background: var(--bg3);
   border: 1px solid #0000001f;
   border-radius: 22px;
-  padding: 2rem;
+  padding: 1.25rem;
   box-shadow: 0 40px 80px #0000001a;
   position: relative;
   overflow: hidden;
@@ -336,7 +336,8 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
 }
 .card-label {
   font-size: 0.7rem;
@@ -360,25 +361,26 @@ nav {
   box-shadow: 0 0 6px #16803c80;
 }
 
-.card-photo {
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
+.card-portrait {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 14px;
   overflow: hidden;
-  border: 2px solid #00000033;
-  margin: 0 auto 1rem;
+  background: var(--surface);
 }
-.card-photo img {
+.card-portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
 }
+.card-meta {
+  padding: 1rem 0.5rem 0.5rem;
+}
 .card-name {
   font-family: "Plus Jakarta Sans", sans-serif;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  text-align: center;
   margin-bottom: 0.25rem;
   letter-spacing: -0.02em;
   color: var(--white);
@@ -386,8 +388,6 @@ nav {
 .card-role {
   font-size: 0.77rem;
   color: var(--white-dim);
-  text-align: center;
-  margin-bottom: 1.4rem;
 }
 
 /* SECTIONS */
@@ -1068,7 +1068,7 @@ footer .copy {
     gap: 2rem;
   }
   .hero-card {
-    width: 300px;
+    width: 340px;
   }
   .t-grid {
     grid-template-columns: repeat(2, 1fr);
