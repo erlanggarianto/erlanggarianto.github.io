@@ -97,7 +97,6 @@
       <nav class="cs-section-nav" aria-label="Case study sections">
         <div class="cs-section-nav-inner">
           <a href="#s-overview">Overview</a>
-          <a href="#s-context">Context</a>
           <a href="#s-discovery">Discovery</a>
           <a href="#s-audit">UX Audit</a>
           <a href="#s-strategy">Strategy</a>
@@ -117,122 +116,66 @@
           <p class="cs-section-label">Overview</p>
           <h2 class="cs-h2">The Short Version</h2>
           <p class="cs-p">
-            Rumah Siap Kerja (RSK) is an Indonesian edtech platform partnered
-            with Kartu Prakerja, a government program that gives citizens
-            vouchers to take online job-skills courses. When I joined, the
-            platform had around 8K+ users with about ~5K+ redemptions and ~4K+
-            certificates. Almost all of these users came through Kartu Prakerja,
-            and the program was about to scale up significantly.
+            Rumah Siap Kerja (RSK) is an Indonesian edtech platform where
+            citizens take job-skills video courses paid with Kartu Prakerja, a
+            government voucher program. Payment means redeeming a code bought on
+            an external marketplace (Tokopedia, Bukalapak), not a standard
+            checkout, and the program was about to scale up enrollment fast. If
+            the experience stayed confusing, that incoming traffic would go to
+            competing platforms.
           </p>
           <p class="cs-p">
-            Through user interviews, support ticket analysis, and usability
-            audits, I found that users were motivated to learn but the app was
-            cluttered and confusing. The payment flow had unclear action
-            buttons, the homepage was overloaded with banners, and the dashboard
-            buried the things users needed most.
+            Research showed users were motivated to learn but the app was
+            cluttered: unclear payment buttons, a banner-heavy homepage, and a
+            dashboard that buried purchased classes. I restructured the
+            information architecture, simplified every core flow, and built a
+            component system. From 2020 to 2021, customers grew from ~8K+ to
+            ~574K+, redemptions from ~5K+ to ~459K+, and certificates from ~4K+
+            to ~712K+.
           </p>
-          <p class="cs-p">
-            I restructured the information architecture, simplified every core
-            flow, and built a component system to keep the experience
-            consistent. From 2020 to 2021, total customers grew to ~574K+, total
-            redemptions reached ~459K+, and total certificates issued grew to
-            ~712K+.
-          </p>
-        </div>
-      </section>
-
-      <!-- 02 Context -->
-      <section id="s-context" class="cs-section cs-section--light">
-        <div class="cs-inner">
-          <p class="cs-section-label">Context</p>
-          <h2 class="cs-h2">Context</h2>
-
-          <h3 class="cs-h3">What is Rumah Siap Kerja?</h3>
-          <p class="cs-p">
-            RSK is an online learning platform where Indonesian citizens can
-            take video courses on topics like business, marketing, IT, and
-            agriculture. Most of its users are fresh graduates or workers
-            looking to pick up new job skills. Almost all users pay using Kartu
-            Prakerja vouchers from the government. The payment process involves
-            entering a redemption code that users purchase from a third-party
-            marketplace (like Tokopedia or Bukalapak). This is not a standard
-            checkout, and the existing flow at the time made it even more
-            confusing than it needed to be.
-          </p>
-
-          <h3 class="cs-h3">Why this project mattered</h3>
-          <p class="cs-p">
-            The Kartu Prakerja program was growing fast, and RSK needed to keep
-            up. The platform had around 8K+ users when I joined, with ~5K+
-            redemptions and ~4K+ certificates. While conversion was not
-            terrible, RSK was about to receive a lot more traffic as the
-            government scaled up enrollment. Since almost all users came through
-            Kartu Prakerja, the voucher purchase and learning flow needed to be
-            smooth enough to handle that growth. If users found the experience
-            confusing, they would just go to a competing platform.
-          </p>
-
           <h3 class="cs-h3">My role</h3>
           <p class="cs-p">
-            I was the lead and sole UX designer. I managed two design interns
-            and worked with PMs, engineers, marketing, and C-level stakeholders.
-            I owned the full process: research, IA restructuring, interaction
-            design, prototyping, usability testing, and design iteration. The
-            intensive redesign work took about one month.
+            Lead and sole UX designer, managing two design interns and working
+            with PMs, engineers, marketing, and C-level stakeholders. I owned
+            research, IA, interaction design, prototyping, and testing.
           </p>
         </div>
       </section>
 
       <!-- 03 Discovery -->
-      <section id="s-discovery" class="cs-section cs-section--tint">
+      <section id="s-discovery" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Research</p>
           <h2 class="cs-h2">Discovery: Understanding What Was Going Wrong</h2>
           <p class="cs-p">
-            I started with two parallel research tracks: reviewing customer
-            service ticket data to find patterns, and conducting phone
-            interviews with both active users (who had bought classes) and
-            inactive users (who registered but never purchased anything).
+            I ran two research tracks in parallel: analyzing customer service
+            tickets, and phone interviews with both active users and users who
+            registered but never bought anything. Tickets surfaced the top
+            complaints (payment confusion, finding purchased classes,
+            downloading certificates); interviews explained why. Most RSK users
+            had low digital literacy, and many had never used an e-learning
+            app.
           </p>
           <p class="cs-p">
-            Customer service tickets showed the most common complaints: payment
-            confusion, difficulty finding classes after purchasing, and not
-            knowing where to download certificates.
-          </p>
-          <p class="cs-p">
-            Phone interviews helped me understand why these problems were
-            happening. Most of RSK's users had low digital literacy. Many had
-            never used an e-learning app before. The app was not necessarily
-            designed for advanced users. It was just cluttered and confusing,
-            with too much going on and not enough clear direction for what to do
-            next.
-          </p>
-          <p class="cs-p">
-            I do not have exact drop-off numbers for each step, but the patterns
-            from the tickets and interviews were consistent enough to identify
-            four clear friction points:
+            I do not have exact per-step drop-off numbers, but the patterns
+            were consistent enough to identify four clear friction points:
           </p>
 
           <div class="cs-findings">
             <div class="cs-finding-card">
               <span class="cs-finding-num">1</span>
               <div class="cs-finding-body">
-                <strong>Registration felt too long.</strong>The sign-up form had
-                too many required fields shown all at once. For users who were
-                already unsure about using the app, this was overwhelming.
-                Several people I interviewed said they gave up halfway through
-                registration.
+                <strong>Registration felt too long.</strong>The sign-up form
+                showed too many required fields at once. Several interviewees
+                said they gave up halfway through.
               </div>
             </div>
             <div class="cs-finding-card">
               <span class="cs-finding-num">2</span>
               <div class="cs-finding-body">
-                <strong>Payment was where most users got stuck.</strong>Kartu
-                Prakerja users needed to enter a redemption code to unlock a
-                class. But the existing payment flow was confusing. There were
-                multiple action buttons with unclear names, and the redemption
-                code flow itself was hard to follow. Users did not understand
-                what they were supposed to do at each step.
+                <strong>Payment was where most users got stuck.</strong>The
+                redemption code flow had multiple action buttons with unclear
+                names, and users did not understand what to do at each step.
               </div>
             </div>
             <div class="cs-finding-card">
@@ -241,9 +184,8 @@
                 <strong
                   >The dashboard did not show what users were looking
                   for.</strong
-                >After buying a class, users came back to the app expecting to
-                see their class right away. Instead, they landed on a homepage
-                filled with promotional banners and announcements. Finding a
+                >After buying, users expected to see their class right away.
+                Instead they landed on a banner-filled homepage, and finding a
                 purchased class or certificate took multiple taps through
                 unclear menus.
               </div>
@@ -253,9 +195,8 @@
               <div class="cs-finding-body">
                 <strong
                   >The learning experience gave no sense of progress.</strong
-                >Inside a course, lessons appeared as a flat list with no
-                progress indicators, completion markers, or feedback. Users
-                could not tell how far along they were, what was left, or
+                >Lessons appeared as a flat list with no progress indicators or
+                feedback. Users could not tell how far along they were or
                 whether they passed.
               </div>
             </div>
@@ -275,50 +216,41 @@
 
           <h3 class="cs-h3">Building the persona</h3>
           <p class="cs-p">
-            From these findings, I created a primary persona: Fani, a
-            25-year-old recent graduate from Bekasi looking for her first job.
-            She registered for Kartu Prakerja to take certification courses but
-            found the voucher process confusing. She represents the typical RSK
-            user: motivated to learn, but not experienced with digital products,
-            and quick to give up when something feels unclear.
-          </p>
-          <p class="cs-p">
-            I used this persona as the main filter for every design decision
-            going forward. If Fani would not understand something on her first
-            try, it needed to be simpler.
+            From these findings I created Fani, a 25-year-old recent graduate
+            from Bekasi: motivated to learn, inexperienced with digital
+            products, quick to give up when something feels unclear. She became
+            the filter for every design decision. If Fani would not understand
+            something on her first try, it needed to be simpler.
           </p>
         </div>
       </section>
 
       <!-- 04 UX Audit -->
-      <section id="s-audit" class="cs-section cs-section--light">
+      <section id="s-audit" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">Analysis</p>
           <h2 class="cs-h2">UX Audit: Mapping the Specific Issues</h2>
           <p class="cs-p">
-            Before designing solutions, I ran a heuristic evaluation using
-            Shneiderman's 8 Golden Rules. Two rules were especially relevant
-            here: "Strive for Consistency" and "Reduce Short-Term Memory Load."
-            These focus on making interfaces predictable and reducing how much
-            users need to remember, which are the most important things when
-            designing for users with low digital literacy.
+            I ran a heuristic evaluation using Shneiderman's 8 Golden Rules,
+            leaning on "Strive for Consistency" and "Reduce Short-Term Memory
+            Load" — the rules that matter most for users with low digital
+            literacy. The audit showed:
           </p>
-          <p class="cs-p">The audit showed several issues across the app:</p>
           <ul class="cs-ul">
             <li>
               Buttons and interactions behaved differently on different screens
             </li>
             <li>
-              The homepage was overloaded with promotional banners, sliders, and
-              marketing content that competed with the actual navigation
+              Promotional banners and sliders on the homepage competed with the
+              actual navigation
             </li>
             <li>
-              Getting from "I want to take a class" to actually enrolling took
-              too many steps through confusing menus
+              Going from "I want to take a class" to enrolling took too many
+              steps through confusing menus
             </li>
             <li>
-              Users completed actions (like buying a class) without getting
-              clear confirmation, so they were not sure if it worked
+              Actions like buying a class gave no clear confirmation, so users
+              were not sure it worked
             </li>
           </ul>
 
@@ -335,12 +267,10 @@
           </figure>
 
           <p class="cs-p">
-            I also studied competitors like Ruangguru (Indonesia's largest
-            edtech) and Udacity. Two things stood out that RSK was missing.
-            First, successful edtech apps kept each screen focused on one
-            decision instead of showing a bunch of options at once. Second, they
-            used progress bars, completion badges, and grade displays to keep
-            users engaged throughout multi-session learning.
+            Studying Ruangguru (Indonesia's largest edtech) and Udacity showed
+            two things RSK was missing: screens focused on one decision at a
+            time, and progress indicators (bars, badges, grades) that keep
+            users engaged across sessions.
           </p>
 
           <figure
@@ -358,7 +288,7 @@
       </section>
 
       <!-- 05 Strategy -->
-      <section id="s-strategy" class="cs-section cs-section--tint">
+      <section id="s-strategy" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Strategy</p>
           <h2 class="cs-h2">
@@ -372,10 +302,9 @@
               <div class="cs-option-tag">Option A</div>
               <div class="cs-option-title">Small fixes</div>
               <div class="cs-option-body">
-                Improve button labels, add clearer payment instructions,
-                redesign a few cards. Lower risk and faster to ship, but
-                unlikely to change much because the underlying structure was the
-                problem.
+                Improve button labels, clarify payment instructions, redesign a
+                few cards. Lower risk, faster to ship, but the underlying
+                structure was the problem.
               </div>
             </div>
             <div class="cs-option-card cs-option-card--b">
@@ -383,64 +312,47 @@
               <div class="cs-option-title">Full structural redesign</div>
               <div class="cs-option-body">
                 Rebuild the information architecture, restructure every core
-                flow, and simplify aggressively. More work and more risk, but it
-                addressed the actual root cause.
+                flow, simplify aggressively. More work and risk, but it
+                addressed the root cause.
               </div>
             </div>
           </div>
           <p class="cs-p">
-            I pushed for Option B. The patterns from my research showed that
-            users were not just failing at one step. Registration, payment,
-            class discovery, learning, and certification all had problems. The
-            app had grown organically without a clear structure, and it showed.
-            Fixing individual screens would not solve that.
-          </p>
-          <p class="cs-p">
-            My goal was to reduce every core flow to as few steps as possible.
-            Sign up, find a class, buy it, start learning, get your certificate.
-            If any of these flows felt long or complicated, the information
-            architecture needed to change.
+            I pushed for Option B: research showed problems in registration,
+            payment, discovery, learning, and certification, not just one step.
+            The goal became reducing every core flow — sign up, find a class,
+            buy it, learn, get the certificate — to as few steps as possible.
           </p>
 
           <h3 class="cs-h3">The disagreement about banners</h3>
           <div class="cs-callout">
             <p>
-              This is where I ran into pushback. The C-level and marketing team
-              believed that having a lot of promotional banners and featured
-              content on the homepage would lead to more sales. More visibility,
-              more conversions, was the thinking.
+              The C-level and marketing team believed more promotional banners
+              on the homepage meant more sales. I argued the opposite: users
+              arrived with a clear goal (find a class, buy it) and the clutter
+              was driving them away — and the ticket data backed that up.
             </p>
             <p>
-              I disagreed. I argued that all these banners and promotions were
-              actually driving users away because they were overwhelmed. The
-              customer service data backed this up. Users were coming to the app
-              with a clear goal (find a class, buy it) and the homepage was
-              making that harder, not easier. The clutter was not helping sales.
-              It was hurting them.
-            </p>
-            <p>
-              After showing the evidence from the research and ticket data, I
-              got buy-in for a cleaner homepage. Promotional content would still
-              exist but would not compete with the core navigation. We agreed to
-              measure the impact after launch.
+              The evidence won buy-in for a cleaner homepage where promotions
+              no longer compete with core navigation, and we agreed to measure
+              the impact after launch.
             </p>
           </div>
         </div>
       </section>
 
       <!-- 06 Information Architecture -->
-      <section id="s-ia" class="cs-section cs-section--light">
+      <section id="s-ia" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">Architecture</p>
           <h2 class="cs-h2">
             Information Architecture: Rebuilding the Structure
           </h2>
           <p class="cs-p">
-            The old IA spread primary actions across multiple layers. Courses,
-            categories, settings, transactions, and support were scattered
-            across navigation that had grown without a clear plan.
+            The old navigation scattered courses, categories, settings,
+            transactions, and support across layers that had grown without a
+            plan. I rebuilt the IA around three user goals:
           </p>
-          <p class="cs-p">I rebuilt the IA around three user goals:</p>
           <ol class="cs-ol">
             <li>
               <div><strong>Find classes:</strong> Home + Catalog</div>
@@ -469,22 +381,17 @@
           </figure>
 
           <p class="cs-p">
-            Everything else (profile settings, transaction history, help center)
-            went into secondary navigation through a side menu. The bottom tab
-            bar was only for the three primary goals.
-          </p>
-          <p class="cs-p">
-            I considered making "Payment" a fourth main section but decided
-            against it. Payment is not a goal on its own. It is a step within
-            buying a class. Making it a separate destination would have made the
-            purchase flow feel more complicated, not less. Payment needed to
-            feel like a natural next step after selecting a class.
+            Everything else (settings, transaction history, help center) moved
+            to a side menu; the bottom tab bar served only the three primary
+            goals. I considered a fourth "Payment" tab but rejected it —
+            payment is a step within buying a class, not a goal, and it needed
+            to feel like the natural next step after selecting one.
           </p>
         </div>
       </section>
 
       <!-- 07 Design Solutions -->
-      <section id="s-design" class="cs-section cs-section--tint">
+      <section id="s-design" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Design</p>
           <h2 class="cs-h2">
@@ -508,13 +415,10 @@
 
           <h3 class="cs-h3">Registration: fewer fields + social sign-in</h3>
           <p class="cs-p">
-            Users abandoned registration because it felt too long. I removed
-            non-essential fields and added Google sign-in as the primary option
-            so users could register with one tap. Manual registration kept only
-            four fields: name, email, phone, password. Since Kartu Prakerja
-            required the registered name to match government records, I added
-            clear helper text explaining this upfront instead of letting users
-            fail later at payment.
+            I made Google sign-in the primary option and cut manual
+            registration to four fields (name, email, phone, password). Helper
+            text explained upfront that the name must match government records,
+            instead of letting users fail later at payment.
           </p>
           <figure
             class="cs-figure"
@@ -532,12 +436,9 @@
             Catalog and search: category chips + unified search
           </h3>
           <p class="cs-p">
-            Users could not find relevant classes in the existing layout. I
-            replaced the cluttered homepage grid with a clean catalog using
-            category filter chips (Business & Finance, IT, Marketing, etc.) and
-            a search that showed both individual classes and categories. I added
-            sort options (highest rating, newest, price) so users could narrow
-            results quickly.
+            I replaced the cluttered homepage grid with a clean catalog:
+            category filter chips, a search covering both classes and
+            categories, and sort options (rating, newest, price).
           </p>
           <figure
             class="cs-figure"
@@ -555,12 +456,10 @@
             Class details: sticky buy button + clear syllabus
           </h3>
           <p class="cs-p">
-            Users were not sure what a class included before buying. I
-            redesigned the class detail page with a purchase button that stayed
-            visible at the bottom of the screen, learning outcomes shown near
-            the top ("What did you get from this class?"), and an expandable
-            syllabus with module names and durations. Users could see exactly
-            what they would get before they committed.
+            Users were unsure what a class included before buying. The new
+            detail page kept the purchase button always visible, put learning
+            outcomes near the top, and added an expandable syllabus with module
+            names and durations.
           </p>
           <figure
             class="cs-figure"
@@ -578,13 +477,10 @@
             Payment: default to Kartu Prakerja + simplified flow
           </h3>
           <p class="cs-p">
-            Payment was the biggest source of confusion. Since almost all users
-            paid with Kartu Prakerja, I made it the default payment method. I
-            simplified the redemption code flow by removing the confusing action
-            buttons and replacing them with a clear, single-step input for the
-            voucher code with short explanation text on the screen. Other
-            payment methods like bank transfer were available through a "Change
-            Method" button but did not compete for attention.
+            Since almost everyone paid with Kartu Prakerja, I made it the
+            default and replaced the confusing action buttons with a single
+            voucher-code input plus short explanation text. Other methods sat
+            behind a "Change Method" button.
           </p>
           <figure
             class="cs-figure"
@@ -600,12 +496,9 @@
 
           <h3 class="cs-h3">Dashboard: My Class tab</h3>
           <p class="cs-p">
-            Users could not find their purchased classes or certificates. I made
-            "My Class" the default dashboard tab with search and sort.
-            Certificates were accessible right from the completed class card
-            instead of being in a separate section. I also added a grade chart
-            showing test scores against the passing threshold so users could see
-            how they were doing at a glance.
+            "My Class" became the default dashboard tab, with certificates
+            accessible right from the completed class card and a grade chart
+            showing scores against the passing threshold.
           </p>
           <figure
             class="cs-figure"
@@ -623,12 +516,10 @@
             Learning experience: playlist structure + quizzes
           </h3>
           <p class="cs-p">
-            Flat lesson lists gave users no sense of progress. I restructured
-            course content into a playlist-style player with collapsible
-            modules, time durations, and clear indicators for completed and
-            current lessons. Quizzes between modules gave immediate feedback
-            (showing the correct answer and explanation) to keep users engaged.
-            I also added a workbook/essay section for hands-on practice.
+            I restructured course content into a playlist-style player with
+            collapsible modules, durations, and completed/current indicators.
+            Quizzes between modules gave immediate feedback, and a
+            workbook/essay section added hands-on practice.
           </p>
           <figure
             class="cs-figure"
@@ -644,13 +535,10 @@
 
           <h3 class="cs-h3">Help center: in-app Kartu Prakerja guide</h3>
           <p class="cs-p">
-            Customer support was overwhelmed with Kartu Prakerja questions. I
-            built an in-app help center with step-by-step visual guides for
-            common questions like how to register for Kartu Prakerja and how to
-            redeem vouchers. This reduced support tickets because customer
-            service could now redirect users to the help center instead of
-            answering the same questions repeatedly. It also helped prevent the
-            payment confusion that was causing drop-off in the first place.
+            Support was overwhelmed with Kartu Prakerja questions, so I built
+            an in-app help center with step-by-step visual guides for
+            registering and redeeming vouchers — cutting repeat tickets and
+            heading off payment confusion before it happened.
           </p>
           <figure
             class="cs-figure"
@@ -667,13 +555,13 @@
       </section>
 
       <!-- 08 Testing -->
-      <section id="s-testing" class="cs-section cs-section--light">
+      <section id="s-testing" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">Usability Testing</p>
           <h2 class="cs-h2">Testing and Iteration</h2>
           <p class="cs-p">
-            I ran two rounds of remote usability testing through Maze with users
-            who matched our persona profile: first-time digital learners.
+            I ran two rounds of remote usability testing through Maze with
+            first-time digital learners matching the persona.
           </p>
           <p class="cs-p"><strong>Round 1 results:</strong></p>
 
@@ -731,22 +619,19 @@
             <li>
               <div>
                 Users could not tell which classes were Kartu Prakerja-eligible
-                just from the catalog view. They had to tap into each class to
-                check.
+                without tapping into each one.
               </div>
             </li>
             <li>
               <div>
-                During payment, users still struggled to find where to get their
-                redemption code since it had to be purchased from an external
-                marketplace (Tokopedia, Bukalapak, etc.), and there was no
-                guidance pointing them there.
+                Users struggled to find where to buy their redemption code —
+                nothing pointed them to the external marketplace.
               </div>
             </li>
             <li>
               <div>
-                Certificates were findable but users expected to see them
-                directly on the dashboard without extra navigation.
+                Users expected certificates directly on the dashboard, without
+                extra navigation.
               </div>
             </li>
           </ol>
@@ -755,16 +640,15 @@
           <ul class="cs-ul cs-ul--changes">
             <li>
               Added a visible "Prakerja" badge on eligible course cards in the
-              catalog so users could spot them without opening each class.
+              catalog.
             </li>
             <li>
-              Added Active/Completed filter tabs to the dashboard so completed
-              classes (with certificate downloads) were immediately accessible.
+              Added Active/Completed filter tabs so completed classes (with
+              certificate downloads) were immediately accessible.
             </li>
             <li>
-              Added direct links to the marketplaces (Tokopedia, Bukalapak,
-              etc.) on the payment screen so users could easily go buy the
-              redemption code and come back to enter it.
+              Added direct marketplace links (Tokopedia, Bukalapak, etc.) on
+              the payment screen so users could buy the code and come back.
             </li>
           </ul>
 
@@ -788,7 +672,7 @@
       </section>
 
       <!-- 09 Impact -->
-      <section id="s-impact" class="cs-section cs-section--tint">
+      <section id="s-impact" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Results</p>
           <h2 class="cs-h2">Impact</h2>
@@ -827,68 +711,54 @@
         <div class="cs-inner">
           <div class="cs-callout">
             <p>
-              Note: some classes issued multiple certificates, which is why the
-              certificate count is higher than redemptions.
+              Note: some classes issued multiple certificates, which is why
+              certificates outnumber redemptions.
             </p>
             <p>
-              I want to be upfront about something. These numbers reflect both
-              the redesign and the broader growth of the Kartu Prakerja program
-              during this period. The government was enrolling many more
-              citizens, so RSK was receiving a lot more traffic regardless.
-            </p>
-            <p>
-              My contribution was making sure the product could handle that
-              growth. When tens of thousands of new users arrived each month,
-              they needed to be able to find, buy, and complete courses without
-              getting confused and giving up. The redesign removed the friction
-              that would have turned that incoming traffic into lost users.
+              To be upfront: these numbers reflect both the redesign and the
+              Kartu Prakerja program's own growth. My contribution was making
+              sure the product could absorb that growth — the redesign removed
+              the friction that would have turned tens of thousands of new
+              users a month into lost users.
             </p>
           </div>
         </div>
       </section>
 
       <!-- 10 Design System -->
-      <section id="s-system" class="cs-section cs-section--light">
+      <section id="s-system" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">System</p>
           <h2 class="cs-h2">Design System Contribution</h2>
           <p class="cs-p">
-            While not the main focus of this project, I built foundational
-            design patterns that became the standard for RSK's product going
-            forward:
+            I built foundational patterns that became the standard for RSK's
+            product going forward:
           </p>
           <ul class="cs-item-list">
             <li>
-              <strong>Component library in Figma</strong>Reusable components for
-              buttons, form fields, cards, navigation, and modals. Each
-              component included all states (default, hover, active, disabled,
-              error) to keep things consistent across screens.
+              <strong>Component library in Figma</strong>Buttons, form fields,
+              cards, navigation, and modals, each with all states (default,
+              hover, active, disabled, error).
             </li>
             <li>
-              <strong>Color and typography tokens</strong>A systematic palette
-              with primary blue, semantic colors (green for success, red for
-              errors, yellow for warnings), and a clear type scale for headings,
-              body text, captions, and labels.
+              <strong>Color and typography tokens</strong>Primary blue,
+              semantic colors for success/error/warning, and a clear type
+              scale.
             </li>
             <li>
-              <strong>Spacing and layout patterns</strong>Consistent 8px grid,
-              standardized card sizes, and predictable padding to keep the
-              visual design clean.
+              <strong>Spacing and layout patterns</strong>8px grid,
+              standardized card sizes, predictable padding.
             </li>
             <li>
-              <strong>Documented interaction patterns</strong>Patterns for
-              bottom-sheet modals, filter chips, tab navigation, and persistent
-              action buttons, so future screens could be built consistently even
-              without my direct involvement.
+              <strong>Documented interaction patterns</strong>Bottom-sheet
+              modals, filter chips, tab navigation, and persistent action
+              buttons.
             </li>
           </ul>
           <p class="cs-p">
-            This mattered because I was managing two interns. With documented
-            patterns, they could build screens that matched the design language
-            without needing me to review every detail. It also made the
-            engineering handoff smoother since developers could reference the
-            component library instead of guessing from individual screen
-            mockups.
+            With documented patterns, my two interns could build matching
+            screens without me reviewing every detail, and engineers could
+            reference the library instead of guessing from mockups.
           </p>
           <div class="cs-chip-group">
             <span class="skill-chip">Component Library</span>
@@ -902,37 +772,36 @@
       </section>
 
       <!-- 11 Mentorship -->
-      <section id="s-mentorship" class="cs-section cs-section--tint">
+      <section id="s-mentorship" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Team</p>
           <h2 class="cs-h2">Mentorship</h2>
           <p class="cs-p">
-            As the sole designer managing two interns, I set up their work so
-            they could learn while contributing:
+            I set up my two interns' work so they learned while contributing:
           </p>
           <ul class="cs-ul">
             <li>
-              I gave them ownership of specific screens within the design system
-              so they were doing real work, not just exercises.
+              Ownership of specific screens within the design system — real
+              work, not exercises.
             </li>
             <li>
-              I ran regular critique sessions where I explained my reasoning on
-              the screens I designed, including what I considered and rejected.
+              Regular critique sessions where I explained my reasoning,
+              including what I considered and rejected.
             </li>
             <li>
-              We used the persona as our shared quality bar. "Would Fani
-              understand this?" became how we evaluated every screen.
+              The persona as our shared quality bar: "Would Fani understand
+              this?"
             </li>
           </ul>
           <p class="cs-p">
-            This was my first time managing other designers, and it taught me a
-            lot about scaling design quality beyond just my own output.
+            It was my first time managing designers, and it taught me how to
+            scale design quality beyond my own output.
           </p>
         </div>
       </section>
 
       <!-- 12 Reflection -->
-      <section id="s-reflection" class="cs-section cs-section--light">
+      <section id="s-reflection" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">Reflection</p>
           <h2 class="cs-h2">Reflection</h2>
@@ -940,53 +809,43 @@
           <h3 class="cs-h3">What went well</h3>
           <ul class="cs-ul">
             <li>
-              Aiming to reduce every flow to as few steps as possible kept
-              decisions focused. Whenever someone suggested adding a feature or
-              an extra screen, we could check whether it was really necessary.
+              "As few steps as possible" kept decisions focused — every
+              proposed feature or screen had to justify itself.
             </li>
             <li>
-              Building a persona from real interviews gave the whole team a
-              shared reference point. Instead of debating opinions, we could ask
-              "what would Fani do?"
+              A persona built from real interviews replaced opinion debates
+              with "what would Fani do?"
             </li>
             <li>
-              Defaulting payment to Kartu Prakerja and later adding marketplace
-              links to help users find their redemption codes were decisions
-              that came directly from testing. They show how iteration based on
-              real user feedback can solve problems that the initial design
-              missed.
+              The best fixes (Prakerja as default payment, marketplace links)
+              came directly from testing, not the initial design.
             </li>
           </ul>
 
           <h3 class="cs-h3">What I would do differently</h3>
           <ul class="cs-item-list">
             <li>
-              <strong>Set up analytics tracking from day one</strong>We launched
-              without proper event tracking, so the impact numbers are
-              platform-level totals rather than funnel-specific data. If I could
-              redo this, I would track every step of every core flow so we could
-              see exactly where the redesign helped most.
+              <strong>Set up analytics tracking from day one</strong>We
+              launched without event tracking, so the impact numbers are
+              platform-level totals rather than per-step funnel data.
             </li>
             <li>
-              <strong>Test with a wider range of users earlier</strong>Our test
-              participants were mostly urban smartphone users. RSK's real user
-              base included people in rural areas with older phones and slower
-              internet. Testing with them earlier would have caught performance
-              and layout issues sooner.
+              <strong>Test with a wider range of users earlier</strong>Our
+              participants were mostly urban smartphone users; testing with
+              rural users on older phones would have caught performance and
+              layout issues sooner.
             </li>
             <li>
-              <strong>Build a more complete design system</strong>The component
-              library worked for this project, but it was not documented well
-              enough to scale to a bigger team. With more time, I would have
-              added usage guidelines, do/don't examples, and accessibility notes
-              for each component.
+              <strong>Build a more complete design system</strong>With more
+              time I would have added usage guidelines, do/don't examples, and
+              accessibility notes per component.
             </li>
           </ul>
         </div>
       </section>
 
       <!-- 13 Tools and Methods -->
-      <section id="s-tools" class="cs-section cs-section--tint">
+      <section id="s-tools" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Process</p>
           <h2 class="cs-h2">Tools and Methods</h2>

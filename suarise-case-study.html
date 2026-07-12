@@ -101,7 +101,6 @@
       <nav class="cs-section-nav" aria-label="Case study sections">
         <div class="cs-section-nav-inner">
           <a href="#s-overview">Overview</a>
-          <a href="#s-context">Context</a>
           <a href="#s-research">Research</a>
           <a href="#s-system">Design System</a>
           <a href="#s-testing">Testing</a>
@@ -117,83 +116,43 @@
           <p class="cs-section-label">Overview</p>
           <h2 class="cs-h2">The Short Version</h2>
           <p class="cs-p">
-            Suarise is an Indonesian company focused on digital accessibility.
-            They were building a new platform where differently-abled users
-            could report accessibility issues on websites and apps, and
-            developers could learn how to fix them. I was brought in as a
-            freelance UX designer to build the design system from the ground up.
+            Suarise is an Indonesian social enterprise building a platform
+            where differently-abled users report accessibility issues on
+            websites and apps, and developers learn how to fix them. The
+            platform was being built from scratch, and an accessibility
+            platform that is not itself accessible would be a contradiction —
+            so WCAG compliance had to be the foundation, not an afterthought.
           </p>
           <p class="cs-p">
-            During early reviews, I found that the platform needed an
-            accessibility-first foundation before any features could be built on
-            top of it. I studied existing accessibility-focused tools and design
-            systems, then built a complete system covering typography, color,
-            icons, and 24 reusable components, all grounded in WCAG standards.
-            We tested the sign-up and onboarding flows with users who have low
-            to no vision, found real usability issues that compliance checklists
-            alone would not have caught, and iterated until the flows worked.
+            I studied existing accessibility tools and design systems, then
+            built a complete system covering typography, color, icons, and 24
+            reusable components, all grounded in WCAG standards. We tested the
+            sign-up and onboarding flows with users who have low to no vision,
+            found usability issues no compliance checklist would have caught,
+            and iterated until the flows worked.
           </p>
-        </div>
-      </section>
-
-      <!-- 02 Context -->
-      <section id="s-context" class="cs-section cs-section--light">
-        <div class="cs-inner">
-          <p class="cs-section-label">Context</p>
-          <h2 class="cs-h2">Context</h2>
-
-          <h3 class="cs-h3">What is Suarise?</h3>
-          <p class="cs-p">
-            Suarise is an Indonesian social enterprise focused on digital
-            accessibility. They wanted to build a platform that serves two
-            purposes: let differently-abled users report accessibility problems
-            they encounter on websites and apps, and provide resources for
-            developers to learn how to fix those problems. The platform was
-            being built from scratch, so there was no existing product or design
-            system to work from.
-          </p>
-
-          <h3 class="cs-h3">Why this project mattered</h3>
-          <p class="cs-p">
-            An accessibility platform that is not itself accessible would be a
-            contradiction. The design system had to be built with WCAG
-            compliance as a foundation, not as an afterthought. Every component,
-            every color choice, every interaction pattern needed to work for
-            users with disabilities, including users with low to no vision who
-            rely on screen readers.
-          </p>
-
           <h3 class="cs-h3">My role</h3>
           <p class="cs-p">
-            I was the sole UX designer on this freelance project, working with
-            the Suarise director, a UX researcher, a UX writer, and frontend
-            engineers. I handled user and competitor research, accessibility
-            standards and design principles, component design and documentation,
-            and prototyping and testing with differently-abled users. The
-            project took about one month.
+            Sole UX designer (freelance), working with the Suarise director, a
+            UX researcher, a UX writer, and frontend engineers. I handled
+            research, accessibility standards, component design and
+            documentation, and testing with differently-abled users.
           </p>
         </div>
       </section>
 
       <!-- 03 Research -->
-      <section id="s-research" class="cs-section cs-section--tint">
+      <section id="s-research" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Research</p>
           <h2 class="cs-h2">Research: Understanding the Space</h2>
-          <p class="cs-p">
-            I started by studying two things: accessibility-focused tools that
-            already existed, and established design systems that handled
-            accessibility well.
-          </p>
 
           <h3 class="cs-h3">Competitor analysis</h3>
           <p class="cs-p">
-            I looked at tools like ARC Toolkit and axe DevTools to understand
-            how they designed for feedback and reporting. Most of these tools
-            were very technical and built for developers, not for everyday
-            users. Since Suarise wanted their platform to be usable by
-            non-developers as well, I aimed to create something that was
-            approachable while still being fully compliant.
+            Tools like ARC Toolkit and axe DevTools were built for developers,
+            not everyday users. Since Suarise needed to serve non-developers
+            too, I aimed for something approachable while still fully
+            compliant.
           </p>
           <figure
             class="cs-figure"
@@ -209,12 +168,9 @@
 
           <h3 class="cs-h3">Design systems research</h3>
           <p class="cs-p">
-            I studied Google's Material Design and Apple's Human Interface
-            Guidelines to understand how they balanced accessibility with
-            aesthetics. Material Design had strong scalability and contrast
-            systems. Apple's HIG focused on clarity and visual hierarchy. I
-            combined ideas from both to create a system that felt modern and
-            structured while meeting accessibility requirements.
+            I combined ideas from Material Design (scalability, contrast
+            systems) and Apple's HIG (clarity, visual hierarchy) to create a
+            system that felt modern while meeting accessibility requirements.
           </p>
           <figure
             class="cs-figure"
@@ -231,39 +187,26 @@
       </section>
 
       <!-- 04 Design System -->
-      <section id="s-system" class="cs-section cs-section--light">
+      <section id="s-system" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">Design System</p>
           <h2 class="cs-h2">Building the Design System</h2>
 
           <h3 class="cs-h3">Deciding on WCAG compliance levels</h3>
           <p class="cs-p">
-            Before building any components, we needed to agree on which WCAG
-            compliance standards to follow for each type of element. This was
-            not as straightforward as it sounds.
-          </p>
-          <p class="cs-p">
-            The team went back and forth on this. Everyone had their own opinion
-            on what mattered and what did not. For example, some elements had
-            multiple WCAG criteria that could apply, and not all of them were
-            equally important for our specific use case. We discussed each
-            element type (buttons, toggles, form fields, etc.) and tried to
-            reach agreement on which compliance level to target and which
-            specific criteria to prioritize.
-          </p>
-          <p class="cs-p">
-            This process was important because blindly applying every WCAG rule
-            without discussion would have led to an overly rigid system.
-            Instead, we made intentional choices about where to be strict and
-            where to be pragmatic, always with our actual users in mind.
+            Before building anything, the team debated which WCAG criteria to
+            target for each element type (buttons, toggles, form fields, etc.)
+            — several criteria can apply to one element, and not all mattered
+            equally for our users. Blindly applying every rule would have made
+            the system rigid; instead we chose deliberately where to be strict
+            and where to be pragmatic.
           </p>
 
           <h3 class="cs-h3">Accessibility standards check</h3>
           <p class="cs-p">
-            I audited the kinds of UI elements we would need (buttons, forms,
-            text, navigation) against WCAG criteria for contrast and hierarchy.
-            I created a checklist to evaluate each element, which helped the
-            team identify what standards each component needed to meet.
+            I audited the UI elements we would need against WCAG contrast and
+            hierarchy criteria, and turned it into a checklist defining what
+            each component had to meet.
           </p>
           <figure
             class="cs-figure"
@@ -279,11 +222,8 @@
 
           <h3 class="cs-h3">Typography</h3>
           <p class="cs-p">
-            I defined a clear type hierarchy with readable type scales. Each
-            level (Display, Heading, Body, Caption) had specific size,
-            line-height, and weight values, with usage guidelines for where each
-            should be used (hero sections, page titles, body content, metadata,
-            etc.).
+            A clear type hierarchy — Display, Heading, Body, Caption — each
+            with size, line-height, weight, and usage guidelines.
           </p>
           <figure
             class="cs-figure"
@@ -299,12 +239,9 @@
 
           <h3 class="cs-h3">Color</h3>
           <p class="cs-p">
-            I built a contrast-safe color palette based on WCAG standards. Every
-            color combination was tested using Stark to verify it met minimum
-            contrast ratios. The palette included semantic colors (red for
-            errors, green for success, yellow for warnings, blue for
-            information) and a gray scale ranging from primary text to secondary
-            surfaces.
+            A contrast-safe palette with semantic colors and a gray scale;
+            every combination verified against WCAG contrast ratios using
+            Stark.
           </p>
           <figure
             class="cs-figure"
@@ -320,15 +257,15 @@
 
           <h3 class="cs-h3">Icons</h3>
           <p class="cs-p">
-            I designed simple icon shapes that remained readable at any size,
-            important for users with low vision who may be using magnification.
+            Simple icon shapes that stay readable at any size — important for
+            low-vision users relying on magnification.
           </p>
 
           <h3 class="cs-h3">Components</h3>
           <p class="cs-p">
-            I built 24 reusable components, including buttons, toggles,
-            checkboxes, radio buttons, text fields, tips, banners, bottom
-            sheets, cards, and calendar elements. Each component included:
+            I built 24 reusable components — buttons, toggles, checkboxes,
+            text fields, banners, bottom sheets, cards, calendar elements, and
+            more. Each included:
           </p>
           <ul class="cs-ul">
             <li>Multiple states (default, hover, active, disabled, error)</li>
@@ -352,67 +289,46 @@
       </section>
 
       <!-- 05 Testing -->
-      <section id="s-testing" class="cs-section cs-section--tint">
+      <section id="s-testing" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Usability Testing</p>
           <h2 class="cs-h2">Testing with Differently-Abled Users</h2>
           <p class="cs-p">
-            When I presented the first version of the design system to the team,
-            engineers requested real-world validation beyond just compliance
-            checklists. So we built a sign-up and onboarding flow prototype and
-            tested it with users who have low to no vision.
-          </p>
-          <p class="cs-p">
-            The testers were recruited through the Suarise director's existing
-            network. She had been working in the disability space for a while
-            and had conducted many activities with this community. The testers
-            were already familiar with Suarise and what the organization does.
-          </p>
-
-          <h3 class="cs-h3">What we tested</h3>
-          <p class="cs-p">
-            We focused specifically on the authentication and onboarding flow,
-            which included account creation, personal information forms, and
-            initial setup steps. This was the first experience new users would
-            have with the platform, so it had to work.
+            Engineers asked for real-world validation beyond compliance
+            checklists, so we prototyped the sign-up and onboarding flow — a
+            new user's first experience with the platform — and tested it with
+            users who have low to no vision, recruited through the director's
+            network in the disability community.
           </p>
 
           <h3 class="cs-h3">What we found</h3>
           <p class="cs-p">
-            Testing revealed three issues that compliance checklists alone would
-            not have caught:
+            Testing revealed three issues no checklist would have caught:
           </p>
 
           <div class="cs-findings">
             <div class="cs-finding-card">
               <span class="cs-finding-num">1</span>
               <div class="cs-finding-body">
-                <strong>Too many form fields.</strong>The onboarding forms asked
-                for a lot of personal information at once. For screen reader
-                users, long forms are especially tiring because they have to
-                navigate through each field sequentially. What felt like a
-                normal form for sighted users felt endless for screen reader
-                users.
+                <strong>Too many form fields.</strong>Screen reader users
+                navigate fields sequentially, so a form that felt normal to
+                sighted users felt endless to them.
               </div>
             </div>
             <div class="cs-finding-card">
               <span class="cs-finding-num">2</span>
               <div class="cs-finding-body">
                 <strong>Screen readers could not read nested labels.</strong
-                >Some form fields used nested label structures that sighted
-                users could parse visually, but screen readers could not
-                interpret correctly. Users heard incomplete or confusing label
-                text, making it unclear what information was being asked for.
+                >Nested label structures read fine visually but produced
+                incomplete or confusing label text in screen readers.
               </div>
             </div>
             <div class="cs-finding-card">
               <span class="cs-finding-num">3</span>
               <div class="cs-finding-body">
-                <strong>Too much content on one page.</strong>The onboarding
-                packed too much information onto a single screen. For screen
-                reader users, this meant listening to a lot of content before
-                reaching the actual interactive elements. The cognitive load was
-                too high.
+                <strong>Too much content on one page.</strong>Screen reader
+                users had to listen through long content before reaching the
+                interactive elements — too much cognitive load.
               </div>
             </div>
           </div>
@@ -452,21 +368,15 @@
       </section>
 
       <!-- 06 Result -->
-      <section id="s-result" class="cs-section cs-section--light">
+      <section id="s-result" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">Result</p>
           <h2 class="cs-h2">The Result</h2>
           <p class="cs-p">
-            The design system gave Suarise a solid, accessible foundation to
-            build their platform on. It standardized typography, colors, icons,
-            and 24 components, helping the team design and build faster while
-            ensuring inclusivity for all users, including those with
-            disabilities.
-          </p>
-          <p class="cs-p">
-            The system was documented with usage guidelines for each component,
-            making it possible for engineers to implement components
-            consistently without needing to consult me on every detail.
+            Suarise got an accessible foundation to build on: standardized
+            typography, colors, icons, and 24 documented components that
+            engineers could implement consistently without consulting me on
+            every detail.
           </p>
           <div class="cs-chip-group">
             <span class="skill-chip">24 Components</span>
@@ -482,7 +392,7 @@
       </section>
 
       <!-- 07 Reflection -->
-      <section id="s-reflection" class="cs-section cs-section--tint">
+      <section id="s-reflection" class="cs-section cs-section--light">
         <div class="cs-inner">
           <p class="cs-section-label">Reflection</p>
           <h2 class="cs-h2">Reflection</h2>
@@ -490,62 +400,43 @@
           <h3 class="cs-h3">What went well</h3>
           <ul class="cs-ul">
             <li>
-              Testing with real users who have low to no vision was the most
-              valuable part of this project. It showed us problems that no
-              amount of WCAG checklist compliance would have revealed.
-              Accessibility is not just about meeting technical criteria. It is
-              about whether real people can actually use the product.
+              Testing with real low-to-no-vision users revealed problems no
+              WCAG checklist would have. Accessibility is whether real people
+              can use the product, not just meeting criteria.
             </li>
             <li>
-              The team discussions about which WCAG compliance levels to target
-              for each element were productive. Instead of blindly following
-              every rule, we made intentional decisions about where to be strict
-              and where to be practical. This gave us a system that was
-              genuinely accessible without being unnecessarily rigid.
+              Debating compliance levels per element gave us a system that was
+              genuinely accessible without being rigid.
             </li>
             <li>
-              Building the design system from scratch meant there was no legacy
-              baggage to work around. Every decision was made with accessibility
-              in mind from the start, which is much easier than retrofitting an
-              existing system.
+              Starting from scratch meant no legacy baggage — far easier than
+              retrofitting accessibility onto an existing system.
             </li>
           </ul>
 
           <h3 class="cs-h3">What I would do differently</h3>
           <ul class="cs-item-list">
             <li>
-              <strong
-                >Introduce accessibility testing earlier in the process</strong
-              >We built most of the components before testing with real users.
-              If we had tested earlier with even rough prototypes, we could have
-              caught the label and layout issues sooner and saved time on
-              rework.
+              <strong>Test accessibility earlier</strong>We built most
+              components before testing; rough-prototype testing would have
+              caught the label and layout issues sooner.
             </li>
             <li>
-              <strong
-                >Strengthen the feedback loop between design and
-                engineering</strong
-              >Some accessibility issues only showed up when components were
-              implemented in code, because the way a screen reader interprets
-              HTML can differ from what you see in a Figma prototype. Closer
-              collaboration during implementation would have caught these
-              faster.
+              <strong>Tighten the design–engineering loop</strong>Some issues
+              only appeared in code, since screen readers interpret HTML
+              differently from a Figma prototype.
             </li>
             <li>
-              <strong
-                >Add more detailed accessibility annotations to each
-                component</strong
-              >The current documentation covered states, guidelines, and ARIA
-              labels, but more specific notes about keyboard navigation
-              patterns, focus order, and screen reader behavior for each
-              component would have made the engineering handoff even smoother.
+              <strong>Add deeper accessibility annotations</strong>Notes on
+              keyboard navigation, focus order, and screen reader behavior per
+              component would have made handoff even smoother.
             </li>
           </ul>
         </div>
       </section>
 
       <!-- 08 Tools and Methods -->
-      <section id="s-tools" class="cs-section cs-section--light">
+      <section id="s-tools" class="cs-section cs-section--tint">
         <div class="cs-inner">
           <p class="cs-section-label">Process</p>
           <h2 class="cs-h2">Tools and Methods</h2>
