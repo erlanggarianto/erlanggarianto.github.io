@@ -66,12 +66,33 @@ document.addEventListener("keydown", (e) => {
   caption.className = "lb-caption";
   caption.setAttribute("aria-live", "polite");
 
-  lb.append(closeBtn, counter, prevBtn, lbImg, nextBtn, caption);
+  const thumbs = document.createElement("div");
+  thumbs.className = "lb-thumbs";
+  thumbs.setAttribute("aria-label", "All images on this page");
+  const thumbBtns = figures.map((img, i) => {
+    const btn = document.createElement("button");
+    btn.className = "lb-thumb";
+    btn.setAttribute(
+      "aria-label",
+      "Go to image " + (i + 1) + (img.alt ? ": " + img.alt : ""),
+    );
+    const thumbImg = document.createElement("img");
+    thumbImg.alt = "";
+    thumbImg.loading = "lazy";
+    btn.appendChild(thumbImg);
+    btn.addEventListener("click", () => show(i));
+    thumbs.appendChild(btn);
+    return btn;
+  });
+  let thumbsLoaded = false;
+
+  lb.append(closeBtn, counter, prevBtn, lbImg, nextBtn, caption, thumbs);
   document.body.appendChild(lb);
 
   if (figures.length < 2) {
     prevBtn.hidden = true;
     nextBtn.hidden = true;
+    thumbs.hidden = true;
   }
 
   let current = 0;
@@ -91,10 +112,20 @@ document.addEventListener("keydown", (e) => {
     lbImg.alt = img.alt || "";
     caption.textContent = img.alt || "";
     counter.textContent = current + 1 + " / " + figures.length;
+    thumbBtns.forEach((btn, n) => {
+      btn.classList.toggle("lb-thumb-active", n === current);
+    });
+    thumbBtns[current].scrollIntoView({ block: "nearest", inline: "center" });
   }
 
   function openLightbox(i) {
     lastFocused = document.activeElement;
+    if (!thumbsLoaded) {
+      thumbsLoaded = true;
+      thumbBtns.forEach((btn, n) => {
+        btn.querySelector("img").src = figures[n].src;
+      });
+    }
     show(i);
     lb.classList.add("lb-open");
     document.body.style.overflow = "hidden";
