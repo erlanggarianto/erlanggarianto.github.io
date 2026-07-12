@@ -28,9 +28,9 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && navEl.classList.contains("menu-open")) closeMenu();
 });
 
-// Lightbox
+// Lightbox with gallery navigation
 (function () {
-  const figures = document.querySelectorAll(".cs-figure img");
+  const figures = Array.from(document.querySelectorAll(".cs-figure img"));
   if (!figures.length) return;
 
   const lb = document.createElement("div");
@@ -44,13 +44,37 @@ document.addEventListener("keydown", (e) => {
   closeBtn.setAttribute("aria-label", "Close image preview");
   closeBtn.innerHTML = "&times;";
 
+  const counter = document.createElement("div");
+  counter.className = "lb-counter";
+
+  const prevBtn = document.createElement("button");
+  prevBtn.className = "lb-nav lb-prev";
+  prevBtn.setAttribute("aria-label", "Previous image");
+  prevBtn.innerHTML =
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>';
+
+  const nextBtn = document.createElement("button");
+  nextBtn.className = "lb-nav lb-next";
+  nextBtn.setAttribute("aria-label", "Next image");
+  nextBtn.innerHTML =
+    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>';
+
   const lbImg = document.createElement("img");
   lbImg.className = "lb-img";
 
-  lb.appendChild(closeBtn);
-  lb.appendChild(lbImg);
+  const caption = document.createElement("div");
+  caption.className = "lb-caption";
+  caption.setAttribute("aria-live", "polite");
+
+  lb.append(closeBtn, counter, prevBtn, lbImg, nextBtn, caption);
   document.body.appendChild(lb);
 
+  if (figures.length < 2) {
+    prevBtn.hidden = true;
+    nextBtn.hidden = true;
+  }
+
+  let current = 0;
   let lastFocused;
   let lbZoomed = false;
 
@@ -59,11 +83,19 @@ document.addEventListener("keydown", (e) => {
     lbImg.classList.remove("lb-zoomed");
   }
 
-  function openLightbox(src, alt) {
-    lastFocused = document.activeElement;
+  function show(i) {
+    current = (i + figures.length) % figures.length;
+    const img = figures[current];
     resetZoom();
-    lbImg.src = src;
-    lbImg.alt = alt || "";
+    lbImg.src = img.src;
+    lbImg.alt = img.alt || "";
+    caption.textContent = img.alt || "";
+    counter.textContent = current + 1 + " / " + figures.length;
+  }
+
+  function openLightbox(i) {
+    lastFocused = document.activeElement;
+    show(i);
     lb.classList.add("lb-open");
     document.body.style.overflow = "hidden";
     closeBtn.focus();
@@ -76,9 +108,9 @@ document.addEventListener("keydown", (e) => {
     if (lastFocused) lastFocused.focus();
   }
 
-  figures.forEach((img) => {
+  figures.forEach((img, i) => {
     img.style.cursor = "zoom-in";
-    img.addEventListener("click", () => openLightbox(img.src, img.alt));
+    img.addEventListener("click", () => openLightbox(i));
   });
 
   lbImg.addEventListener("click", () => {
@@ -86,10 +118,16 @@ document.addEventListener("keydown", (e) => {
     lbImg.classList.toggle("lb-zoomed", lbZoomed);
   });
 
+  prevBtn.addEventListener("click", () => show(current - 1));
+  nextBtn.addEventListener("click", () => show(current + 1));
+
   closeBtn.addEventListener("click", closeLightbox);
   lb.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && lb.classList.contains("lb-open")) closeLightbox();
+    if (!lb.classList.contains("lb-open")) return;
+    if (e.key === "Escape") closeLightbox();
+    else if (e.key === "ArrowLeft" && figures.length > 1) show(current - 1);
+    else if (e.key === "ArrowRight" && figures.length > 1) show(current + 1);
   });
 })();
 

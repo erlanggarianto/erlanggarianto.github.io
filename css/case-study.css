@@ -368,7 +368,7 @@ main > .cs-section + .cs-section {
 }
 .lb-img {
   max-width: 100%;
-  max-height: 90vh;
+  max-height: 80vh;
   width: auto;
   height: auto;
   border-radius: 10px;
@@ -399,10 +399,91 @@ main > .cs-section + .cs-section {
   justify-content: center;
   cursor: pointer;
   transition: background 0.18s, color 0.18s;
+  z-index: 2;
 }
 .lb-close:hover {
   background: #ffffff2e;
   color: #fff;
+}
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #000000a6;
+  border: 1px solid #ffffff2e;
+  color: #ffffffd9;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  z-index: 2;
+}
+.lb-nav:hover {
+  background: #000000d9;
+  color: #fff;
+}
+.lb-prev {
+  left: 1.4rem;
+}
+.lb-next {
+  right: 1.4rem;
+}
+.lb-counter {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.4rem;
+  color: #ffffffd9;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  padding: 0.5rem 0.9rem;
+  background: #000000a6;
+  border: 1px solid #ffffff2e;
+  border-radius: 100px;
+  z-index: 2;
+}
+.lb-caption {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(84vw, 640px);
+  text-align: center;
+  color: #ffffffd9;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  background: #000000a6;
+  border: 1px solid #ffffff1f;
+  padding: 0.55rem 1.1rem;
+  border-radius: 14px;
+  z-index: 2;
+  cursor: default;
+}
+.lb-caption:empty {
+  display: none;
+}
+@media (max-width: 640px) {
+  .lb {
+    padding: 1rem;
+  }
+  .lb-nav {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+  .lb-prev {
+    left: 0.7rem;
+  }
+  .lb-next {
+    right: 0.7rem;
+  }
+  .lb-caption {
+    max-width: 92vw;
+    bottom: 1rem;
+  }
 }
 
 /* ── Actual images ── */
