@@ -609,6 +609,15 @@ main > .cs-section + .cs-section {
   gap: 1rem;
   margin: 2rem 0;
 }
+.cs-img-2col .cs-figure {
+  margin: 0;
+  aspect-ratio: 3 / 2;
+}
+.cs-img-2col .cs-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* lightbox shows the full image */
+}
 
 /* ── Usability table ── */
 .cs-table-wrap {
@@ -795,6 +804,8 @@ main > .cs-section + .cs-section {
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .cs-img-2col { grid-template-columns: 1fr; }
+  .cs-img-2col .cs-figure { aspect-ratio: auto; }
+  .cs-img-2col .cs-figure img { height: auto; object-fit: unset; }
 }
 @media (max-width: 768px) {
   .cs-hero { padding: 6rem 5% 3.5rem; }
